@@ -2,22 +2,28 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const navigation = [
-    { name: "Inicio", href: "/" },
-    { name: "Flota", href: "/flota" },
-    { name: "Experiencias", href: "/experiencias" },
-    { name: "Rutas", href: "/rutas" },
-    { name: "Precios", href: "/precios" },
-    { name: "Galería", href: "/galeria" },
-    { name: "Blog", href: "/blog" },
-    { name: "Nosotros", href: "/nosotros" },
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.fleet"), href: "/flota" },
+    { name: t("nav.experiences"), href: "/experiencias" },
+    { name: t("nav.routes"), href: "/rutas" },
+    { name: t("nav.pricing"), href: "/precios" },
+    { name: t("nav.gallery"), href: "/galeria" },
+    { name: t("nav.blog"), href: "/blog" },
+    { name: t("nav.about"), href: "/nosotros" },
   ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === "es" ? "en" : "es");
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -53,13 +59,18 @@ const Navbar = () => {
 
           {/* CTA Buttons Desktop */}
           <div className="hidden lg:flex items-center space-x-3">
-            <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              onClick={toggleLanguage}
+            >
               <Globe className="h-4 w-4 mr-2" />
-              ES
+              {language.toUpperCase()}
             </Button>
             <Button size="sm" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold">
               <Phone className="h-4 w-4 mr-2" />
-              Reserva Ya
+              {t("nav.bookNow")}
             </Button>
           </div>
 
@@ -92,13 +103,18 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button variant="outline" size="sm" className="border-primary text-primary">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-primary text-primary"
+                  onClick={toggleLanguage}
+                >
                   <Globe className="h-4 w-4 mr-2" />
-                  Cambiar idioma
+                  {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </Button>
                 <Button size="sm" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold">
                   <Phone className="h-4 w-4 mr-2" />
-                  Reserva Ya
+                  {t("nav.bookNow")}
                 </Button>
               </div>
             </div>
