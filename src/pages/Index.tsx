@@ -52,7 +52,7 @@ const Index = () => {
       <Navbar />
       <WhatsAppButton />
 
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Video Background - Estilo Nicolai Palmkvist */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background */}
         <video
@@ -60,61 +60,97 @@ const Index = () => {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
           style={{ zIndex: 0 }}
         >
           <source src={videoEntrada} type="video/mp4" />
           Tu navegador no soporta vídeos HTML5.
         </video>
 
-        {/* Dark Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/70" style={{ zIndex: 1 }} />
+        {/* Optimized Dark Overlay - Más sutil y moderno */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" 
+          style={{ zIndex: 1 }} 
+        />
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in">
-          <h1 className="font-heading text-5xl md:text-7xl font-bold text-primary-foreground mb-6 tracking-tight">
+        {/* Content with improved animations */}
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          <h1 
+            className="font-heading text-6xl md:text-8xl font-bold text-white mb-8 tracking-tight leading-tight animate-in fade-in slide-in-from-bottom-4 duration-1000"
+            style={{ 
+              textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              animationDelay: '0.2s',
+              animationFillMode: 'backwards'
+            }}
+          >
             Descubre la Costa Blanca<br />
-            <span className="text-gradient-gold">desde el mar</span>
+            <span 
+              className="text-gradient-gold inline-block"
+              style={{
+                background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
+              desde el mar
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 leading-relaxed">
+          
+          <p 
+            className="text-2xl md:text-3xl text-white/95 mb-12 leading-relaxed font-light animate-in fade-in slide-in-from-bottom-4 duration-1000"
+            style={{ 
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+              animationDelay: '0.4s',
+              animationFillMode: 'backwards'
+            }}
+          >
             Alquiler de barcos de lujo en Dénia y Jávea.<br className="hidden md:block" />
             Experiencias náuticas inolvidables en el Mediterráneo.
           </p>
-          <Button
-            size="lg"
-            className="bg-gold hover:bg-gold-dark text-accent-foreground text-lg px-12 py-6 h-auto shadow-gold transition-bounce"
-            asChild
+          
+          <div 
+            className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
+            style={{
+              animationDelay: '0.6s',
+              animationFillMode: 'backwards'
+            }}
           >
-            <Link to="/flota">Reserva tu Experiencia</Link>
-          </Button>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10">
-          <div className="w-6 h-10 border-2 border-primary-foreground rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-primary-foreground rounded-full" />
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold text-lg px-14 py-7 h-auto shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-[0_20px_60px_rgba(255,215,0,0.4)]"
+              asChild
+            >
+              <Link to="/flota">Reserva tu Experiencia</Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Quick Access Cards */}
-      <section className="py-20 px-4 bg-gradient-ocean">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Quick Access Cards - Espaciado mejorado estilo Nicolai */}
+      <section className="py-32 px-4 bg-gradient-ocean">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="border-none shadow-card hover:shadow-elegant transition-smooth hover:-translate-y-2 cursor-pointer bg-card"
+                className="border-none shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 cursor-pointer bg-card backdrop-blur-sm group"
               >
-                <CardContent className="p-8 text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 mb-6">
-                    <feature.icon className="h-8 w-8 text-gold" />
+                <CardContent className="p-10 text-center">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-gold/20 to-gold/5 mb-8 group-hover:from-gold/30 group-hover:to-gold/10 transition-all duration-300 group-hover:scale-110">
+                    <feature.icon className="h-10 w-10 text-gold" />
                   </div>
-                  <h3 className="font-heading text-2xl font-semibold mb-4 text-primary">
+                  <h3 className="font-heading text-2xl font-semibold mb-5 text-primary group-hover:text-gold transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
                     {feature.description}
                   </p>
-                  <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-accent-foreground" asChild>
+                  <Button 
+                    variant="outline" 
+                    className="border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300 font-semibold px-8 py-5 h-auto" 
+                    asChild
+                  >
                     <Link to={feature.link}>Más información</Link>
                   </Button>
                 </CardContent>
@@ -124,38 +160,38 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 px-4 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-4">
+      {/* Why Choose Us - Espaciado generoso */}
+      <section className="py-32 px-4 bg-background">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-20">
+            <h2 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6 tracking-tight">
               ¿Por qué Golden Coast Charter?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Tu experiencia náutica perfecta en la Costa Blanca
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {whyChooseUs.map((item, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-6 group-hover:bg-gold/10 transition-smooth">
-                  <item.icon className="h-10 w-10 text-primary group-hover:text-gold transition-smooth" />
+                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 mb-8 group-hover:bg-gold/20 transition-all duration-500 group-hover:scale-110">
+                  <item.icon className="h-12 w-12 text-primary group-hover:text-gold transition-colors duration-500" />
                 </div>
-                <h3 className="font-heading text-2xl font-semibold mb-4 text-primary">
+                <h3 className="font-heading text-3xl font-semibold mb-5 text-primary group-hover:text-gold transition-colors duration-300">
                   {item.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   {item.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-16">
+          <div className="text-center mt-20">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary-light text-primary-foreground px-10 shadow-elegant"
+              className="bg-primary hover:bg-primary-light text-primary-foreground px-12 py-7 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 text-lg font-semibold hover:scale-105"
               asChild
             >
               <Link to="/nosotros">Conócenos mejor</Link>
@@ -164,19 +200,25 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-hero text-primary-foreground">
-        <div className="container mx-auto text-center">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
+      {/* CTA Section - Mejorado con gradiente más sutil */}
+      <section className="py-32 px-4 bg-gradient-to-br from-primary via-primary-light to-primary text-primary-foreground relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto text-center relative z-10">
+          <h2 className="font-heading text-5xl md:text-6xl font-bold mb-8 tracking-tight">
             ¿Listo para zarpar?
           </h2>
-          <p className="text-xl mb-10 text-primary-foreground/90 max-w-2xl mx-auto">
+          <p className="text-2xl mb-12 text-primary-foreground/95 max-w-3xl mx-auto leading-relaxed">
             Consulta disponibilidad, solicita presupuesto personalizado o habla directamente con nosotros por WhatsApp
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
-              className="bg-gold hover:bg-gold-dark text-accent-foreground px-10 shadow-gold"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold px-12 py-7 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 text-lg"
               asChild
             >
               <Link to="/reserva">Solicitar Presupuesto</Link>
@@ -184,7 +226,7 @@ const Index = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-10"
+              className="border-2 border-white text-white hover:bg-white hover:text-primary px-12 py-7 h-auto font-semibold transition-all duration-300 hover:scale-105 text-lg backdrop-blur-sm"
               asChild
             >
               <Link to="/precios">Ver Precios</Link>
