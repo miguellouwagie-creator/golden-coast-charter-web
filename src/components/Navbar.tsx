@@ -14,6 +14,7 @@ const Navbar = () => {
     { name: t("nav.home"), href: "/" },
     { name: t("nav.fleet"), href: "/flota" },
     { name: t("nav.experiences"), href: "/experiencias" },
+    { name: t("nav.routes"), href: "/rutas" },
     { name: t("nav.about"), href: "/nosotros" },
   ];
 

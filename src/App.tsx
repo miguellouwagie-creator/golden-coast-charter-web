@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Flota from "./pages/Flota";
 import Experiencias from "./pages/Experiencias";
+import Rutas from "./pages/Rutas";
 import Reserva from "./pages/Reserva";
 import Nosotros from "./pages/Nosotros";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/flota" element={<Flota />} />
             <Route path="/experiencias" element={<Experiencias />} />
+            <Route path="/rutas" element={<Rutas />} />
             <Route path="/reserva" element={<Reserva />} />
             <Route path="/nosotros" element={<Nosotros />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
