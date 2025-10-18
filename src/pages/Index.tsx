@@ -5,7 +5,7 @@ import { Anchor, Sparkles, MessageSquare, Star, Award, Shield } from "lucide-rea
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import heroImage from "@/assets/hero-yacht.jpg";
+import videoEntrada from "@/assets/Video Entrada.mp4";
 
 const Index = () => {
   const features = [
@@ -52,14 +52,23 @@ const Index = () => {
       <Navbar />
       <WhatsAppButton />
 
-      {/* Hero Section */}
+      {/* Hero Section with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 0 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/70" />
-        </div>
+          <source src={videoEntrada} type="video/mp4" />
+          Tu navegador no soporta vídeos HTML5.
+        </video>
+
+        {/* Dark Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/70" style={{ zIndex: 1 }} />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in">
           <h1 className="font-heading text-5xl md:text-7xl font-bold text-primary-foreground mb-6 tracking-tight">
@@ -79,7 +88,7 @@ const Index = () => {
           </Button>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10">
           <div className="w-6 h-10 border-2 border-primary-foreground rounded-full flex items-start justify-center p-2">
             <div className="w-1 h-3 bg-primary-foreground rounded-full" />
           </div>
