@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar, Users, Ship, MessageSquare, Phone, Mail, Check } from "lucide-react";
+import { MessageSquare, Phone, Mail, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,10 +24,11 @@ const Reserva = () => {
     message: "",
   });
 
+  const whatsappLink = "https://wa.me/34676262628?text=Hola,%20quiero%20información%20sobre%20la%20página%20de%20reservas.";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name || !formData.email || !formData.phone) {
       toast({
         title: "Error",
@@ -42,7 +43,6 @@ const Reserva = () => {
       description: "Nos pondremos en contacto contigo en menos de 24 horas.",
     });
 
-    // Reset form
     setFormData({
       name: "",
       email: "",
@@ -67,7 +67,6 @@ const Reserva = () => {
       <Navbar />
       <WhatsAppButton />
 
-      {/* Hero */}
       <section className="pt-32 pb-16 px-4 bg-gradient-ocean">
         <div className="container mx-auto text-center">
           <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
@@ -82,11 +81,9 @@ const Reserva = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Form */}
             <Card className="lg:col-span-2 border-none shadow-card">
               <CardContent className="p-8 lg:p-12">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Personal Info */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-foreground font-semibold">
@@ -127,13 +124,12 @@ const Reserva = () => {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+34 600 000 000"
+                      placeholder="+34 676 26 26 28"
                       required
                       className="border-input focus:border-gold"
                     />
                   </div>
 
-                  {/* Booking Details */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="date" className="text-foreground font-semibold">
@@ -231,9 +227,7 @@ const Reserva = () => {
               </CardContent>
             </Card>
 
-            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Benefits */}
               <Card className="border-none shadow-card bg-secondary">
                 <CardContent className="p-6">
                   <h3 className="font-heading text-xl font-semibold text-primary mb-4">
@@ -250,7 +244,6 @@ const Reserva = () => {
                 </CardContent>
               </Card>
 
-              {/* Contact Methods */}
               <Card className="border-none shadow-card bg-gradient-hero text-primary-foreground">
                 <CardContent className="p-6">
                   <h3 className="font-heading text-xl font-semibold mb-4">
@@ -258,7 +251,7 @@ const Reserva = () => {
                   </h3>
                   <div className="space-y-4">
                     <a
-                      href="https://wa.me/34600000000?text=Hola,%20quiero%20información%20sobre%20alquiler%20de%20barcos"
+                      href={whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
@@ -268,11 +261,11 @@ const Reserva = () => {
                     </a>
 
                     <a
-                      href="tel:+34600000000"
+                      href="tel:+34676262628"
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
                     >
                       <Phone className="h-5 w-5 text-gold" />
-                      <span className="font-medium">+34 600 000 000</span>
+                      <span className="font-medium">+34 676 26 26 28</span>
                     </a>
 
                     <a
@@ -300,3 +293,4 @@ const Reserva = () => {
 };
 
 export default Reserva;
+

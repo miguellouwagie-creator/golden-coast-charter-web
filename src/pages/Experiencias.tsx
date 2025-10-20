@@ -59,6 +59,8 @@ const Experiencias = () => {
     { name: "Cala Ambolo", icon: Compass },
   ];
 
+  const customExperienceLink = "https://wa.me/34676262628?text=Hola,%20me%20gustaría%20crear%20una%20experiencia%20personalizada.";
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -126,8 +128,10 @@ const Experiencias = () => {
                     <div>
                       <p className="font-heading text-2xl font-bold text-gold">{exp.price}</p>
                     </div>
-                    <Button className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold">
-                      Solicitar Info
+                    <Button className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold" asChild>
+                      <a href={`https://wa.me/34676262628?text=Hola,%20quisiera%20información%20sobre%20la%20experiencia%20'${exp.title}'.`} target="_blank" rel="noopener noreferrer">
+                        Solicitar Info
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
@@ -166,8 +170,10 @@ const Experiencias = () => {
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
                 Creamos experiencias completamente personalizadas. Cuéntanos tu visión y la haremos realidad.
               </p>
-              <Button size="lg" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12">
-                Crear Mi Experiencia
+              <Button size="lg" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12" asChild>
+                <a href={customExperienceLink} target="_blank" rel="noopener noreferrer">
+                  Crear Mi Experiencia
+                </a>
               </Button>
             </CardContent>
           </Card>
@@ -180,3 +186,4 @@ const Experiencias = () => {
 };
 
 export default Experiencias;
+

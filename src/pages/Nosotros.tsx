@@ -4,6 +4,7 @@ import { Award, Shield, Heart, Star, Anchor, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { Link } from "react-router-dom"; // Importado para el enlace al formulario
 
 const Nosotros = () => {
   const values = [
@@ -222,7 +223,7 @@ const Nosotros = () => {
             className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12"
             asChild
           >
-            <a href="/reserva">Solicita tu Presupuesto</a>
+            <Link to="/reserva">Solicita tu Presupuesto</Link>
           </Button>
         </div>
       </section>
@@ -233,3 +234,4 @@ const Nosotros = () => {
 };
 
 export default Nosotros;
+
