@@ -27,14 +27,20 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Define el número de WhatsApp aquí (reemplaza con tu número real)
+  const whatsappNumber = "TU_NUMERO_DE_TELEFONO"; // Ejemplo: 34612345678
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
+
+
   return (
     <nav className="fixed w-full z-50 bg-transparent backdrop-blur-sm">
       <div className="container mx-auto px-6">
+        {/* Mantenemos la altura original, el logo se superpondrá */}
         <div className="flex justify-between items-center h-24 relative">
-          
+
           {/* Left Side: Brand Name */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="flex flex-col transition-smooth hover:opacity-80 z-10"
           >
             <span className="font-heading text-xl md:text-2xl font-bold text-white tracking-wide drop-shadow-lg">
@@ -46,19 +52,21 @@ const Navbar = () => {
           </Link>
 
           {/* Center: Logo (Fixed in exact center) */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-smooth hover:scale-110 z-20"
+             // Ajustamos el top para que el logo baje más
+             style={{ top: '75%' }} // <<-- AJUSTADO VALOR DE TOP (era 60%)
           >
-            <img 
-              src={logo} 
-              alt="Golden Coast Charter Logo" 
-              className="h-20 w-auto drop-shadow-2xl rounded-md" // Ajustado tamaño y añadido borde redondeado
+            <img
+              src={logo}
+              alt="Golden Coast Charter Logo"
+              className="h-36 w-auto drop-shadow-2xl rounded-md" // Tamaño del logo
             />
           </Link>
 
           {/* Desktop Navigation - Left side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-24"> {/* Aumentado pr */}
+          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-32"> {/* Padding aumentado */}
             {leftNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -75,7 +83,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation - Right side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-24"> {/* Aumentado pl */}
+          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32"> {/* Padding aumentado */}
             {rightNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -93,7 +101,7 @@ const Navbar = () => {
 
           {/* Right Side: Language Selector + CTA Button */}
           <div className="hidden lg:flex items-center space-x-4 z-10">
-            {/* Selector de Idioma - Estilo texto simple */}
+            {/* Selector de Idioma */}
             <button
               onClick={toggleLanguage}
               className="text-white/90 hover:text-white transition-colors duration-300 font-medium text-sm tracking-wide"
@@ -110,13 +118,16 @@ const Navbar = () => {
               </span>
             </button>
 
-            {/* Botón Principal de Contacto */}
-            <Button 
-              size="sm" 
+            {/* Botón WhatsApp */}
+            <Button
+              size="sm"
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold shadow-2xl hover:shadow-[0_10px_30px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 px-6"
+              asChild
             >
-              <Phone className="h-4 w-4 mr-2" />
-              {t("nav.bookNow")}
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <Phone className="h-4 w-4 mr-2" />
+                {t("nav.bookNow")}
+              </a>
             </Button>
           </div>
 
@@ -138,7 +149,7 @@ const Navbar = () => {
               <div className="flex justify-center pb-4 border-b border-white/10">
                 <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12 rounded-md" />
               </div>
-              
+
               {[...leftNavigation, ...rightNavigation].map((item) => (
                 <Link
                   key={item.name}
@@ -161,13 +172,17 @@ const Navbar = () => {
                 >
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
-                
-                <Button 
-                  size="sm" 
+
+                 {/* Mobile Botón WhatsApp */}
+                <Button
+                  size="sm"
                   className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold shadow-2xl"
+                  asChild
                 >
-                  <Phone className="h-4 w-4 mr-2" />
-                  {t("nav.bookNow")}
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                    <Phone className="h-4 w-4 mr-2" />
+                    {t("nav.bookNow")}
+                  </a>
                 </Button>
               </div>
             </div>
@@ -179,5 +194,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

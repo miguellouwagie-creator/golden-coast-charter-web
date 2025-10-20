@@ -121,9 +121,9 @@ const Index = () => {
         {/* OVERLAY - Modificado para ser más claro con RGBA */}
         <div
           className="absolute inset-0"
-          style={{ 
+          style={{
             backgroundColor: 'rgba(0, 0, 0, 0.3)', // Color negro con 30% de opacidad
-            zIndex: 1 
+            zIndex: 1
           }}
         />
 
@@ -309,7 +309,7 @@ const Index = () => {
                 Contacta Directo
               </span>
               <Link
-                to="#contact"
+                to="#contact" // Ajusta este enlace si tienes una sección de contacto específica
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
                 style={{
                   backdropFilter: "blur(6px)",
@@ -395,6 +395,8 @@ const Index = () => {
               ))}
             </div>
           </div>
+          {/* <<-- BOTÓN "CONÓCENOS MEJOR" ELIMINADO -->> */}
+          {/*
           <div className="text-center mt-16">
             <Button
               size="lg"
@@ -404,6 +406,7 @@ const Index = () => {
               <Link to="/nosotros">Conócenos mejor</Link>
             </Button>
           </div>
+          */}
         </div>
       </section>
 
@@ -460,6 +463,8 @@ const Index = () => {
             >
               <Link to="/reserva">Solicitar Presupuesto</Link>
             </Button>
+            {/* <<-- BOTÓN "VER PRECIOS" ELIMINADO -->> */}
+            {/*
             <Button
               size="lg"
               variant="outline"
@@ -468,6 +473,7 @@ const Index = () => {
             >
               <Link to="/precios">Ver Precios</Link>
             </Button>
+            */}
           </div>
         </div>
       </section>
