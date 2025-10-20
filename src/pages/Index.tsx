@@ -13,7 +13,6 @@ import verFlotaImg from "@/assets/Ver la Flota-min.png";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 
-
 const whyChooseUsValues = [
   {
     image: timonImg,
@@ -35,7 +34,6 @@ const whyChooseUsValues = [
   },
 ];
 
-
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -43,7 +41,6 @@ const Index = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Asegurarse de que el video esté silenciado para el autoplay
     video.muted = true;
 
     const playVideo = async () => {
@@ -51,8 +48,6 @@ const Index = () => {
         await video.play();
       } catch (error) {
         console.log("Video autoplay prevented:", error);
-        // Si el autoplay falla, a veces un segundo intento manual puede funcionar
-        // No añadimos un listener de click aquí para no ser intrusivos
       }
     };
 
@@ -62,11 +57,8 @@ const Index = () => {
       }
     };
 
-    // Intenta reproducir cuando los datos están listos
     video.addEventListener('loadeddata', handleVideoState);
-    // Y también cuando el video pueda empezar a reproducirse
     video.addEventListener('canplay', handleVideoState);
-
 
     playVideo();
 
@@ -80,10 +72,10 @@ const Index = () => {
     <div className="relative bg-background">
       {/* NAVBAR INDEPENDIENTE Y FIJO */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
-          <Navbar />
+        <Navbar />
       </div>
 
-      {/* HERO VIDEO - Se mantiene FIJO como en tu código original para el efecto de fondo. */}
+      {/* HERO VIDEO */}
       <section
         className="relative flex items-center w-screen h-screen"
         style={{
@@ -96,11 +88,10 @@ const Index = () => {
           bottom: 0
         }}
       >
-        {/* VIDEO DE FONDO */}
         <video
           ref={videoRef}
           autoPlay
-          muted // Añadido aquí también para máxima compatibilidad
+          muted
           loop
           playsInline
           preload="auto"
@@ -118,16 +109,14 @@ const Index = () => {
           Tu navegador no soporta vídeos HTML5.
         </video>
 
-        {/* OVERLAY - Modificado para ser más claro con RGBA */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.3)', // Color negro con 30% de opacidad
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
             zIndex: 1
           }}
         />
 
-        {/* CONTENIDO DEL HERO */}
         <div className="relative w-full container mx-auto px-8 md:px-16" style={{ zIndex: 5 }}>
           <div className="max-w-4xl">
             <h1
@@ -309,7 +298,7 @@ const Index = () => {
                 Contacta Directo
               </span>
               <Link
-                to="#contact" // Ajusta este enlace si tienes una sección de contacto específica
+                to="#contact"
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
                 style={{
                   backdropFilter: "blur(6px)",
@@ -395,18 +384,6 @@ const Index = () => {
               ))}
             </div>
           </div>
-          {/* <<-- BOTÓN "CONÓCENOS MEJOR" ELIMINADO -->> */}
-          {/*
-          <div className="text-center mt-16">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black px-12 py-7 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 text-lg font-semibold hover:scale-105"
-              asChild
-            >
-              <Link to="/nosotros">Conócenos mejor</Link>
-            </Button>
-          </div>
-          */}
         </div>
       </section>
 
@@ -432,48 +409,43 @@ const Index = () => {
         <div
           className="absolute inset-0 rounded-t-3xl"
           style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 50%)",
+            background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
             zIndex: 1,
           }}
         />
-        <div className="container mx-auto text-center relative z-10">
+        <div className="container mx-auto text-center relative z-10 max-w-5xl">
           <h2
-            className="font-heading text-5xl md:text-6xl font-bold mb-8 tracking-tight text-white"
+            className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
             style={{
               textShadow:
                 "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
             }}
           >
-            ¿Listo para zarpar?
+            ¿Listo para{" "}
+            <span className="text-white">zarpar?</span>
           </h2>
+          
           <p
-            className="text-2xl mb-12 text-white max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
             style={{
               textShadow:
                 "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
             }}
           >
-            Consulta disponibilidad, solicita presupuesto personalizado o habla directamente con nosotros por WhatsApp
+            Reserva tu experiencia náutica exclusiva en la Costa Blanca
           </p>
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold px-12 py-7 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 text-lg"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
               asChild
             >
-              <Link to="/reserva">Solicitar Presupuesto</Link>
+              <Link to="/reserva" className="flex items-center gap-3">
+                <span>Solicitar Presupuesto</span>
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </Button>
-            {/* <<-- BOTÓN "VER PRECIOS" ELIMINADO -->> */}
-            {/*
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white bg-black/20 backdrop-blur-md text-white hover:bg-white hover:text-primary px-12 py-7 h-auto font-semibold transition-all duration-300 hover:scale-105 text-lg"
-              asChild
-            >
-              <Link to="/precios">Ver Precios</Link>
-            </Button>
-            */}
           </div>
         </div>
       </section>

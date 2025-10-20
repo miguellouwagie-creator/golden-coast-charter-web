@@ -3,17 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logo from "../assets/Logo 2.png"; // Corregido: Ruta relativa para resolver el import
+import logo from "../assets/Logo 2.png";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
+
   const leftNavigation = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.fleet"), href: "/flota" },
   ];
+
 
   const rightNavigation = [
     { name: t("nav.experiences"), href: "/experiencias" },
@@ -21,22 +24,27 @@ const Navbar = () => {
     { name: t("nav.about"), href: "/nosotros" },
   ];
 
+
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es");
   };
 
+
   const isActive = (path: string) => location.pathname === path;
 
-  // Define el número de WhatsApp aquí (reemplaza con tu número real)
-  const whatsappNumber = "TU_NUMERO_DE_TELEFONO"; // Ejemplo: 34612345678
+
+  // Número de teléfono de Golden Coast Charter
+  const phoneNumber = "+34 676 26 26 28";
+  const whatsappNumber = "34676262628";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
+
 
 
   return (
     <nav className="fixed w-full z-50 bg-transparent backdrop-blur-sm">
       <div className="container mx-auto px-6">
-        {/* Mantenemos la altura original, el logo se superpondrá */}
         <div className="flex justify-between items-center h-24 relative">
+
 
           {/* Left Side: Brand Name */}
           <Link
@@ -51,22 +59,23 @@ const Navbar = () => {
             </span>
           </Link>
 
+
           {/* Center: Logo (Fixed in exact center) */}
           <Link
             to="/"
             className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-smooth hover:scale-110 z-20"
-             // Ajustamos el top para que el logo baje más
-             style={{ top: '75%' }} // <<-- AJUSTADO VALOR DE TOP (era 60%)
+            style={{ top: '75%' }}
           >
             <img
               src={logo}
               alt="Golden Coast Charter Logo"
-              className="h-36 w-auto drop-shadow-2xl rounded-md" // Tamaño del logo
+              className="h-36 w-auto drop-shadow-2xl rounded-md"
             />
           </Link>
 
+
           {/* Desktop Navigation - Left side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-32"> {/* Padding aumentado */}
+          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-32">
             {leftNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -82,8 +91,9 @@ const Navbar = () => {
             ))}
           </div>
 
+
           {/* Desktop Navigation - Right side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32"> {/* Padding aumentado */}
+          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32">
             {rightNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -98,6 +108,7 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
+
 
           {/* Right Side: Language Selector + CTA Button */}
           <div className="hidden lg:flex items-center space-x-4 z-10">
@@ -118,6 +129,7 @@ const Navbar = () => {
               </span>
             </button>
 
+
             {/* Botón WhatsApp */}
             <Button
               size="sm"
@@ -131,6 +143,7 @@ const Navbar = () => {
             </Button>
           </div>
 
+
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -141,6 +154,7 @@ const Navbar = () => {
           </button>
         </div>
 
+
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="xl:hidden py-4 bg-black/80 backdrop-blur-xl rounded-b-lg animate-slide-up">
@@ -149,6 +163,7 @@ const Navbar = () => {
               <div className="flex justify-center pb-4 border-b border-white/10">
                 <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12 rounded-md" />
               </div>
+
 
               {[...leftNavigation, ...rightNavigation].map((item) => (
                 <Link
@@ -165,6 +180,15 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
+                {/* Mobile Phone Number */}
+                <a 
+                  href={`tel:${phoneNumber.replace(/\s/g, '')}`}
+                  className="px-4 py-3 text-center text-white/90 hover:text-[#FFD700] transition-colors flex items-center justify-center"
+                >
+                  <Phone className="h-4 w-4 mr-2" />
+                  <span className="font-semibold">{phoneNumber}</span>
+                </a>
+
                 {/* Mobile Language Selector */}
                 <button
                   onClick={toggleLanguage}
@@ -173,7 +197,8 @@ const Navbar = () => {
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
 
-                 {/* Mobile Botón WhatsApp */}
+
+                {/* Mobile Botón WhatsApp */}
                 <Button
                   size="sm"
                   className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold shadow-2xl"
@@ -192,5 +217,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;
