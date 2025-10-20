@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logo from "@/assets/logo.png";
+import logo from "../assets/Logo 2.png"; // Corregido: Ruta relativa para resolver el import
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,12 +53,12 @@ const Navbar = () => {
             <img 
               src={logo} 
               alt="Golden Coast Charter Logo" 
-              className="h-16 w-16 drop-shadow-2xl" 
+              className="h-20 w-auto drop-shadow-2xl rounded-md" // Ajustado tamaño y añadido borde redondeado
             />
           </Link>
 
           {/* Desktop Navigation - Left side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-20">
+          <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-24"> {/* Aumentado pr */}
             {leftNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -75,7 +75,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation - Right side (Next to logo) */}
-          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-20">
+          <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-24"> {/* Aumentado pl */}
             {rightNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -136,7 +136,7 @@ const Navbar = () => {
             <div className="flex flex-col space-y-2">
               {/* Mobile Logo */}
               <div className="flex justify-center pb-4 border-b border-white/10">
-                <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12" />
+                <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12 rounded-md" />
               </div>
               
               {[...leftNavigation, ...rightNavigation].map((item) => (
@@ -179,3 +179,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

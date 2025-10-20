@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/Logo.jpeg"; // Cambio de logo
 
 const Footer = () => {
   const quickLinks = [
@@ -31,7 +31,9 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center space-x-3">
-              <img src={logo} alt="Golden Coast Charter" className="h-16 w-16 brightness-0 invert" />
+              <div className="bg-white p-1 rounded-md">
+                <img src={logo} alt="Golden Coast Charter" className="h-16 w-16" /> {/* Eliminado brightness-0 invert */}
+              </div>
               <div className="flex flex-col">
                 <span className="font-heading text-xl font-bold tracking-wide">GOLDEN COAST</span>
                 <span className="font-heading text-xs text-gold tracking-widest">CHARTER</span>

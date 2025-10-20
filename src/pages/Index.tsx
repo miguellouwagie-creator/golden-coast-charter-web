@@ -1,146 +1,188 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Anchor, Sparkles, MessageSquare, Star, Award, Shield, ArrowRight } from "lucide-react";
+import { Anchor, ArrowRight } from "lucide-react";
+import { useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import videoEntrada from "@/assets/Video Entrada.mp4";
+import videoEntrada from "@/assets/Prueba 2.mp4";
+import timonImg from "@/assets/Timón.png";
+import medallaImg from "@/assets/Medalla.png";
+import escudoImg from "@/assets/Escudo.png";
+import listoZarparBg from "@/assets/listo-zarpar.png";
+import verFlotaImg from "@/assets/Ver la Flota-min.png";
+import experienciaImg from "@/assets/Experiencia-min.png";
+import contactoImg from "@/assets/Contacto.png";
+
+
+const whyChooseUsValues = [
+  {
+    image: timonImg,
+    title: "Experiencia y Tradición",
+    description:
+      "Más de 10 años navegando la Costa Blanca, con patrones que conocen cada cala secreta y la historia del Mediterráneo.",
+  },
+  {
+    image: medallaImg,
+    title: "Calidad y Excelencia",
+    description:
+      "Flota propia mantenida a la perfección. Cada detalle, desde la limpieza hasta el equipamiento, está pensado para una experiencia de 5 estrellas.",
+  },
+  {
+    image: escudoImg,
+    title: "Seguridad y Confianza",
+    description:
+      "Tu tranquilidad es nuestra prioridad. Todos nuestros barcos cuentan con las máximas certificaciones de seguridad, seguros a todo riesgo y el mejor equipo.",
+  },
+];
+
 
 const Index = () => {
-  const features = [
-    {
-      icon: Anchor,
-      title: "Ver la Flota",
-      description: "Descubre nuestros barcos de motor y vela, con y sin patrón",
-      link: "/flota",
-    },
-    {
-      icon: Sparkles,
-      title: "Experiencias Personalizadas",
-      description: "Puestas de sol, celebraciones, rutas exclusivas a medida",
-      link: "/experiencias",
-    },
-    {
-      icon: MessageSquare,
-      title: "Contacto Directo",
-      description: "WhatsApp instantáneo para reservas y consultas",
-      link: "#contact",
-    },
-  ];
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const whyChooseUs = [
-    {
-      icon: Star,
-      title: "Experiencia Premium",
-      description: "Más de 10 años navegando la Costa Blanca con excelencia",
-    },
-    {
-      icon: Award,
-      title: "Flota Propia",
-      description: "Barcos cuidados y mantenidos a la perfección",
-    },
-    {
-      icon: Shield,
-      title: "Máxima Seguridad",
-      description: "Certificaciones completas y seguros todo riesgo",
-    },
-  ];
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Asegurarse de que el video esté silenciado para el autoplay
+    video.muted = true;
+
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (error) {
+        console.log("Video autoplay prevented:", error);
+        // Si el autoplay falla, a veces un segundo intento manual puede funcionar
+        // No añadimos un listener de click aquí para no ser intrusivos
+      }
+    };
+
+    const handleVideoState = () => {
+      if (video.paused) {
+        playVideo();
+      }
+    };
+
+    // Intenta reproducir cuando los datos están listos
+    video.addEventListener('loadeddata', handleVideoState);
+    // Y también cuando el video pueda empezar a reproducirse
+    video.addEventListener('canplay', handleVideoState);
+
+
+    playVideo();
+
+    return () => {
+      video.removeEventListener('loadeddata', handleVideoState);
+      video.removeEventListener('canplay', handleVideoState);
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <WhatsAppButton />
+    <div className="relative bg-background">
+      {/* NAVBAR INDEPENDIENTE Y FIJO */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
+          <Navbar />
+      </div>
 
-      {/* Hero Section - Estilo Nicolai Palmkvist con tipografía premium */}
-      <section className="relative h-screen flex items-center overflow-hidden">
-        {/* Video Background con efecto parallax fijo */}
-        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover scale-105"
-            style={{ 
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100vh',
-              objectFit: 'cover'
-            }}
-          >
-            <source src={videoEntrada} type="video/mp4" />
-            Tu navegador no soporta vídeos HTML5.
-          </video>
-        </div>
+      {/* HERO VIDEO - Se mantiene FIJO como en tu código original para el efecto de fondo. */}
+      <section
+        className="relative flex items-center w-screen h-screen"
+        style={{
+          backgroundColor: "#101a2a",
+          overflow: "hidden",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}
+      >
+        {/* VIDEO DE FONDO */}
+        <video
+          ref={videoRef}
+          autoPlay
+          muted // Añadido aquí también para máxima compatibilidad
+          loop
+          playsInline
+          preload="auto"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0
+          }}
+        >
+          <source src={videoEntrada} type="video/mp4" />
+          Tu navegador no soporta vídeos HTML5.
+        </video>
 
-        {/* Optimized Dark Overlay */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20" 
-          style={{ zIndex: 1 }} 
+        {/* OVERLAY - Modificado para ser más claro con RGBA */}
+        <div
+          className="absolute inset-0"
+          style={{ 
+            backgroundColor: 'rgba(0, 0, 0, 0.3)', // Color negro con 30% de opacidad
+            zIndex: 1 
+          }}
         />
 
-        {/* Content - Alineado a la izquierda, estilo Nicolai */}
-        <div className="relative z-10 container mx-auto px-8 md:px-16">
+        {/* CONTENIDO DEL HERO */}
+        <div className="relative w-full container mx-auto px-8 md:px-16" style={{ zIndex: 5 }}>
           <div className="max-w-4xl">
-            <h1 
+            <h1
               className="text-white mb-8 leading-[0.95] animate-in fade-in slide-in-from-bottom-4 duration-1000"
-              style={{ 
+              style={{
                 fontFamily: "'Fraunces', serif",
-                fontSize: 'clamp(3.5rem, 10vw, 7rem)',
+                fontSize: "clamp(3.5rem, 10vw, 7rem)",
                 fontWeight: 500,
-                textShadow: '0 4px 30px rgba(0,0,0,0.5)',
-                animationDelay: '0.2s',
-                animationFillMode: 'backwards',
-                letterSpacing: '-0.02em'
+                textShadow: "0 4px 30px rgba(0,0,0,0.5)",
+                animationDelay: "0.2s",
+                animationFillMode: "backwards",
+                letterSpacing: "-0.02em",
               }}
             >
-              El Mediterráneo,<br />
-              <span 
+              El Mediterráneo,
+              <br />
+              <span
                 style={{
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  display: 'inline-block'
+                  background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  display: "inline-block",
                 }}
               >
                 a tu ritmo.
               </span>
             </h1>
-            
-            <p 
-  className="text-white/85 max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
-  style={{ 
-    fontFamily: "'Inter', sans-serif",
-    fontSize: 'clamp(1.125rem, 2.2vw, 1.375rem)',
-    fontWeight: 300,
-    lineHeight: 1.8,
-    letterSpacing: '0.03em',
-    textShadow: '0 2px 20px rgba(0,0,0,0.6)',
-    animationDelay: '0.4s',
-    animationFillMode: 'backwards'
-  }}
->
-  Experiencias náuticas exclusivas en el corazón de la Costa Blanca
-</p>
-
-
-            {/* Botón Píldora Visible */}
-            <div 
+            <p
+              className="text-white/85 max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "clamp(1.125rem, 2.2vw, 1.375rem)",
+                fontWeight: 300,
+                lineHeight: 1.8,
+                letterSpacing: "0.03em",
+                textShadow: "0 2px 20px rgba(0,0,0,0.6)",
+                animationDelay: "0.4s",
+                animationFillMode: "backwards",
+              }}
+            >
+              Experiencias náuticas exclusivas en el corazón de la Costa Blanca
+            </p>
+            <div
               className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
               style={{
-                animationDelay: '0.6s',
-                animationFillMode: 'backwards'
+                animationDelay: "0.6s",
+                animationFillMode: "backwards",
               }}
             >
               <Link
                 to="/flota"
                 className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold text-lg shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 group"
                 style={{
-                  fontFamily: "'Inter', sans-serif"
+                  fontFamily: "'Inter', sans-serif",
                 }}
               >
                 <Anchor className="w-6 h-6" strokeWidth={2} />
@@ -152,120 +194,287 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contenedor con z-index alto para que las secciones aparezcan sobre el vídeo */}
-      <div className="relative z-20 bg-background">
-        
-        {/* Quick Access Cards - Espaciado mejorado estilo Nicolai */}
-        <section className="py-32 px-4 bg-gradient-ocean">
-          <div className="container mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {features.map((feature, index) => (
-                <Card
-                  key={index}
-                  className="border-none shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 cursor-pointer bg-card backdrop-blur-sm group"
-                >
-                  <CardContent className="p-10 text-center">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-gold/20 to-gold/5 mb-8 group-hover:from-gold/30 group-hover:to-gold/10 transition-all duration-300 group-hover:scale-110">
-                      <feature.icon className="h-10 w-10 text-gold" />
-                    </div>
-                    <h3 className="font-heading text-2xl font-semibold mb-5 text-primary group-hover:text-gold transition-colors duration-300">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
-                      {feature.description}
-                    </p>
-                    <Button 
-                      variant="outline" 
-                      className="border-2 border-gold text-gold hover:bg-gold hover:text-white transition-all duration-300 font-semibold px-8 py-5 h-auto" 
-                      asChild
-                    >
-                      <Link to={feature.link}>Más información</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+      {/* RESTO DEL CONTENIDO */}
+      <section
+        className="py-24 px-4"
+        style={{
+          background: "linear-gradient(110deg,#f7fafc 60%,#e5ecfa 100%)",
+          position: "relative",
+          boxShadow: "0 24px 56px rgb(255 215 0 / 0.15)",
+          marginTop: "100vh",
+          paddingTop: "72px",
+          borderTopLeftRadius: "24px",
+          borderTopRightRadius: "24px",
+          zIndex: 2
+        }}
+      >
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center gap-12 md:gap-16">
+          {/* VER LA FLOTA */}
+          <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
+            <img
+              src={verFlotaImg}
+              alt="Ver la Flota"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+              style={{ zIndex: 0, filter: "brightness(1.05) saturate(1.15)" }}
+            />
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background:
+                  "linear-gradient(to top,rgba(25,38,76,0.20) 60%, rgba(243,229,180,0.06) 100%)",
+                zIndex: 1,
+              }}
+            />
+            <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
+              <span
+                className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
+                style={{
+                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
+                }}
+              >
+                Ver la Flota
+              </span>
+              <Link
+                to="/flota"
+                className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
+                style={{
+                  backdropFilter: "blur(6px)",
+                  border: "1.5px solid #FFD700",
+                }}
+              >
+                Descubrir barcos
+              </Link>
             </div>
           </div>
-        </section>
-
-        {/* Why Choose Us - Espaciado generoso */}
-        <section className="py-32 px-4 bg-background">
-          <div className="container mx-auto max-w-7xl">
-            <div className="text-center mb-20">
-              <h2 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6 tracking-tight">
-                ¿Por qué Golden Coast Charter?
-              </h2>
-              <p className="text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Tu experiencia náutica perfecta en la Costa Blanca
-              </p>
+          {/* EXPERIENCIAS */}
+          <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
+            <img
+              src={experienciaImg}
+              alt="Experiencias"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+              style={{ zIndex: 0, filter: "brightness(0.99) saturate(1.22)" }}
+            />
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background:
+                  "linear-gradient(to top,rgba(30,58,138,0.13) 60%, rgba(241,215,100,0.07) 100%)",
+                zIndex: 1,
+              }}
+            />
+            <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
+              <span
+                className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
+                style={{
+                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
+                }}
+              >
+                Experiencias Únicas
+              </span>
+              <Link
+                to="/experiencias"
+                className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
+                style={{
+                  backdropFilter: "blur(6px)",
+                  border: "1.5px solid #FFD700",
+                }}
+              >
+                Ver rutas y eventos
+              </Link>
             </div>
+          </div>
+          {/* CONTACTO */}
+          <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
+            <img
+              src={contactoImg}
+              alt="Contacto"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+              style={{ zIndex: 0, filter: "brightness(1.04) saturate(1.1)" }}
+            />
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background:
+                  "linear-gradient(to top,rgba(19,20,50,0.21) 55%, rgba(255,214,108,0.08) 100%)",
+                zIndex: 1,
+              }}
+            />
+            <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
+              <span
+                className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
+                style={{
+                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
+                }}
+              >
+                Contacta Directo
+              </span>
+              <Link
+                to="#contact"
+                className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
+                style={{
+                  backdropFilter: "blur(6px)",
+                  border: "1.5px solid #FFD700",
+                }}
+              >
+                Habla por WhatsApp
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-              {whyChooseUs.map((item, index) => (
-                <div key={index} className="text-center group">
-                  <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 mb-8 group-hover:bg-gold/20 transition-all duration-500 group-hover:scale-110">
-                    <item.icon className="h-12 w-12 text-primary group-hover:text-gold transition-colors duration-500" />
+      <section
+        style={{
+          background: "#0A192F",
+          marginTop: "-36px",
+          zIndex: 2,
+          position: "relative"
+        }}
+        className="py-36 px-4 relative rounded-t-3xl shadow-lg"
+      >
+        <div className="container mx-auto max-w-6xl">
+          <h2
+            className="font-heading text-5xl md:text-6xl font-extrabold mb-16 tracking-tight text-center"
+            style={{ color: "#FFD700", letterSpacing: "-0.01em" }}
+          >
+            ¿Por qué Golden Coast Charter?
+          </h2>
+          <div className="relative w-full flex flex-col items-center">
+            <div className="flex flex-row w-full justify-between items-center relative mb-10">
+              {whyChooseUsValues.map((item, idx) => (
+                <div key={idx} className="flex flex-col items-center flex-1">
+                  <div
+                    className="bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
+                    style={{
+                      borderColor: "#FFD700",
+                      boxShadow: "0 6px 32px 0 #FFD70033",
+                      width: 130,
+                      height: 130,
+                      zIndex: 1,
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      style={{
+                        maxWidth: 70,
+                        maxHeight: 70,
+                        objectFit: "contain",
+                        display: "block",
+                      }}
+                    />
                   </div>
-                  <h3 className="font-heading text-3xl font-semibold mb-5 text-primary group-hover:text-gold transition-colors duration-300">
+                </div>
+              ))}
+              <div
+                className="absolute w-[90%] left-[5%] right-[5%] md:top-[50%] top-[68px] h-0.5"
+                style={{
+                  background:
+                    "linear-gradient(90deg,#FFD70055,#FFD700cc,#FFD70055)",
+                  zIndex: 0,
+                }}
+              />
+            </div>
+            <div className="flex flex-row w-full justify-between items-start gap-6">
+              {whyChooseUsValues.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center flex-1 px-2 md:px-6"
+                  style={{ minWidth: 180, maxWidth: 330 }}
+                >
+                  <h3
+                    className="text-yellow-400 text-xl font-bold mb-2 text-center whitespace-pre-line leading-tight"
+                    style={{ letterSpacing: "-0.01em" }}
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed text-lg">
+                  <p className="text-slate-100/90 text-center text-base leading-relaxed mb-1">
                     {item.description}
                   </p>
                 </div>
               ))}
             </div>
+          </div>
+          <div className="text-center mt-16">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black px-12 py-7 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 text-lg font-semibold hover:scale-105"
+              asChild
+            >
+              <Link to="/nosotros">Conócenos mejor</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center mt-20">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary-light text-primary-foreground px-12 py-7 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 text-lg font-semibold hover:scale-105"
-                asChild
-              >
-                <Link to="/nosotros">Conócenos mejor</Link>
-              </Button>
-            </div>
+      <section
+        className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="absolute inset-0 rounded-t-3xl"
+          style={{
+            backgroundImage: `url(${listoZarparBg})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            zIndex: 0,
+          }}
+        />
+        <div
+          className="absolute inset-0 rounded-t-3xl"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 50%)",
+            zIndex: 1,
+          }}
+        />
+        <div className="container mx-auto text-center relative z-10">
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold mb-8 tracking-tight text-white"
+            style={{
+              textShadow:
+                "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
+            }}
+          >
+            ¿Listo para zarpar?
+          </h2>
+          <p
+            className="text-2xl mb-12 text-white max-w-3xl mx-auto leading-relaxed"
+            style={{
+              textShadow:
+                "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
+            }}
+          >
+            Consulta disponibilidad, solicita presupuesto personalizado o habla directamente con nosotros por WhatsApp
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold px-12 py-7 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 text-lg"
+              asChild
+            >
+              <Link to="/reserva">Solicitar Presupuesto</Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white bg-black/20 backdrop-blur-md text-white hover:bg-white hover:text-primary px-12 py-7 h-auto font-semibold transition-all duration-300 hover:scale-105 text-lg"
+              asChild
+            >
+              <Link to="/precios">Ver Precios</Link>
+            </Button>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Section - Mejorado con gradiente más sutil */}
-        <section className="py-32 px-4 bg-gradient-to-br from-primary via-primary-light to-primary text-primary-foreground relative overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          </div>
-          
-          <div className="container mx-auto text-center relative z-10">
-            <h2 className="font-heading text-5xl md:text-6xl font-bold mb-8 tracking-tight">
-              ¿Listo para zarpar?
-            </h2>
-            <p className="text-2xl mb-12 text-primary-foreground/95 max-w-3xl mx-auto leading-relaxed">
-              Consulta disponibilidad, solicita presupuesto personalizado o habla directamente con nosotros por WhatsApp
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold px-12 py-7 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 text-lg"
-                asChild
-              >
-                <Link to="/reserva">Solicitar Presupuesto</Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-primary px-12 py-7 h-auto font-semibold transition-all duration-300 hover:scale-105 text-lg backdrop-blur-sm"
-                asChild
-              >
-                <Link to="/precios">Ver Precios</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-        
+      <div style={{ position: "relative", zIndex: 5 }}>
         <Footer />
       </div>
-      {/* Fin del contenedor con z-index alto */}
     </div>
   );
 };
