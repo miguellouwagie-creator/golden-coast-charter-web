@@ -87,9 +87,13 @@ const Experiencias = () => {
     <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
       Experiencias <span className="text-gradient-gold">Inolvidables</span>
     </h1>
-    <p className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed">
-      Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo.
-    </p>
+    <p 
+  className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed"
+  style={{ fontFamily: "'Poppins', sans-serif" }}
+>
+  Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo.
+</p>
+
   </div>
 </section>
 

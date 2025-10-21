@@ -44,29 +44,16 @@ const Index = () => {
     if (!video) return;
 
     video.muted = true;
-
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch (error) {
-        console.log("Video autoplay prevented:", error);
+    
+    // Intentar reproducir inmediatamente
+    const playAttempt = setInterval(() => {
+      if (video.paused && video.readyState >= 2) {
+        video.play().catch(() => {});
       }
-    };
-
-    const handleVideoState = () => {
-      if (video.paused) {
-        playVideo();
-      }
-    };
-
-    video.addEventListener('loadeddata', handleVideoState);
-    video.addEventListener('canplay', handleVideoState);
-
-    playVideo();
+    }, 100);
 
     return () => {
-      video.removeEventListener('loadeddata', handleVideoState);
-      video.removeEventListener('canplay', handleVideoState);
+      clearInterval(playAttempt);
     };
   }, []);
 
@@ -136,7 +123,6 @@ const Index = () => {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           style={{
@@ -146,7 +132,17 @@ const Index = () => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            zIndex: 0
+            zIndex: 0,
+            willChange: "transform",
+          }}
+          onLoadedData={(e) => {
+            const video = e.currentTarget;
+            video.play().catch(err => console.log("Autoplay prevented:", err));
+          }}
+          onEnded={(e) => {
+            const video = e.currentTarget;
+            video.currentTime = 0;
+            video.play().catch(err => console.log("Loop restart prevented:", err));
           }}
         >
           <source src={videoEntrada} type="video/mp4" />
@@ -173,10 +169,10 @@ const Index = () => {
         >
           <div className="max-w-4xl">
             <h1
-              className="text-white mb-8 leading-[0.95] animate-in fade-in slide-in-from-bottom-4 duration-1000"
+              className="text-white mb-8 leading-tight animate-in fade-in slide-in-from-bottom-4 duration-1000"
               style={{
                 fontFamily: "'Fraunces', serif",
-                fontSize: "clamp(3.5rem, 10vw, 7rem)",
+                fontSize: "clamp(3rem, 8vw, 6rem)",
                 fontWeight: 500,
                 textShadow: "0 4px 30px rgba(0,0,0,0.5)",
                 animationDelay: "0.2s",
@@ -192,27 +188,31 @@ const Index = () => {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
-                  display: "inline-block",
+                  display: "block",
+                  fontSize: "0.65em",
                 }}
               >
-                a tu ritmo.
+                como nunca lo has vivido.
               </span>
             </h1>
+
             <p
-              className="text-white/85 max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+              className="text-white/90 max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
               style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(1.125rem, 2.2vw, 1.375rem)",
-                fontWeight: 300,
-                lineHeight: 1.8,
-                letterSpacing: "0.03em",
-                textShadow: "0 2px 20px rgba(0,0,0,0.6)",
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
+                fontWeight: 400,
+                lineHeight: 1.7,
+                letterSpacing: "0.02em",
+                textShadow: "0 2px 20px rgba(0,0,0,0.7)",
                 animationDelay: "0.4s",
                 animationFillMode: "backwards",
+                fontStyle: "italic",
               }}
             >
               Experiencias náuticas exclusivas en el corazón de la Costa Blanca
             </p>
+
             <div
               className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
               style={{

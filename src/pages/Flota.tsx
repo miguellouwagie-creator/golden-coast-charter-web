@@ -243,9 +243,13 @@ const Flota = () => {
     <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
       Nuestra <span className="text-gradient-gold">Flota</span>
     </h1>
-    <p className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed">
-      Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo.
-    </p>
+    <p 
+  className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed"
+  style={{ fontFamily: "'Poppins', sans-serif" }}
+>
+  Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo.
+</p>
+
     {!isMobile && (
       <div className="flex items-center justify-center gap-3 mt-6">
         <ChevronLeft className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />

@@ -72,9 +72,13 @@ const Reserva = () => {
           <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
             Solicita tu <span className="text-gradient-gold">Presupuesto</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Completa el formulario y te enviaremos un presupuesto personalizado. También puedes contactarnos directamente por WhatsApp para una respuesta inmediata.
-          </p>
+          <p 
+  className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+  style={{ fontFamily: "'Poppins', sans-serif" }}
+>
+  Completa el formulario y te enviaremos un presupuesto personalizado. También puedes contactarnos directamente por WhatsApp para una respuesta inmediata.
+</p>
+
         </div>
       </section>
 
