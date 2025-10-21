@@ -8,8 +8,8 @@ import videoEntrada from "@/assets/Prueba 2.mp4";
 import timonImg from "@/assets/Timón.png";
 import medallaImg from "@/assets/Medalla.png";
 import escudoImg from "@/assets/Escudo.png";
-import listoZarparBg from "@/assets/listo-zarpar.png";
-import verFlotaImg from "@/assets/Ver la Flota-min.png";
+import listoZarparBg from "@/assets/Listo-zarpar.jpg";
+import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 
@@ -84,9 +84,8 @@ const Index = () => {
       if (isMobile || !heroContentRef.current) return;
 
       const scrolled = window.scrollY;
-      const parallaxSpeed = 0.3; // 30% slower than scroll (subtle effect)
+      const parallaxSpeed = 0.3;
 
-      // Apply transform only if within viewport
       if (scrolled < window.innerHeight) {
         heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
@@ -101,6 +100,16 @@ const Index = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isMobile]);
+
+  // Prefetch de páginas al pasar el mouse
+  const prefetchPage = (page: string) => {
+    const routes: Record<string, () => Promise<any>> = {
+      flota: () => import("./Flota"),
+      experiencias: () => import("./Experiencias"),
+      reserva: () => import("./Reserva"),
+    };
+    routes[page]?.();
+  };
 
   return (
     <div className="relative bg-background">
@@ -213,6 +222,7 @@ const Index = () => {
             >
               <Link
                 to="/flota"
+                onMouseEnter={() => prefetchPage('flota')}
                 className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold text-lg shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 group"
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -247,6 +257,7 @@ const Index = () => {
             <img
               src={verFlotaImg}
               alt="Ver la Flota"
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.05) saturate(1.15)" }}
             />
@@ -269,6 +280,7 @@ const Index = () => {
               </span>
               <Link
                 to="/flota"
+                onMouseEnter={() => prefetchPage('flota')}
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
                 style={{
                   backdropFilter: "blur(6px)",
@@ -284,6 +296,7 @@ const Index = () => {
             <img
               src={experienciaImg}
               alt="Experiencias"
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(0.99) saturate(1.22)" }}
             />
@@ -306,6 +319,7 @@ const Index = () => {
               </span>
               <Link
                 to="/experiencias"
+                onMouseEnter={() => prefetchPage('experiencias')}
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
                 style={{
                   backdropFilter: "blur(6px)",
@@ -321,6 +335,7 @@ const Index = () => {
             <img
               src={contactoImg}
               alt="Contacto"
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.04) saturate(1.1)" }}
             />
@@ -341,8 +356,10 @@ const Index = () => {
               >
                 Contacta Directo
               </span>
-              <Link
-                to="#contact"
+              <a
+                href="https://wa.me/34676262628"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
                 style={{
                   backdropFilter: "blur(6px)",
@@ -350,7 +367,7 @@ const Index = () => {
                 }}
               >
                 Habla por WhatsApp
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -389,6 +406,7 @@ const Index = () => {
                     <img
                       src={item.image}
                       alt={item.title}
+                      loading="lazy"
                       style={{
                         maxWidth: 70,
                         maxHeight: 70,
@@ -485,7 +503,11 @@ const Index = () => {
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
               asChild
             >
-              <Link to="/reserva" className="flex items-center gap-3">
+              <Link 
+                to="/reserva" 
+                onMouseEnter={() => prefetchPage('reserva')}
+                className="flex items-center gap-3"
+              >
                 <span>Solicitar Presupuesto</span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>

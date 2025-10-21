@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import sunsetImg from "@/assets/experience-sunset.jpg";
 import partyImg from "@/assets/experience-party.jpg";
+import fondoExperiencias from "@/assets/FondoExperiencias.jpg";
+
 
 const Experiencias = () => {
   const experiences = [
@@ -67,16 +69,30 @@ const Experiencias = () => {
       <WhatsAppButton />
 
       {/* Hero */}
-      <section className="pt-40 pb-16 px-4 bg-gradient-ocean">
-        <div className="container mx-auto text-center">
-          <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
-            Experiencias <span className="text-gradient-gold">Inolvidables</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo.
-          </p>
-        </div>
-      </section>
+      <section className="pt-40 pb-16 px-4 relative overflow-hidden">
+  {/* Imagen de fondo SIN blur */}
+  <div 
+    className="absolute inset-0 bg-cover bg-fixed"
+    style={{
+      backgroundImage: `url(${fondoExperiencias})`,
+      backgroundPosition: 'center center',
+    }}
+  />
+  
+  {/* Overlay moderado - 40% oscuro */}
+  <div className="absolute inset-0 bg-[#0A192F]/40" />
+  
+  {/* Contenido */}
+  <div className="container mx-auto text-center relative z-10">
+    <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
+      Experiencias <span className="text-gradient-gold">Inolvidables</span>
+    </h1>
+    <p className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed">
+      Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo.
+    </p>
+  </div>
+</section>
+
 
       {/* Experiences Grid */}
       <section className="py-20 px-4">
@@ -141,23 +157,6 @@ const Experiencias = () => {
         </div>
       </section>
 
-      {/* Destinations Strip */}
-      <section className="py-16 px-4 bg-primary text-primary-foreground">
-        <div className="container mx-auto">
-          <h3 className="font-heading text-3xl font-bold text-center mb-8">
-            Destinos que visitamos
-          </h3>
-          <div className="flex flex-wrap justify-center gap-6">
-            {destinations.map((dest, index) => (
-              <div key={index} className="flex items-center space-x-2 text-primary-foreground/90">
-                <dest.icon className="h-5 w-5 text-gold" />
-                <span className="font-medium">{dest.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
@@ -186,4 +185,3 @@ const Experiencias = () => {
 };
 
 export default Experiencias;
-

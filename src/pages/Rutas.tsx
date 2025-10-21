@@ -8,6 +8,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import routeLasRotas from "@/assets/route-las-rotas.jpg";
 import routeJaveaCoves from "@/assets/route-javea-coves.jpg";
 import routeSunsetMontgo from "@/assets/route-sunset-montgo.jpg";
+import fondoRutas from "@/assets/FondoRutas.jpg";
+
 
 const Rutas = () => {
   const routes = [
@@ -45,21 +47,37 @@ const Rutas = () => {
   
   const customRouteLink = "https://wa.me/34676262628?text=Hola,%20me%20gustaría%20crear%20una%20ruta%20personalizada.";
 
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <WhatsAppButton />
 
-      <section className="pt-40 pb-16 px-4 bg-gradient-ocean">
-        <div className="container mx-auto text-center">
-          <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
-            Nuestras <span className="text-gradient-gold">Rutas</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Descubre los rincones más espectaculares de la Costa Blanca. Cada ruta es una aventura única diseñada para vivir el Mediterráneo en su máxima expresión.
-          </p>
-        </div>
-      </section>
+      <section className="pt-40 pb-16 px-4 relative overflow-hidden">
+  {/* Imagen de fondo con brillo aumentado para ver el mapa */}
+  <div 
+    className="absolute inset-0 bg-cover bg-fixed"
+    style={{
+      backgroundImage: `url(${fondoRutas})`,
+      backgroundPosition: 'center center', // Centrado completo
+      filter: 'brightness(1.3) contrast(1.2)', // Aumenta brillo y contraste
+    }}
+  />
+  
+  {/* Overlay más claro para que se vea la imagen */}
+  <div className="absolute inset-0 bg-[#0A192F]/35" />
+  
+  {/* Contenido */}
+  <div className="container mx-auto text-center relative z-10">
+    <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
+      Nuestras <span className="text-gradient-gold">Rutas</span>
+    </h1>
+    <p className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed">
+      Descubre los rincones más espectaculares de la Costa Blanca. Cada ruta es una aventura única diseñada para vivir el Mediterráneo en su máxima expresión.
+    </p>
+  </div>
+</section>
+
 
       <section className="py-20 px-4">
         <div className="container mx-auto">
