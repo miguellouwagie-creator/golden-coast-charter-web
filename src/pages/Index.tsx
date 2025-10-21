@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Anchor, ArrowRight } from "lucide-react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import videoEntrada from "@/assets/Prueba 2.mp4";
@@ -36,6 +36,8 @@ const whyChooseUsValues = [
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -68,6 +70,38 @@ const Index = () => {
     };
   }, []);
 
+  // Detect mobile and setup parallax effect
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Parallax effect only on desktop
+    const handleScroll = () => {
+      if (isMobile || !heroContentRef.current) return;
+
+      const scrolled = window.scrollY;
+      const parallaxSpeed = 0.3; // 30% slower than scroll (subtle effect)
+
+      // Apply transform only if within viewport
+      if (scrolled < window.innerHeight) {
+        heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+      }
+    };
+
+    if (!isMobile) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile]);
+
   return (
     <div className="relative bg-background">
       {/* NAVBAR INDEPENDIENTE Y FIJO */}
@@ -88,6 +122,7 @@ const Index = () => {
           bottom: 0
         }}
       >
+        {/* VIDEO DE FONDO */}
         <video
           ref={videoRef}
           autoPlay
@@ -109,15 +144,24 @@ const Index = () => {
           Tu navegador no soporta vídeos HTML5.
         </video>
 
+        {/* OVERLAY OSCURO */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
             zIndex: 1
           }}
         />
 
-        <div className="relative w-full container mx-auto px-8 md:px-16" style={{ zIndex: 5 }}>
+        {/* CONTENIDO DEL HERO CON PARALLAX */}
+        <div 
+          ref={heroContentRef}
+          className="relative w-full container mx-auto px-8 md:px-16" 
+          style={{ 
+            zIndex: 5,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
           <div className="max-w-4xl">
             <h1
               className="text-white mb-8 leading-[0.95] animate-in fade-in slide-in-from-bottom-4 duration-1000"

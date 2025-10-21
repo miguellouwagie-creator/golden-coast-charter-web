@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "../assets/Logo 2.png";
 
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
+  // Detectar si estamos en la página de inicio
+  const isHomePage = location.pathname === "/";
 
   const leftNavigation = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.fleet"), href: "/flota" },
   ];
-
 
   const rightNavigation = [
     { name: t("nav.experiences"), href: "/experiencias" },
@@ -24,27 +25,43 @@ const Navbar = () => {
     { name: t("nav.about"), href: "/nosotros" },
   ];
 
-
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es");
   };
 
-
   const isActive = (path: string) => location.pathname === path;
-
 
   // Número de teléfono de Golden Coast Charter
   const phoneNumber = "+34 676 26 26 28";
   const whatsappNumber = "34676262628";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
 
+  // Detectar scroll - solo aplica en página de inicio
+  useEffect(() => {
+    if (!isHomePage) return; // No aplicar scroll listener si no es homepage
 
+    const handleScroll = () => {
+      const scrollThreshold = window.innerHeight * 0.95;
+      setIsScrolled(window.scrollY > scrollThreshold);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
+
+  // Determinar si el navbar debe ser sólido
+  const shouldBeSolid = !isHomePage || isScrolled;
 
   return (
-    <nav className="fixed w-full z-50 bg-transparent backdrop-blur-sm">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${
+        shouldBeSolid
+          ? "bg-[#0A192F] shadow-2xl"
+          : "bg-transparent backdrop-blur-sm"
+      }`}
+    >
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-24 relative">
-
 
           {/* Left Side: Brand Name */}
           <Link
@@ -59,19 +76,42 @@ const Navbar = () => {
             </span>
           </Link>
 
-
-          {/* Center: Logo (Fixed in exact center) */}
-          <Link
-            to="/"
-            className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-smooth hover:scale-110 z-20"
-            style={{ top: '75%' }}
-          >
-            <img
-              src={logo}
-              alt="Golden Coast Charter Logo"
-              className="h-36 w-auto drop-shadow-2xl rounded-md"
-            />
-          </Link>
+{/* Center: Logo con centro blanco expandido - bordes sin cambios */}
+<Link
+  to="/"
+  className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-all duration-300 hover:scale-110 z-20"
+  style={{ top: '75%' }}
+>
+  {/* Halo: centro blanco más expandido */}
+  <div
+    className={`absolute transition-all duration-500 ${
+      shouldBeSolid
+        ? "opacity-100" 
+        : "opacity-0"
+    }`}
+    style={{
+      width: "180px",
+      height: "180px",
+      transform: "translate(-50%, -50%)",
+      top: "50%",
+      left: "50%",
+      zIndex: -1,
+      // Centro blanco expandido (mantiene 92% hasta el 30% en vez de 20%)
+      background: "radial-gradient(circle, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.92) 30%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 100%)",
+      // Blur igual
+      backdropFilter: "blur(45px)",
+      WebkitBackdropFilter: "blur(45px)",
+      // MÁSCARA SIN CAMBIOS (igual que antes)
+      WebkitMaskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
+      maskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
+    }}
+  />
+  <img
+    src={logo}
+    alt="Golden Coast Charter Logo"
+    className="h-36 w-auto drop-shadow-2xl rounded-md relative z-10"
+  />
+</Link>
 
 
           {/* Desktop Navigation - Left side (Next to logo) */}
@@ -91,7 +131,6 @@ const Navbar = () => {
             ))}
           </div>
 
-
           {/* Desktop Navigation - Right side (Next to logo) */}
           <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32">
             {rightNavigation.map((item) => (
@@ -108,7 +147,6 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
-
 
           {/* Right Side: Language Selector + CTA Button */}
           <div className="hidden lg:flex items-center space-x-4 z-10">
@@ -129,7 +167,6 @@ const Navbar = () => {
               </span>
             </button>
 
-
             {/* Botón WhatsApp */}
             <Button
               size="sm"
@@ -143,7 +180,6 @@ const Navbar = () => {
             </Button>
           </div>
 
-
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -154,7 +190,6 @@ const Navbar = () => {
           </button>
         </div>
 
-
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="xl:hidden py-4 bg-black/80 backdrop-blur-xl rounded-b-lg animate-slide-up">
@@ -163,7 +198,6 @@ const Navbar = () => {
               <div className="flex justify-center pb-4 border-b border-white/10">
                 <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12 rounded-md" />
               </div>
-
 
               {[...leftNavigation, ...rightNavigation].map((item) => (
                 <Link
@@ -197,7 +231,6 @@ const Navbar = () => {
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
 
-
                 {/* Mobile Botón WhatsApp */}
                 <Button
                   size="sm"
@@ -217,6 +250,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
 
 export default Navbar;

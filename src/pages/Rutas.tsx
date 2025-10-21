@@ -50,7 +50,7 @@ const Rutas = () => {
       <Navbar />
       <WhatsAppButton />
 
-      <section className="pt-32 pb-16 px-4 bg-gradient-ocean">
+      <section className="pt-40 pb-16 px-4 bg-gradient-ocean">
         <div className="container mx-auto text-center">
           <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
             Nuestras <span className="text-gradient-gold">Rutas</span>
