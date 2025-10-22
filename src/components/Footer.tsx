@@ -1,32 +1,31 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/Logo.jpeg";
 
-
 const Footer = () => {
-  const quickLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Nuestra Flota", href: "/flota" },
-    { name: "Experiencias", href: "/experiencias" },
-    { name: "Rutas", href: "/rutas" },
-  ];
+  const { t } = useLanguage();
 
+  const quickLinks = [
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.fleet"), href: "/flota" },
+    { name: t("nav.experiences"), href: "/experiencias" },
+    { name: t("nav.routes"), href: "/rutas" },
+  ];
 
   const legal = [
-    { name: "Aviso Legal", href: "/aviso-legal" },
-    { name: "Política de Privacidad", href: "/privacidad" },
-    { name: "Términos y Condiciones", href: "/terminos" },
-    { name: "Cookies", href: "/cookies" },
+    { name: t("footer.legal.notice"), href: "/aviso-legal" },
+    { name: t("footer.legal.privacy"), href: "/privacidad" },
+    { name: t("footer.legal.terms"), href: "/terminos" },
+    { name: t("footer.legal.cookies"), href: "/cookies" },
   ];
-
 
   const experiences = [
-    { name: "Puestas de Sol", href: "/experiencias#sunset" },
-    { name: "Celebraciones", href: "/experiencias#celebrations" },
-    { name: "Rutas Familiares", href: "/experiencias#family" },
-    { name: "Charter Personalizado", href: "/experiencias#custom" },
+    { name: t("footer.exp.sunset"), href: "/experiencias#sunset" },
+    { name: t("footer.exp.celebrations"), href: "/experiencias#celebrations" },
+    { name: t("footer.exp.family"), href: "/experiencias#family" },
+    { name: t("footer.exp.custom"), href: "/experiencias#custom" },
   ];
-
 
   return (
     <footer 
@@ -75,7 +74,7 @@ const Footer = () => {
               </div>
             </Link>
             <p className="text-sm text-white/70 leading-relaxed">
-              Experiencias náuticas de lujo en la Costa Blanca. Alquiler de barcos en Dénia y Jávea para momentos inolvidables.
+              {t("footer.slogan")}
             </p>
             <div className="flex space-x-4">
               <a
@@ -90,7 +89,6 @@ const Footer = () => {
             </div>
           </div>
 
-
           {/* Quick Links */}
           <div>
             <h3 
@@ -102,7 +100,7 @@ const Footer = () => {
                 backgroundClip: "text"
               }}
             >
-              Enlaces Rápidos
+              {t("footer.quickLinks")}
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -118,7 +116,6 @@ const Footer = () => {
             </ul>
           </div>
 
-
           {/* Experiences */}
           <div>
             <h3 
@@ -130,7 +127,7 @@ const Footer = () => {
                 backgroundClip: "text"
               }}
             >
-              Experiencias
+              {t("footer.experiences")}
             </h3>
             <ul className="space-y-3">
               {experiences.map((exp) => (
@@ -146,7 +143,6 @@ const Footer = () => {
             </ul>
           </div>
 
-
           {/* Contact */}
           <div>
             <h3 
@@ -158,12 +154,12 @@ const Footer = () => {
                 backgroundClip: "text"
               }}
             >
-              Contacto
+              {t("footer.contact")}
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3 text-sm text-white/70">
                 <MapPin className="h-5 w-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
-                <span>Puerto de Dénia<br />Marina de Jávea<br />Costa Blanca, España</span>
+                <span style={{ whiteSpace: 'pre-line' }}>{t("footer.location")}</span>
               </li>
               <li className="flex items-center space-x-3 text-sm text-white/70">
                 <Phone className="h-5 w-5 text-[#FFD700] flex-shrink-0" />
@@ -181,7 +177,6 @@ const Footer = () => {
           </div>
         </div>
 
-
         {/* Legal Links */}
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
@@ -197,7 +192,7 @@ const Footer = () => {
               ))}
             </div>
             <p className="text-xs text-white/50">
-              © {new Date().getFullYear()} Golden Coast Charter. Todos los derechos reservados.
+              © {new Date().getFullYear()} Golden Coast Charter. {t("footer.rights")}.
             </p>
           </div>
         </div>
@@ -205,6 +200,5 @@ const Footer = () => {
     </footer>
   );
 };
-
 
 export default Footer;

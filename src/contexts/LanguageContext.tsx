@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Language = "es" | "en";
 
@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const translations = {
   es: {
-    // Navbar
+    // ============= NAVBAR =============
     "nav.home": "Inicio",
     "nav.fleet": "Flota",
     "nav.experiences": "Experiencias",
@@ -21,54 +21,80 @@ const translations = {
     "nav.bookNow": "Reserva Ya",
     "nav.changeLanguage": "Cambiar idioma",
     
+    // ============= INDEX PAGE =============
     // Hero
-    "hero.title": "Descubre la Costa Blanca desde el mar",
-    "hero.subtitle": "Vive experiencias únicas en barcos de lujo en Dénia y Jávea",
-    "hero.cta": "Reserva tu experiencia",
+    "hero.title1": "El Mediterráneo,",
+    "hero.title2": "como nunca lo has vivido.",
+    "hero.subtitle": "Experiencias náuticas exclusivas en el corazón de la Costa Blanca",
+    "hero.cta": "Ver Flota",
     
     // Quick Access
-    "quick.fleet.title": "Ver la Flota",
-    "quick.fleet.desc": "Explora nuestra selección de yates de lujo",
-    "quick.experiences.title": "Experiencias",
-    "quick.experiences.desc": "Descubre nuestras excursiones personalizadas",
-    "quick.contact.title": "Contacto WhatsApp",
-    "quick.contact.desc": "Habla con nosotros directamente",
+    "index.verFlota": "Ver la Flota",
+    "index.descubrirBarcos": "Descubrir barcos",
+    "index.experiencias": "Experiencias Únicas",
+    "index.verRutas": "Ver rutas y eventos",
+    "index.contacto": "Contacta Directo",
+    "index.whatsapp": "Habla por WhatsApp",
     
-    // Values
-    "values.title": "¿Por qué elegirnos?",
-    "values.luxury.title": "Lujo y Confort",
-    "values.luxury.desc": "Barcos premium equipados con todas las comodidades",
-    "values.safety.title": "Seguridad Garantizada",
-    "values.safety.desc": "Certificados y cumplimiento de todas las normativas",
-    "values.experience.title": "Experiencia",
-    "values.experience.desc": "Años navegando por la Costa Blanca",
-    "values.personalized.title": "Servicio Personalizado",
-    "values.personalized.desc": "Rutas y experiencias adaptadas a ti",
+    // Why Choose Us
+    "index.whyTitle": "¿Por qué Golden Coast Charter?",
+    "index.whyItem1Title": "Experiencia y Tradición",
+    "index.whyItem1Desc": "Más de 10 años navegando la Costa Blanca, con patrones que conocen cada cala secreta y la historia del Mediterráneo.",
+    "index.whyItem2Title": "Calidad y Excelencia",
+    "index.whyItem2Desc": "Flota propia mantenida a la perfección. Cada detalle, desde la limpieza hasta el equipamiento, está pensado para una experiencia de 5 estrellas.",
+    "index.whyItem3Title": "Seguridad y Confianza",
+    "index.whyItem3Desc": "Tu tranquilidad es nuestra prioridad. Todos nuestros barcos cuentan con las máximas certificaciones de seguridad, seguros a todo riesgo y el mejor equipo.",
     
-    // Footer
-    "footer.quickLinks": "Enlaces Rápidos",
-    "footer.contact": "Contacto",
-    "footer.email": "Email",
-    "footer.phone": "Teléfono",
-    "footer.social": "Síguenos",
-    "footer.rights": "Todos los derechos reservados",
-    "footer.privacy": "Política de Privacidad",
-    "footer.terms": "Términos y Condiciones",
+    // CTA
+    "index.ctaTitle": "¿Listo para zarpar?",
+    "index.ctaSubtitle": "Reserva tu experiencia náutica exclusiva en la Costa Blanca",
+    "index.ctaButton": "Solicitar Presupuesto",
     
-    // Fleet
-    "fleet.title": "Nuestra Flota",
-    "fleet.subtitle": "Selecciona el barco perfecto para tu aventura",
-    "fleet.motorYacht": "Yate a Motor",
-    "fleet.sailingYacht": "Yate de Vela",
-    "fleet.withCaptain": "Con Patrón",
-    "fleet.capacity": "Capacidad",
-    "fleet.people": "personas",
-    "fleet.from": "Desde",
+    // ============= FLEET PAGE =============
+    "fleet.heroTitle": "Nuestra",
+    "fleet.heroHighlight": "Flota",
+    "fleet.heroDesc": "Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo.",
+    "fleet.scrollHint": "Desliza horizontalmente para explorar nuestra flota",
+    "fleet.type.motor": "Motor",
+    "fleet.type.sail": "Vela",
+    "fleet.capacity": "Hasta {count} personas",
+    "fleet.withCaptain": "Con patrón",
+    "fleet.withoutCaptain": "Sin patrón disponible",
+    "fleet.features": "Comodidades incluidas:",
+    "fleet.priceLabel": "Precio orientativo",
+    "fleet.from": "desde",
     "fleet.perDay": "/día",
-    "fleet.features": "Características",
     "fleet.checkAvailability": "Consultar Disponibilidad",
+    "fleet.notFound.title": "¿No encuentras lo que buscas?",
+    "fleet.notFound.desc": "Tenemos más opciones disponibles y podemos personalizar cualquier experiencia según tus necesidades. Contáctanos y te ayudaremos a encontrar el barco perfecto.",
+    "fleet.notFound.button": "Contactar por WhatsApp",
     
-    // Experiences
+    // Boat Descriptions
+    "fleet.azure.desc": "Elegante yate a motor perfecto para celebraciones y rutas rápidas por la costa",
+    "fleet.mediterranean.desc": "Velero de lujo ideal para experiencias náuticas auténticas y relajantes",
+    "fleet.golden.desc": "Motor yacht versátil para grupos, familias y puestas de sol románticas",
+    "fleet.serenity.desc": "Velero clásico ideal para puestas de sol románticas y explorar calas escondidas por la costa",
+    "fleet.adrenaline.desc": "Lancha rápida y potente para los que buscan aventura. Perfecta para deportes acuáticos y rutas rápidas",
+    "fleet.familia.desc": "Catamarán estable y espacioso diseñado para salidas familiares. Una plataforma perfecta para disfrutar del mar",
+    
+    // Boat Features
+    "fleet.feature.bathroom": "Baño completo",
+    "fleet.feature.solarium": "Solárium",
+    "fleet.feature.fridge": "Nevera",
+    "fleet.feature.music": "Equipo de música",
+    "fleet.feature.lifejackets": "Chalecos salvavidas",
+    "fleet.feature.cabin": "Cabina doble",
+    "fleet.feature.kitchen": "Cocina equipada",
+    "fleet.feature.shower": "Ducha",
+    "fleet.feature.gps": "GPS y navegación",
+    "fleet.feature.shade": "Zona de sombra",
+    "fleet.feature.platform": "Plataforma de baño",
+    "fleet.feature.bluetooth": "Altavoces Bluetooth",
+    "fleet.feature.snorkel": "Snorkel incluido",
+    "fleet.feature.paddleboard": "Paddleboard",
+    "fleet.feature.snorkelKit": "Equipo de snorkel",
+    
+    // ============= EXPERIENCES PAGE =============
     "exp.title": "Experiencias Personalizadas",
     "exp.subtitle": "Crea recuerdos inolvidables en el Mediterráneo",
     "exp.sunset.title": "Puestas de Sol Románticas",
@@ -81,7 +107,7 @@ const translations = {
     "exp.custom.desc": "Diseñamos la ruta perfecta según tus preferencias",
     "exp.learnMore": "Más Información",
     
-    // Booking
+    // ============= BOOKING PAGE =============
     "booking.title": "Reserva tu Experiencia",
     "booking.subtitle": "Completa el formulario y nos pondremos en contacto contigo",
     "booking.name": "Nombre completo",
@@ -113,7 +139,7 @@ const translations = {
     "booking.why.best": "Mejor Precio",
     "booking.why.bestDesc": "Garantía del mejor precio directo",
     
-    // About
+    // ============= ABOUT PAGE =============
     "about.title": "Sobre Nosotros",
     "about.subtitle": "Tu partner de confianza para experiencias náuticas en la Costa Blanca",
     "about.story.title": "Nuestra Historia",
@@ -126,9 +152,28 @@ const translations = {
     "about.test.1": "Una experiencia inolvidable. El barco impecable y el patrón super amable. Repetiremos seguro.",
     "about.test.2": "Celebramos nuestro aniversario viendo el atardecer desde el barco. Simplemente mágico.",
     "about.test.3": "Profesionales de principio a fin. Todo perfecto, muy recomendable para familias.",
+    
+    // ============= FOOTER =============
+    "footer.slogan": "Experiencias náuticas de lujo en la Costa Blanca. Alquiler de barcos en Dénia y Jávea para momentos inolvidables.",
+    "footer.quickLinks": "Enlaces Rápidos",
+    "footer.experiences": "Experiencias",
+    "footer.contact": "Contacto",
+    "footer.email": "Email",
+    "footer.phone": "Teléfono",
+    "footer.social": "Síguenos",
+    "footer.rights": "Todos los derechos reservados",
+    "footer.legal.privacy": "Política de Privacidad",
+    "footer.legal.terms": "Términos y Condiciones",
+    "footer.legal.cookies": "Cookies",
+    "footer.legal.notice": "Aviso Legal",
+    "footer.exp.sunset": "Puestas de Sol",
+    "footer.exp.celebrations": "Celebraciones",
+    "footer.exp.family": "Rutas Familiares",
+    "footer.exp.custom": "Charter Personalizado",
+    "footer.location": "Puerto de Dénia\nMarina de Jávea\nCosta Blanca, España",
   },
   en: {
-    // Navbar
+    // ============= NAVBAR =============
     "nav.home": "Home",
     "nav.fleet": "Fleet",
     "nav.experiences": "Experiences",
@@ -137,54 +182,80 @@ const translations = {
     "nav.bookNow": "Book Now",
     "nav.changeLanguage": "Change language",
     
+    // ============= INDEX PAGE =============
     // Hero
-    "hero.title": "Discover the Costa Blanca from the Sea",
-    "hero.subtitle": "Live unique experiences on luxury boats in Dénia and Jávea",
-    "hero.cta": "Book Your Experience",
+    "hero.title1": "The Mediterranean,",
+    "hero.title2": "like you've never experienced it.",
+    "hero.subtitle": "Exclusive nautical experiences in the heart of Costa Blanca",
+    "hero.cta": "View Fleet",
     
     // Quick Access
-    "quick.fleet.title": "View Fleet",
-    "quick.fleet.desc": "Explore our selection of luxury yachts",
-    "quick.experiences.title": "Experiences",
-    "quick.experiences.desc": "Discover our personalized excursions",
-    "quick.contact.title": "WhatsApp Contact",
-    "quick.contact.desc": "Talk to us directly",
+    "index.verFlota": "View Fleet",
+    "index.descubrirBarcos": "Discover boats",
+    "index.experiencias": "Unique Experiences",
+    "index.verRutas": "View routes and events",
+    "index.contacto": "Direct Contact",
+    "index.whatsapp": "Chat on WhatsApp",
     
-    // Values
-    "values.title": "Why Choose Us?",
-    "values.luxury.title": "Luxury & Comfort",
-    "values.luxury.desc": "Premium boats equipped with all amenities",
-    "values.safety.title": "Safety Guaranteed",
-    "values.safety.desc": "Certified and compliant with all regulations",
-    "values.experience.title": "Experience",
-    "values.experience.desc": "Years sailing the Costa Blanca",
-    "values.personalized.title": "Personalized Service",
-    "values.personalized.desc": "Routes and experiences tailored to you",
+    // Why Choose Us
+    "index.whyTitle": "Why Golden Coast Charter?",
+    "index.whyItem1Title": "Experience and Tradition",
+    "index.whyItem1Desc": "Over 10 years sailing the Costa Blanca, with captains who know every secret cove and Mediterranean history.",
+    "index.whyItem2Title": "Quality and Excellence",
+    "index.whyItem2Desc": "Our own fleet maintained to perfection. Every detail, from cleanliness to equipment, is designed for a 5-star experience.",
+    "index.whyItem3Title": "Safety and Trust",
+    "index.whyItem3Desc": "Your peace of mind is our priority. All our boats have the highest safety certifications, comprehensive insurance, and the best equipment.",
     
-    // Footer
-    "footer.quickLinks": "Quick Links",
-    "footer.contact": "Contact",
-    "footer.email": "Email",
-    "footer.phone": "Phone",
-    "footer.social": "Follow Us",
-    "footer.rights": "All rights reserved",
-    "footer.privacy": "Privacy Policy",
-    "footer.terms": "Terms & Conditions",
+    // CTA
+    "index.ctaTitle": "Ready to set sail?",
+    "index.ctaSubtitle": "Book your exclusive nautical experience in Costa Blanca",
+    "index.ctaButton": "Request Quote",
     
-    // Fleet
-    "fleet.title": "Our Fleet",
-    "fleet.subtitle": "Select the perfect boat for your adventure",
-    "fleet.motorYacht": "Motor Yacht",
-    "fleet.sailingYacht": "Sailing Yacht",
+    // ============= FLEET PAGE =============
+    "fleet.heroTitle": "Our",
+    "fleet.heroHighlight": "Fleet",
+    "fleet.heroDesc": "Carefully selected motor and sailboats to offer you the best experience in the Mediterranean.",
+    "fleet.scrollHint": "Swipe horizontally to explore our fleet",
+    "fleet.type.motor": "Motor",
+    "fleet.type.sail": "Sail",
+    "fleet.capacity": "Up to {count} people",
     "fleet.withCaptain": "With Captain",
-    "fleet.capacity": "Capacity",
-    "fleet.people": "people",
-    "fleet.from": "From",
+    "fleet.withoutCaptain": "Without captain available",
+    "fleet.features": "Included amenities:",
+    "fleet.priceLabel": "Estimated price",
+    "fleet.from": "from",
     "fleet.perDay": "/day",
-    "fleet.features": "Features",
     "fleet.checkAvailability": "Check Availability",
+    "fleet.notFound.title": "Can't find what you're looking for?",
+    "fleet.notFound.desc": "We have more options available and can customize any experience according to your needs. Contact us and we'll help you find the perfect boat.",
+    "fleet.notFound.button": "Contact via WhatsApp",
     
-    // Experiences
+    // Boat Descriptions
+    "fleet.azure.desc": "Elegant motor yacht perfect for celebrations and fast coastal routes",
+    "fleet.mediterranean.desc": "Luxury sailboat ideal for authentic and relaxing nautical experiences",
+    "fleet.golden.desc": "Versatile motor yacht for groups, families and romantic sunsets",
+    "fleet.serenity.desc": "Classic sailboat ideal for romantic sunsets and exploring hidden coves along the coast",
+    "fleet.adrenaline.desc": "Fast and powerful speedboat for those seeking adventure. Perfect for water sports and quick routes",
+    "fleet.familia.desc": "Stable and spacious catamaran designed for family outings. A perfect platform to enjoy the sea",
+    
+    // Boat Features
+    "fleet.feature.bathroom": "Full bathroom",
+    "fleet.feature.solarium": "Solarium",
+    "fleet.feature.fridge": "Fridge",
+    "fleet.feature.music": "Music system",
+    "fleet.feature.lifejackets": "Life jackets",
+    "fleet.feature.cabin": "Double cabin",
+    "fleet.feature.kitchen": "Equipped kitchen",
+    "fleet.feature.shower": "Shower",
+    "fleet.feature.gps": "GPS and navigation",
+    "fleet.feature.shade": "Shade area",
+    "fleet.feature.platform": "Swimming platform",
+    "fleet.feature.bluetooth": "Bluetooth speakers",
+    "fleet.feature.snorkel": "Snorkel included",
+    "fleet.feature.paddleboard": "Paddleboard",
+    "fleet.feature.snorkelKit": "Snorkel equipment",
+    
+    // ============= EXPERIENCES PAGE =============
     "exp.title": "Personalized Experiences",
     "exp.subtitle": "Create unforgettable memories in the Mediterranean",
     "exp.sunset.title": "Romantic Sunsets",
@@ -197,7 +268,7 @@ const translations = {
     "exp.custom.desc": "We design the perfect route according to your preferences",
     "exp.learnMore": "Learn More",
     
-    // Booking
+    // ============= BOOKING PAGE =============
     "booking.title": "Book Your Experience",
     "booking.subtitle": "Complete the form and we'll get in touch with you",
     "booking.name": "Full name",
@@ -229,7 +300,7 @@ const translations = {
     "booking.why.best": "Best Price",
     "booking.why.bestDesc": "Best direct price guarantee",
     
-    // About
+    // ============= ABOUT PAGE =============
     "about.title": "About Us",
     "about.subtitle": "Your trusted partner for nautical experiences on the Costa Blanca",
     "about.story.title": "Our Story",
@@ -242,18 +313,51 @@ const translations = {
     "about.test.1": "An unforgettable experience. The boat was impeccable and the captain super friendly. We'll definitely repeat.",
     "about.test.2": "We celebrated our anniversary watching the sunset from the boat. Simply magical.",
     "about.test.3": "Professionals from start to finish. Everything perfect, highly recommended for families.",
+    
+    // ============= FOOTER =============
+    "footer.slogan": "Luxury nautical experiences on the Costa Blanca. Boat rentals in Dénia and Jávea for unforgettable moments.",
+    "footer.quickLinks": "Quick Links",
+    "footer.experiences": "Experiences",
+    "footer.contact": "Contact",
+    "footer.email": "Email",
+    "footer.phone": "Phone",
+    "footer.social": "Follow Us",
+    "footer.rights": "All rights reserved",
+    "footer.legal.privacy": "Privacy Policy",
+    "footer.legal.terms": "Terms & Conditions",
+    "footer.legal.cookies": "Cookies",
+    "footer.legal.notice": "Legal Notice",
+    "footer.exp.sunset": "Sunset Cruises",
+    "footer.exp.celebrations": "Celebrations",
+    "footer.exp.family": "Family Routes",
+    "footer.exp.custom": "Custom Charter",
+    "footer.location": "Port of Dénia\nMarina of Jávea\nCosta Blanca, Spain",
   }
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("es");
 
+  // Cargar idioma desde localStorage al iniciar
+  useEffect(() => {
+    const savedLang = localStorage.getItem('language') as Language;
+    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+      setLanguage(savedLang);
+    }
+  }, []);
+
+  // Guardar en localStorage al cambiar idioma
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
+
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.es] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

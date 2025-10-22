@@ -13,86 +13,167 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
+import { useLanguage } from "@/contexts/LanguageContext";
 import yachtMotor from "@/assets/yacht-motor-1.jpg";
 import yachtSail from "@/assets/yacht-sail-1.jpg";
 import fondoFlota from "@/assets/FondoFlota.jpg";
 
 const Flota = () => {
-  const whatsappLink = "https://wa.me/34676262628?text=Hola,%20quisiera%20consultar%20la%20disponibilidad%20de%20un%20barco.";
-  const whatsappHelpLink = "https://wa.me/34676262628?text=Hola,%20necesito%20ayuda%20para%20encontrar%20un%20barco.";
+  const { t, language } = useLanguage();
+  
+  const whatsappMessage = language === 'es' 
+    ? "Hola, quisiera consultar la disponibilidad de un barco."
+    : "Hello, I would like to inquire about boat availability.";
+  
+  const whatsappHelpMessage = language === 'es'
+    ? "Hola, necesito ayuda para encontrar un barco."
+    : "Hello, I need help finding a boat.";
+  
+  const whatsappLink = `https://wa.me/34676262628?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappHelpLink = `https://wa.me/34676262628?text=${encodeURIComponent(whatsappHelpMessage)}`;
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  // Función helper para mapear features
+  const getFeatureKey = (feature: string): string => {
+    const featureMap: Record<string, string> = {
+      "Baño completo": "fleet.feature.bathroom",
+      "Full bathroom": "fleet.feature.bathroom",
+      "Solárium": "fleet.feature.solarium",
+      "Solarium": "fleet.feature.solarium",
+      "Nevera": "fleet.feature.fridge",
+      "Fridge": "fleet.feature.fridge",
+      "Equipo de música": "fleet.feature.music",
+      "Music system": "fleet.feature.music",
+      "Chalecos salvavidas": "fleet.feature.lifejackets",
+      "Life jackets": "fleet.feature.lifejackets",
+      "Cabina doble": "fleet.feature.cabin",
+      "Double cabin": "fleet.feature.cabin",
+      "Cocina equipada": "fleet.feature.kitchen",
+      "Equipped kitchen": "fleet.feature.kitchen",
+      "Ducha": "fleet.feature.shower",
+      "Shower": "fleet.feature.shower",
+      "GPS y navegación": "fleet.feature.gps",
+      "GPS and navigation": "fleet.feature.gps",
+      "Zona de sombra": "fleet.feature.shade",
+      "Shade area": "fleet.feature.shade",
+      "Plataforma de baño": "fleet.feature.platform",
+      "Swimming platform": "fleet.feature.platform",
+      "Altavoces Bluetooth": "fleet.feature.bluetooth",
+      "Bluetooth speakers": "fleet.feature.bluetooth",
+      "Snorkel incluido": "fleet.feature.snorkel",
+      "Snorkel included": "fleet.feature.snorkel",
+      "Paddleboard": "fleet.feature.paddleboard",
+      "Equipo de snorkel": "fleet.feature.snorkelKit",
+      "Snorkel equipment": "fleet.feature.snorkelKit",
+    };
+    return featureMap[feature] || feature;
+  };
+
   const boats = [
     {
       id: 1,
       name: "Azure Dream",
-      type: "Motor",
+      type: t("fleet.type.motor"),
       image: yachtMotor,
       capacity: 12,
       withCaptain: true,
-      price: "desde 800€/día",
-      features: ["Baño completo", "Solárium", "Nevera", "Equipo de música", "Chalecos salvavidas"],
-      description: "Elegante yate a motor perfecto para celebraciones y rutas rápidas por la costa",
+      price: `${t("fleet.from")} 800€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.bathroom"),
+        t("fleet.feature.solarium"),
+        t("fleet.feature.fridge"),
+        t("fleet.feature.music"),
+        t("fleet.feature.lifejackets")
+      ],
+      description: t("fleet.azure.desc"),
     },
     {
       id: 2,
       name: "Mediterranean Star",
-      type: "Vela",
+      type: t("fleet.type.sail"),
       image: yachtSail,
       capacity: 8,
       withCaptain: true,
       withoutCaptain: true,
-      price: "desde 600€/día",
-      features: ["Cabina doble", "Cocina equipada", "Ducha", "Solárium", "GPS y navegación"],
-      description: "Velero de lujo ideal para experiencias náuticas auténticas y relajantes",
+      price: `${t("fleet.from")} 600€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.cabin"),
+        t("fleet.feature.kitchen"),
+        t("fleet.feature.shower"),
+        t("fleet.feature.solarium"),
+        t("fleet.feature.gps")
+      ],
+      description: t("fleet.mediterranean.desc"),
     },
     {
       id: 3,
       name: "Golden Wave",
-      type: "Motor",
+      type: t("fleet.type.motor"),
       image: yachtMotor,
       capacity: 10,
       withCaptain: true,
-      price: "desde 700€/día",
-      features: ["Zona de sombra", "Plataforma de baño", "Nevera", "Altavoces Bluetooth", "Snorkel incluido"],
-      description: "Motor yacht versátil para grupos, familias y puestas de sol románticas",
+      price: `${t("fleet.from")} 700€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.shade"),
+        t("fleet.feature.platform"),
+        t("fleet.feature.fridge"),
+        t("fleet.feature.bluetooth"),
+        t("fleet.feature.snorkel")
+      ],
+      description: t("fleet.golden.desc"),
     },
     {
       id: 4,
       name: "Serenity",
-      type: "Vela",
+      type: t("fleet.type.sail"),
       image: yachtSail,
       capacity: 8,
       withCaptain: true,
-      price: "desde 600€/día",
-      features: ["Baño completo", "Solárium", "Nevera", "Equipo de música"],
-      description: "Velero clásico ideal para puestas de sol románticas y explorar calas escondidas por la costa",
+      price: `${t("fleet.from")} 600€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.bathroom"),
+        t("fleet.feature.solarium"),
+        t("fleet.feature.fridge"),
+        t("fleet.feature.music")
+      ],
+      description: t("fleet.serenity.desc"),
     },
     {
       id: 5,
       name: "Adrenaline",
-      type: "Motor",
+      type: t("fleet.type.motor"),
       image: yachtMotor,
       capacity: 6,
       withoutCaptain: true,
-      price: "desde 450€/día",
-      features: ["Solárium", "Nevera", "Equipo de música", "Chalecos salvavidas"],
-      description: "Lancha rápida y potente para los que buscan aventura. Perfecta para deportes acuáticos y rutas rápidas",
+      price: `${t("fleet.from")} 450€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.solarium"),
+        t("fleet.feature.fridge"),
+        t("fleet.feature.music"),
+        t("fleet.feature.lifejackets")
+      ],
+      description: t("fleet.adrenaline.desc"),
     },
     {
       id: 6,
       name: "La Familia",
-      type: "Motor",
+      type: t("fleet.type.motor"),
       image: yachtMotor,
       capacity: 12,
       withCaptain: true,
-      price: "desde 950€/día",
-      features: ["Baño completo", "Solárium", "Paddleboard", "Equipo de snorkel", "Nevera"],
-      description: "Catamarán estable y espacioso diseñado para salidas familiares. Una plataforma perfecta para disfrutar del mar",
+      price: `${t("fleet.from")} 950€${t("fleet.perDay")}`,
+      features: [
+        t("fleet.feature.bathroom"),
+        t("fleet.feature.solarium"),
+        t("fleet.feature.paddleboard"),
+        t("fleet.feature.snorkelKit"),
+        t("fleet.feature.fridge")
+      ],
+      description: t("fleet.familia.desc"),
     },
   ];
 
@@ -165,24 +246,28 @@ const Flota = () => {
           <div className="flex flex-wrap gap-4 mb-6">
             <div className="flex items-center space-x-2 text-foreground">
               <Users className="h-5 w-5 text-gold" />
-              <span className="font-semibold text-sm">Hasta {boat.capacity} personas</span>
+              <span className="font-semibold text-sm">
+                {t("fleet.capacity").replace("{count}", boat.capacity.toString())}
+              </span>
             </div>
             {boat.withCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
                 <Anchor className="h-5 w-5 text-gold" />
-                <span className="text-sm">Con patrón</span>
+                <span className="text-sm">{t("fleet.withCaptain")}</span>
               </div>
             )}
             {boat.withoutCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
                 <Waves className="h-5 w-5 text-gold" />
-                <span className="text-sm">Sin patrón disponible</span>
+                <span className="text-sm">{t("fleet.withoutCaptain")}</span>
               </div>
             )}
           </div>
 
           <div className="mb-6">
-            <h4 className="font-heading font-semibold text-primary mb-3 text-sm">Comodidades incluidas:</h4>
+            <h4 className="font-heading font-semibold text-primary mb-3 text-sm">
+              {t("fleet.features")}
+            </h4>
             <div className="flex flex-wrap gap-2">
               {boat.features.map((feature, index) => (
                 <Badge key={index} variant="outline" className="border-primary/30 text-foreground text-xs">
@@ -195,7 +280,7 @@ const Flota = () => {
 
         <div className="flex flex-col gap-4 pt-6 border-t border-border">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">Precio orientativo</p>
+            <p className="text-sm text-muted-foreground mb-1">{t("fleet.priceLabel")}</p>
             <p className="font-heading text-2xl font-bold text-gold">{boat.price}</p>
           </div>
           <Button
@@ -204,7 +289,7 @@ const Flota = () => {
             asChild
           >
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-              <span>Consultar Disponibilidad</span>
+              <span>{t("fleet.checkAvailability")}</span>
               <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
@@ -220,15 +305,15 @@ const Flota = () => {
 
       <HeroSection
         backgroundImage={fondoFlota}
-        title="Nuestra"
-        titleHighlight="Flota"
-        description="Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo."
+        title={t("fleet.heroTitle")}
+        titleHighlight={t("fleet.heroHighlight")}
+        description={t("fleet.heroDesc")}
       >
         {!isMobile && (
           <div className="flex items-center justify-center gap-3 mt-6">
             <ChevronLeft className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
             <p className="text-sm text-gold font-semibold drop-shadow-lg">
-              Desliza horizontalmente para explorar nuestra flota
+              {t("fleet.scrollHint")}
             </p>
             <ChevronRight className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
           </div>
@@ -238,7 +323,6 @@ const Flota = () => {
       {/* DESKTOP: Horizontal Scroll con botones */}
       {!isMobile ? (
         <section className="py-12 relative">
-          {/* Botón izquierdo */}
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
@@ -249,7 +333,6 @@ const Flota = () => {
             </button>
           )}
 
-          {/* Botón derecho */}
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
@@ -313,14 +396,14 @@ const Flota = () => {
           <Card className="bg-secondary border-none">
             <CardContent className="p-8 text-center">
               <h3 className="font-heading text-2xl font-semibold text-primary mb-4">
-                ¿No encuentras lo que buscas?
+                {t("fleet.notFound.title")}
               </h3>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Tenemos más opciones disponibles y podemos personalizar cualquier experiencia según tus necesidades. Contáctanos y te ayudaremos a encontrar el barco perfecto.
+                {t("fleet.notFound.desc")}
               </p>
               <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" asChild>
                 <a href={whatsappHelpLink} target="_blank" rel="noopener noreferrer">
-                  Contactar por WhatsApp
+                  {t("fleet.notFound.button")}
                 </a>
               </Button>
             </CardContent>

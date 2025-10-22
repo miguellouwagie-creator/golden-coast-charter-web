@@ -12,44 +12,36 @@ import listoZarparBg from "@/assets/Listo-zarpar.jpg";
 import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
-
-
-
-const whyChooseUsValues = [
-  {
-    image: timonImg,
-    title: "Experiencia y Tradición",
-    description:
-      "Más de 10 años navegando la Costa Blanca, con patrones que conocen cada cala secreta y la historia del Mediterráneo.",
-  },
-  {
-    image: medallaImg,
-    title: "Calidad y Excelencia",
-    description:
-      "Flota propia mantenida a la perfección. Cada detalle, desde la limpieza hasta el equipamiento, está pensado para una experiencia de 5 estrellas.",
-  },
-  {
-    image: escudoImg,
-    title: "Seguridad y Confianza",
-    description:
-      "Tu tranquilidad es nuestra prioridad. Todos nuestros barcos cuentan con las máximas certificaciones de seguridad, seguros a todo riesgo y el mejor equipo.",
-  },
-];
-
-
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useLanguage();
 
-
+  // Array de valores "¿Por qué nosotros?" con traducciones
+  const whyChooseUsValues = [
+    {
+      image: timonImg,
+      title: t("index.whyItem1Title"),
+      description: t("index.whyItem1Desc"),
+    },
+    {
+      image: medallaImg,
+      title: t("index.whyItem2Title"),
+      description: t("index.whyItem2Desc"),
+    },
+    {
+      image: escudoImg,
+      title: t("index.whyItem3Title"),
+      description: t("index.whyItem3Desc"),
+    },
+  ];
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-
 
     video.muted = true;
     
@@ -60,14 +52,10 @@ const Index = () => {
       }
     }, 100);
 
-
-
     return () => {
       clearInterval(playAttempt);
     };
   }, []);
-
-
 
   // Detect mobile and setup parallax effect
   useEffect(() => {
@@ -75,44 +63,30 @@ const Index = () => {
       setIsMobile(window.innerWidth < 1024);
     };
 
-
-
     checkMobile();
     window.addEventListener('resize', checkMobile);
-
-
 
     // Parallax effect only on desktop
     const handleScroll = () => {
       if (isMobile || !heroContentRef.current) return;
 
-
-
       const scrolled = window.scrollY;
       const parallaxSpeed = 0.3;
-
-
 
       if (scrolled < window.innerHeight) {
         heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
     };
 
-
-
     if (!isMobile) {
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
-
-
 
     return () => {
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isMobile]);
-
-
 
   // Prefetch de páginas al pasar el mouse
   const prefetchPage = (page: string) => {
@@ -124,16 +98,12 @@ const Index = () => {
     routes[page]?.();
   };
 
-
-
   return (
     <div className="relative bg-background">
       {/* NAVBAR INDEPENDIENTE Y FIJO */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
         <Navbar />
       </div>
-
-
 
       {/* HERO VIDEO */}
       <section
@@ -179,8 +149,6 @@ const Index = () => {
           Tu navegador no soporta vídeos HTML5.
         </video>
 
-
-
         {/* OVERLAY OSCURO */}
         <div
           className="absolute inset-0"
@@ -189,8 +157,6 @@ const Index = () => {
             zIndex: 1
           }}
         />
-
-
 
         {/* CONTENIDO DEL HERO CON PARALLAX */}
         <div 
@@ -214,7 +180,7 @@ const Index = () => {
                 letterSpacing: "-0.02em",
               }}
             >
-              El Mediterráneo,
+              {t("hero.title1")}
               <br />
               <span
                 style={{
@@ -226,11 +192,9 @@ const Index = () => {
                   fontSize: "0.65em",
                 }}
               >
-                como nunca lo has vivido.
+                {t("hero.title2")}
               </span>
             </h1>
-
-
 
             <p
               className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
@@ -247,11 +211,8 @@ const Index = () => {
                 whiteSpace: "nowrap",
               }}
             >
-              Experiencias náuticas exclusivas en el corazón de la Costa Blanca
+              {t("hero.subtitle")}
             </p>
-
-
-
 
             <div
               className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
@@ -269,15 +230,13 @@ const Index = () => {
                 }}
               >
                 <Anchor className="w-6 h-6" strokeWidth={2} />
-                <span>Ver Flota</span>
+                <span>{t("hero.cta")}</span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
         </div>
       </section>
-
-
 
       {/* RESTO DEL CONTENIDO */}
       <section
@@ -298,7 +257,7 @@ const Index = () => {
           <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
             <img
               src={verFlotaImg}
-              alt="Ver la Flota"
+              alt={t("index.verFlota")}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.05) saturate(1.15)" }}
@@ -318,7 +277,7 @@ const Index = () => {
                   textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
                 }}
               >
-                Ver la Flota
+                {t("index.verFlota")}
               </span>
               <Link
                 to="/flota"
@@ -329,7 +288,7 @@ const Index = () => {
                   border: "1.5px solid #FFD700",
                 }}
               >
-                Descubrir barcos
+                {t("index.descubrirBarcos")}
               </Link>
             </div>
           </div>
@@ -337,7 +296,7 @@ const Index = () => {
           <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
             <img
               src={experienciaImg}
-              alt="Experiencias"
+              alt={t("index.experiencias")}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(0.99) saturate(1.22)" }}
@@ -357,7 +316,7 @@ const Index = () => {
                   textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
                 }}
               >
-                Experiencias Únicas
+                {t("index.experiencias")}
               </span>
               <Link
                 to="/experiencias"
@@ -368,7 +327,7 @@ const Index = () => {
                   border: "1.5px solid #FFD700",
                 }}
               >
-                Ver rutas y eventos
+                {t("index.verRutas")}
               </Link>
             </div>
           </div>
@@ -376,7 +335,7 @@ const Index = () => {
           <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
             <img
               src={contactoImg}
-              alt="Contacto"
+              alt={t("index.contacto")}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.04) saturate(1.1)" }}
@@ -396,7 +355,7 @@ const Index = () => {
                   textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
                 }}
               >
-                Contacta Directo
+                {t("index.contacto")}
               </span>
               <a
                 href="https://wa.me/34676262628"
@@ -408,14 +367,12 @@ const Index = () => {
                   border: "1.5px solid #FFD700",
                 }}
               >
-                Habla por WhatsApp
+                {t("index.whatsapp")}
               </a>
             </div>
           </div>
         </div>
       </section>
-
-
 
       <section
         style={{
@@ -431,7 +388,7 @@ const Index = () => {
             className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-16 tracking-tight text-center px-4"
             style={{ color: "#FFD700", letterSpacing: "-0.01em" }}
           >
-            ¿Por qué <span className="block sm:inline">Golden Coast Charter</span>?
+            {t("index.whyTitle")}
           </h2>
           <div className="relative w-full flex flex-col items-center">
             <div className="hidden md:flex flex-row w-full justify-between items-center relative mb-10">
@@ -512,88 +469,82 @@ const Index = () => {
         </div>
       </section>
 
-
-
-      {/* SECCIÓN "¿LISTO PARA ZARPAR?" - MODIFICADA PARA MÓVIL */}
+      {/* SECCIÓN "¿LISTO PARA ZARPAR?" */}
       <section
-  className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
-  style={{
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-  }}
->
-  <div
-    className="absolute inset-0 rounded-t-3xl"
-    style={{
-      backgroundImage: `url(${listoZarparBg})`,
-      backgroundAttachment: "fixed",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      zIndex: 0,
-    }}
-  />
-  {/* CSS SOLO PARA MÓVIL - CUBRIR TODA LA PANTALLA */}
-  <style>{`
-    @media (max-width: 768px) {
-      .py-32.px-4.relative.overflow-hidden > div:first-child {
-        background-attachment: scroll !important;
-        background-size: cover !important;
-        background-position: center 35% !important;
-      }
-    }
-  `}</style>
-  <div
-    className="absolute inset-0 rounded-t-3xl"
-    style={{
-      background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
-      zIndex: 1,
-    }}
-  />
-  <div className="container mx-auto text-center relative z-10 max-w-5xl">
-    <h2
-      className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
-      style={{
-        textShadow:
-          "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
-      }}
-    >
-      ¿Listo para{" "}
-      <span className="text-white">zarpar?</span>
-    </h2>
-    
-    <p
-      className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
-      style={{
-        textShadow:
-          "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
-      }}
-    >
-      Reserva tu experiencia náutica exclusiva en la Costa Blanca
-    </p>
-
-    <div className="flex flex-col sm:flex-row gap-6 justify-center">
-      <Button
-        size="lg"
-        className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
-        asChild
+        className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+        }}
       >
-        <Link 
-          to="/reserva" 
-          onMouseEnter={() => prefetchPage('reserva')}
-          className="flex items-center gap-3"
-        >
-          <span>Solicitar Presupuesto</span>
-          <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-        </Link>
-      </Button>
-    </div>
-  </div>
-</section>
+        <div
+          className="absolute inset-0 rounded-t-3xl"
+          style={{
+            backgroundImage: `url(${listoZarparBg})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            zIndex: 0,
+          }}
+        />
+        {/* CSS SOLO PARA MÓVIL - CUBRIR TODA LA PANTALLA */}
+        <style>{`
+          @media (max-width: 768px) {
+            .py-32.px-4.relative.overflow-hidden > div:first-child {
+              background-attachment: scroll !important;
+              background-size: cover !important;
+              background-position: center 35% !important;
+            }
+          }
+        `}</style>
+        <div
+          className="absolute inset-0 rounded-t-3xl"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
+            zIndex: 1,
+          }}
+        />
+        <div className="container mx-auto text-center relative z-10 max-w-5xl">
+          <h2
+            className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
+            style={{
+              textShadow:
+                "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
+            }}
+          >
+            {t("index.ctaTitle")}
+          </h2>
+          
+          <p
+            className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
+            style={{
+              textShadow:
+                "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
+            }}
+          >
+            {t("index.ctaSubtitle")}
+          </p>
 
-
-
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
+              asChild
+            >
+              <Link 
+                to="/reserva" 
+                onMouseEnter={() => prefetchPage('reserva')}
+                className="flex items-center gap-3"
+              >
+                <span>{t("index.ctaButton")}</span>
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       <div style={{ position: "relative", zIndex: 5 }}>
         <Footer />
@@ -601,7 +552,5 @@ const Index = () => {
     </div>
   );
 };
-
-
 
 export default Index;
