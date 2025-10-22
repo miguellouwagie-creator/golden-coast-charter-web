@@ -14,6 +14,7 @@ import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 
 
+
 const whyChooseUsValues = [
   {
     image: timonImg,
@@ -36,15 +37,18 @@ const whyChooseUsValues = [
 ];
 
 
+
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
 
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
 
 
     video.muted = true;
@@ -57,10 +61,12 @@ const Index = () => {
     }, 100);
 
 
+
     return () => {
       clearInterval(playAttempt);
     };
   }, []);
+
 
 
   // Detect mobile and setup parallax effect
@@ -70,8 +76,10 @@ const Index = () => {
     };
 
 
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
+
 
 
     // Parallax effect only on desktop
@@ -79,8 +87,10 @@ const Index = () => {
       if (isMobile || !heroContentRef.current) return;
 
 
+
       const scrolled = window.scrollY;
       const parallaxSpeed = 0.3;
+
 
 
       if (scrolled < window.innerHeight) {
@@ -89,9 +99,11 @@ const Index = () => {
     };
 
 
+
     if (!isMobile) {
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
+
 
 
     return () => {
@@ -99,6 +111,7 @@ const Index = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isMobile]);
+
 
 
   // Prefetch de páginas al pasar el mouse
@@ -112,12 +125,14 @@ const Index = () => {
   };
 
 
+
   return (
     <div className="relative bg-background">
       {/* NAVBAR INDEPENDIENTE Y FIJO */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
         <Navbar />
       </div>
+
 
 
       {/* HERO VIDEO */}
@@ -165,6 +180,7 @@ const Index = () => {
         </video>
 
 
+
         {/* OVERLAY OSCURO */}
         <div
           className="absolute inset-0"
@@ -173,6 +189,7 @@ const Index = () => {
             zIndex: 1
           }}
         />
+
 
 
         {/* CONTENIDO DEL HERO CON PARALLAX */}
@@ -214,6 +231,7 @@ const Index = () => {
             </h1>
 
 
+
             <p
               className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
               style={{
@@ -231,6 +249,7 @@ const Index = () => {
             >
               Experiencias náuticas exclusivas en el corazón de la Costa Blanca
             </p>
+
 
 
 
@@ -257,6 +276,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
 
       {/* RESTO DEL CONTENIDO */}
@@ -396,6 +416,7 @@ const Index = () => {
       </section>
 
 
+
       <section
         style={{
           background: "#0A192F",
@@ -492,6 +513,8 @@ const Index = () => {
       </section>
 
 
+
+      {/* SECCIÓN "¿LISTO PARA ZARPAR?" - MODIFICADA PARA MÓVIL */}
       <section
         className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
         style={{
@@ -506,11 +529,20 @@ const Index = () => {
             backgroundImage: `url(${listoZarparBg})`,
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
             zIndex: 0,
           }}
+          className="md:bg-fixed bg-local"
         />
+        <style>{`
+          @media (max-width: 768px) {
+            section:has(> div[style*="Listo-zarpar"]) > div:first-child {
+              background-size: contain !important;
+              background-position: center 20% !important;
+            }
+          }
+        `}</style>
         <div
           className="absolute inset-0 rounded-t-3xl"
           style={{
@@ -541,6 +573,7 @@ const Index = () => {
           </p>
 
 
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
@@ -561,12 +594,14 @@ const Index = () => {
       </section>
 
 
+
       <div style={{ position: "relative", zIndex: 5 }}>
         <Footer />
       </div>
     </div>
   );
 };
+
 
 
 export default Index;
