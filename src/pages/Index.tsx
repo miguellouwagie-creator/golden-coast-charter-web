@@ -13,6 +13,7 @@ import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 
+
 const whyChooseUsValues = [
   {
     image: timonImg,
@@ -34,14 +35,17 @@ const whyChooseUsValues = [
   },
 ];
 
+
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
 
     video.muted = true;
     
@@ -52,10 +56,12 @@ const Index = () => {
       }
     }, 100);
 
+
     return () => {
       clearInterval(playAttempt);
     };
   }, []);
+
 
   // Detect mobile and setup parallax effect
   useEffect(() => {
@@ -63,30 +69,37 @@ const Index = () => {
       setIsMobile(window.innerWidth < 1024);
     };
 
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
+
 
     // Parallax effect only on desktop
     const handleScroll = () => {
       if (isMobile || !heroContentRef.current) return;
 
+
       const scrolled = window.scrollY;
       const parallaxSpeed = 0.3;
+
 
       if (scrolled < window.innerHeight) {
         heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
     };
 
+
     if (!isMobile) {
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
+
 
     return () => {
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isMobile]);
+
 
   // Prefetch de páginas al pasar el mouse
   const prefetchPage = (page: string) => {
@@ -98,12 +111,14 @@ const Index = () => {
     routes[page]?.();
   };
 
+
   return (
     <div className="relative bg-background">
       {/* NAVBAR INDEPENDIENTE Y FIJO */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
         <Navbar />
       </div>
+
 
       {/* HERO VIDEO */}
       <section
@@ -149,6 +164,7 @@ const Index = () => {
           Tu navegador no soporta vídeos HTML5.
         </video>
 
+
         {/* OVERLAY OSCURO */}
         <div
           className="absolute inset-0"
@@ -157,6 +173,7 @@ const Index = () => {
             zIndex: 1
           }}
         />
+
 
         {/* CONTENIDO DEL HERO CON PARALLAX */}
         <div 
@@ -196,23 +213,25 @@ const Index = () => {
               </span>
             </h1>
 
+
             <p
-  className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
-  style={{
-    fontFamily: "'Cormorant Garamond', serif",
-    fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
-    fontWeight: 400,
-    lineHeight: 1.7,
-    letterSpacing: "0.02em",
-    textShadow: "0 2px 20px rgba(0,0,0,0.7)",
-    animationDelay: "0.4s",
-    animationFillMode: "backwards",
-    fontStyle: "italic",
-    whiteSpace: "nowrap",
-  }}
->
-  Experiencias náuticas exclusivas en el corazón de la Costa Blanca
-</p>
+              className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
+                fontWeight: 400,
+                lineHeight: 1.7,
+                letterSpacing: "0.02em",
+                textShadow: "0 2px 20px rgba(0,0,0,0.7)",
+                animationDelay: "0.4s",
+                animationFillMode: "backwards",
+                fontStyle: "italic",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Experiencias náuticas exclusivas en el corazón de la Costa Blanca
+            </p>
+
 
 
             <div
@@ -238,6 +257,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
       {/* RESTO DEL CONTENIDO */}
       <section
@@ -375,6 +395,7 @@ const Index = () => {
         </div>
       </section>
 
+
       <section
         style={{
           background: "#0A192F",
@@ -386,13 +407,13 @@ const Index = () => {
       >
         <div className="container mx-auto max-w-6xl">
           <h2
-            className="font-heading text-5xl md:text-6xl font-extrabold mb-16 tracking-tight text-center"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-16 tracking-tight text-center px-4"
             style={{ color: "#FFD700", letterSpacing: "-0.01em" }}
           >
-            ¿Por qué Golden Coast Charter?
+            ¿Por qué <span className="block sm:inline">Golden Coast Charter</span>?
           </h2>
           <div className="relative w-full flex flex-col items-center">
-            <div className="flex flex-row w-full justify-between items-center relative mb-10">
+            <div className="hidden md:flex flex-row w-full justify-between items-center relative mb-10">
               {whyChooseUsValues.map((item, idx) => (
                 <div key={idx} className="flex flex-col items-center flex-1">
                   <div
@@ -420,7 +441,7 @@ const Index = () => {
                 </div>
               ))}
               <div
-                className="absolute w-[90%] left-[5%] right-[5%] md:top-[50%] top-[68px] h-0.5"
+                className="absolute w-[90%] left-[5%] right-[5%] top-[50%] h-0.5"
                 style={{
                   background:
                     "linear-gradient(90deg,#FFD70055,#FFD700cc,#FFD70055)",
@@ -428,15 +449,34 @@ const Index = () => {
                 }}
               />
             </div>
-            <div className="flex flex-row w-full justify-between items-start gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 px-4">
               {whyChooseUsValues.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col items-center flex-1 px-2 md:px-6"
-                  style={{ minWidth: 180, maxWidth: 330 }}
+                  className="flex flex-col items-center px-2 md:px-6"
                 >
+                  <div className="md:hidden bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
+                    style={{
+                      borderColor: "#FFD700",
+                      boxShadow: "0 6px 32px 0 #FFD70033",
+                      width: 110,
+                      height: 110,
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      style={{
+                        maxWidth: 60,
+                        maxHeight: 60,
+                        objectFit: "contain",
+                        display: "block",
+                      }}
+                    />
+                  </div>
                   <h3
-                    className="text-yellow-400 text-xl font-bold mb-2 text-center whitespace-pre-line leading-tight"
+                    className="text-yellow-400 text-xl font-bold mb-2 text-center leading-tight"
                     style={{ letterSpacing: "-0.01em" }}
                   >
                     {item.title}
@@ -450,6 +490,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
       <section
         className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
@@ -499,6 +540,7 @@ const Index = () => {
             Reserva tu experiencia náutica exclusiva en la Costa Blanca
           </p>
 
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
@@ -518,11 +560,13 @@ const Index = () => {
         </div>
       </section>
 
+
       <div style={{ position: "relative", zIndex: 5 }}>
         <Footer />
       </div>
     </div>
   );
 };
+
 
 export default Index;
