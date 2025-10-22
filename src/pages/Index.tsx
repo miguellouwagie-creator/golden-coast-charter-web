@@ -516,82 +516,82 @@ const Index = () => {
 
       {/* SECCIÓN "¿LISTO PARA ZARPAR?" - MODIFICADA PARA MÓVIL */}
       <section
-        className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-        }}
+  className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
+  style={{
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+  }}
+>
+  <div
+    className="absolute inset-0 rounded-t-3xl"
+    style={{
+      backgroundImage: `url(${listoZarparBg})`,
+      backgroundAttachment: "fixed",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      zIndex: 0,
+    }}
+  />
+  {/* CSS SOLO PARA MÓVIL */}
+  <style>{`
+    @media (max-width: 768px) {
+      .py-32.px-4 > div:first-child {
+        background-attachment: scroll !important;
+        background-size: contain !important;
+        background-position: center 25% !important;
+      }
+    }
+  `}</style>
+  <div
+    className="absolute inset-0 rounded-t-3xl"
+    style={{
+      background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
+      zIndex: 1,
+    }}
+  />
+  <div className="container mx-auto text-center relative z-10 max-w-5xl">
+    <h2
+      className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
+      style={{
+        textShadow:
+          "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
+      }}
+    >
+      ¿Listo para{" "}
+      <span className="text-white">zarpar?</span>
+    </h2>
+    
+    <p
+      className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
+      style={{
+        textShadow:
+          "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
+      }}
+    >
+      Reserva tu experiencia náutica exclusiva en la Costa Blanca
+    </p>
+
+    <div className="flex flex-col sm:flex-row gap-6 justify-center">
+      <Button
+        size="lg"
+        className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
+        asChild
       >
-        <div
-          className="absolute inset-0 rounded-t-3xl"
-          style={{
-            backgroundImage: `url(${listoZarparBg})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-            zIndex: 0,
-          }}
-          className="md:bg-fixed bg-local"
-        />
-        <style>{`
-          @media (max-width: 768px) {
-            section:has(> div[style*="Listo-zarpar"]) > div:first-child {
-              background-size: contain !important;
-              background-position: center 20% !important;
-            }
-          }
-        `}</style>
-        <div
-          className="absolute inset-0 rounded-t-3xl"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)",
-            zIndex: 1,
-          }}
-        />
-        <div className="container mx-auto text-center relative z-10 max-w-5xl">
-          <h2
-            className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
-            style={{
-              textShadow:
-                "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
-            }}
-          >
-            ¿Listo para{" "}
-            <span className="text-white">zarpar?</span>
-          </h2>
-          
-          <p
-            className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
-            style={{
-              textShadow:
-                "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
-            }}
-          >
-            Reserva tu experiencia náutica exclusiva en la Costa Blanca
-          </p>
+        <Link 
+          to="/reserva" 
+          onMouseEnter={() => prefetchPage('reserva')}
+          className="flex items-center gap-3"
+        >
+          <span>Solicitar Presupuesto</span>
+          <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
+      </Button>
+    </div>
+  </div>
+</section>
 
-
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
-              asChild
-            >
-              <Link 
-                to="/reserva" 
-                onMouseEnter={() => prefetchPage('reserva')}
-                className="flex items-center gap-3"
-              >
-                <span>Solicitar Presupuesto</span>
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
 
 
