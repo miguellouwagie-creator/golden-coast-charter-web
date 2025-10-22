@@ -534,13 +534,13 @@ const Index = () => {
       zIndex: 0,
     }}
   />
-  {/* CSS SOLO PARA MÓVIL */}
+  {/* CSS SOLO PARA MÓVIL - CUBRIR TODA LA PANTALLA */}
   <style>{`
     @media (max-width: 768px) {
-      .py-32.px-4 > div:first-child {
+      .py-32.px-4.relative.overflow-hidden > div:first-child {
         background-attachment: scroll !important;
-        background-size: contain !important;
-        background-position: center 25% !important;
+        background-size: cover !important;
+        background-position: center 35% !important;
       }
     }
   `}</style>
