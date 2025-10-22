@@ -5,19 +5,23 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "../assets/Logo 2.png";
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
+
   // Detectar si estamos en la página de inicio
   const isHomePage = location.pathname === "/";
+
 
   const leftNavigation = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.fleet"), href: "/flota" },
   ];
+
 
   const rightNavigation = [
     { name: t("nav.experiences"), href: "/experiencias" },
@@ -25,32 +29,40 @@ const Navbar = () => {
     { name: t("nav.about"), href: "/nosotros" },
   ];
 
+
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es");
   };
 
+
   const isActive = (path: string) => location.pathname === path;
+
 
   // Número de teléfono de Golden Coast Charter
   const phoneNumber = "+34 676 26 26 28";
   const whatsappNumber = "34676262628";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
 
+
   // Detectar scroll - solo aplica en página de inicio
   useEffect(() => {
     if (!isHomePage) return; // No aplicar scroll listener si no es homepage
+
 
     const handleScroll = () => {
       const scrollThreshold = window.innerHeight * 0.95;
       setIsScrolled(window.scrollY > scrollThreshold);
     };
 
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
+
   // Determinar si el navbar debe ser sólido
   const shouldBeSolid = !isHomePage || isScrolled;
+
 
   return (
     <nav
@@ -63,18 +75,27 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-24 relative">
 
-          {/* Left Side: Brand Name */}
+
+          {/* Left Side: Logo + Brand Name */}
           <Link
             to="/"
-            className="flex flex-col transition-smooth hover:opacity-80 z-10"
+            className="flex items-center gap-3 transition-smooth hover:opacity-80 z-10"
           >
-            <span className="font-heading text-xl md:text-2xl font-bold text-white tracking-wide drop-shadow-lg">
-              GOLDEN COAST
-            </span>
-            <span className="font-heading text-xs text-[#FFD700] tracking-widest drop-shadow-md">
-              CHARTER
-            </span>
+            <img 
+              src={logo} 
+              alt="Golden Coast Charter Logo" 
+              className="h-12 w-12 rounded-md drop-shadow-lg" 
+            />
+            <div className="flex flex-col">
+              <span className="font-heading text-xl md:text-2xl font-bold text-white tracking-wide drop-shadow-lg">
+                GOLDEN COAST
+              </span>
+              <span className="font-heading text-xs text-[#FFD700] tracking-widest drop-shadow-md">
+                CHARTER
+              </span>
+            </div>
           </Link>
+
 
 {/* Center: Logo con centro blanco expandido - bordes sin cambios */}
 <Link
@@ -114,6 +135,7 @@ const Navbar = () => {
 </Link>
 
 
+
           {/* Desktop Navigation - Left side (Next to logo) */}
           <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-32">
             {leftNavigation.map((item) => (
@@ -131,6 +153,7 @@ const Navbar = () => {
             ))}
           </div>
 
+
           {/* Desktop Navigation - Right side (Next to logo) */}
           <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32">
             {rightNavigation.map((item) => (
@@ -147,6 +170,7 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
+
 
           {/* Right Side: Language Selector + CTA Button */}
           <div className="hidden lg:flex items-center space-x-4 z-10">
@@ -167,6 +191,7 @@ const Navbar = () => {
               </span>
             </button>
 
+
             {/* Botón WhatsApp */}
             <Button
               size="sm"
@@ -180,6 +205,7 @@ const Navbar = () => {
             </Button>
           </div>
 
+
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -190,15 +216,11 @@ const Navbar = () => {
           </button>
         </div>
 
+
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="xl:hidden py-4 bg-black/80 backdrop-blur-xl rounded-b-lg animate-slide-up">
             <div className="flex flex-col space-y-2">
-              {/* Mobile Logo */}
-              <div className="flex justify-center pb-4 border-b border-white/10">
-                <img src={logo} alt="Golden Coast Charter Logo" className="h-12 w-12 rounded-md" />
-              </div>
-
               {[...leftNavigation, ...rightNavigation].map((item) => (
                 <Link
                   key={item.name}
@@ -223,6 +245,7 @@ const Navbar = () => {
                   <span className="font-semibold">{phoneNumber}</span>
                 </a>
 
+
                 {/* Mobile Language Selector */}
                 <button
                   onClick={toggleLanguage}
@@ -230,6 +253,7 @@ const Navbar = () => {
                 >
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
+
 
                 {/* Mobile Botón WhatsApp */}
                 <Button
@@ -250,5 +274,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;
