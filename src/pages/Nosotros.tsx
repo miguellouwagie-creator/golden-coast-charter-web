@@ -6,59 +6,62 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import fondoNosotros from "@/assets/FondoSobreNosotros.jpg";
 import captainImg from "@/assets/Captain5.jpg";
 
 const Nosotros = () => {
+  const { t } = useLanguage();
+
   const values = [
     {
       icon: Heart,
-      title: "Pasión por el Mar",
-      description: "Cada salida es una oportunidad para compartir nuestra pasión por la navegación y el Mediterráneo.",
+      title: t("about.value1.title"),
+      description: t("about.value1.desc"),
     },
     {
       icon: Shield,
-      title: "Seguridad Primero",
-      description: "Todos nuestros barcos cuentan con certificaciones al día, seguros completos y equipamiento de seguridad profesional.",
+      title: t("about.value2.title"),
+      description: t("about.value2.desc"),
     },
     {
       icon: Star,
-      title: "Excelencia en Servicio",
-      description: "Nuestro objetivo es superar tus expectativas en cada experiencia, cuidando cada detalle.",
+      title: t("about.value3.title"),
+      description: t("about.value3.desc"),
     },
     {
       icon: Users,
-      title: "Trato Personalizado",
-      description: "No somos una gran corporación. Somos un equipo que te acompaña desde la reserva hasta el desembarque.",
+      title: t("about.value4.title"),
+      description: t("about.value4.desc"),
     },
   ];
 
   const certifications = [
-    "Licencias náuticas profesionales",
-    "Seguros todo riesgo",
-    "Certificados de navegabilidad",
-    "Formación en primeros auxilios",
-    "Mantenimiento certificado",
+    t("about.cert1"),
+    t("about.cert2"),
+    t("about.cert3"),
+    t("about.cert4"),
+    t("about.cert5"),
   ];
 
   const testimonials = [
     {
-      name: "María González",
-      location: "Madrid",
+      name: t("about.test1.name"),
+      location: t("about.test1.location"),
       rating: 5,
-      text: "Una experiencia inolvidable. El atardecer desde el barco fue mágico y el equipo súper profesional y atento. ¡Totalmente recomendable!",
+      text: t("about.test1.text"),
     },
     {
-      name: "John Smith",
-      location: "UK",
+      name: t("about.test2.name"),
+      location: t("about.test2.location"),
       rating: 5,
-      text: "Best boat charter experience in Costa Blanca! Beautiful yacht, amazing crew, and the hidden coves were spectacular. Will definitely return!",
+      text: t("about.test2.text"),
     },
     {
-      name: "Carlos Ruiz",
-      location: "Valencia",
+      name: t("about.test3.name"),
+      location: t("about.test3.location"),
       rating: 5,
-      text: "Celebramos mi cumpleaños a bordo y fue perfecto. La decoración, la comida, todo estaba cuidado al detalle. Gracias por hacer este día tan especial.",
+      text: t("about.test3.text"),
     },
   ];
 
@@ -69,12 +72,12 @@ const Nosotros = () => {
 
       <HeroSection
         backgroundImage={fondoNosotros}
-        title="Sobre"
-        titleHighlight="Nosotros"
-        description="Somos un equipo de apasionados por el mar con más de 10 años creando experiencias náuticas únicas en la Costa Blanca."
+        title={t("about.heroTitle")}
+        titleHighlight={t("about.heroHighlight")}
+        description={t("about.heroDesc")}
       />
 
-      {/* Our Story - CON IMAGEN DEL CAPITÁN CORREGIDA */}
+      {/* Our Story */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <Card className="border-none shadow-card overflow-hidden">
@@ -87,24 +90,15 @@ const Nosotros = () => {
                   </div>
                   
                   <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-8">
-                    Nuestra Historia
+                    {t("about.story.title")}
                   </h2>
                   
                   <div className="space-y-6 text-muted-foreground leading-relaxed text-lg">
-                    <p>
-                      Golden Coast Charter nació del sueño de compartir la belleza incomparable del Mediterráneo con personas de todo el mundo. Fundada por marineros experimentados y amantes del mar, nuestra misión desde el primer día ha sido clara: ofrecer experiencias náuticas de lujo que combinen seguridad, confort y momentos inolvidables.
-                    </p>
-                    
-                    <p>
-                      Con base en los puertos de Dénia y Jávea, dos de los rincones más espectaculares de la Costa Blanca, navegamos estas aguas con profundo conocimiento y respeto. Conocemos cada cala secreta, cada punto de puesta de sol perfecto, cada ruta que te dejará sin aliento.
-                    </p>
-                    
-                    <p>
-                      Nuestra flota está compuesta por barcos cuidadosamente seleccionados y mantenidos con los más altos estándares. Porque entendemos que tu experiencia comienza mucho antes de zarpar y termina mucho después de llegar a puerto, cuidamos cada detalle con dedicación.
-                    </p>
-                    
+                    <p>{t("about.story.p1")}</p>
+                    <p>{t("about.story.p2")}</p>
+                    <p>{t("about.story.p3")}</p>
                     <p className="font-semibold text-primary text-xl">
-                      En Golden Coast Charter, no solo alquilamos barcos. Creamos recuerdos que duran toda la vida.
+                      {t("about.story.p4")}
                     </p>
                   </div>
                 </div>
@@ -121,7 +115,6 @@ const Nosotros = () => {
                       objectPosition: '88% center',
                     }}
                   />
-                  {/* Sombra sutil para dar profundidad */}
                   <div 
                     className="absolute inset-0 pointer-events-none"
                     style={{
@@ -136,25 +129,22 @@ const Nosotros = () => {
         </div>
       </section>
 
-      {/* Values - Premium con degradado azul y detalles dorados */}
+      {/* Values */}
       <section className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f2557 0%, #1a3a5c 50%, #0a192f 100%)' }}>
-        {/* Detalles decorativos dorados de fondo */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-gold/3 rounded-full blur-3xl" />
         
         <div className="container mx-auto relative z-10">
-          {/* Título con sombra dorada */}
           <h2 
             className="font-heading text-4xl md:text-5xl font-bold text-white text-center mb-4"
             style={{
               textShadow: '0 0 30px rgba(255, 215, 0, 0.3), 0 0 60px rgba(255, 215, 0, 0.1)'
             }}
           >
-            Nuestros Valores
+            {t("about.values.title")}
           </h2>
           
-          {/* Línea decorativa dorada */}
           <div className="flex justify-center mb-16">
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent rounded-full" />
           </div>
@@ -169,7 +159,6 @@ const Nosotros = () => {
                 }}
               >
                 <CardContent className="p-8 relative">
-                  {/* Acento dorado superior */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
                   
                   <div 
@@ -202,10 +191,10 @@ const Nosotros = () => {
           <div className="text-center mb-12">
             <Award className="h-16 w-16 text-gold mx-auto mb-6" />
             <h2 className="font-heading text-4xl font-bold text-primary mb-4">
-              Certificados y Licencias
+              {t("about.certs.title")}
             </h2>
             <p className="text-xl text-muted-foreground">
-              Tu seguridad y tranquilidad son nuestra prioridad
+              {t("about.certs.subtitle")}
             </p>
           </div>
 
@@ -222,7 +211,7 @@ const Nosotros = () => {
               
               <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center">
                 <p className="text-primary-foreground/90">
-                  Todos nuestros patrones cuentan con titulación profesional y años de experiencia navegando en estas aguas.
+                  {t("about.certs.footer")}
                 </p>
               </div>
             </CardContent>
@@ -235,10 +224,10 @@ const Nosotros = () => {
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-heading text-4xl font-bold text-primary mb-4">
-              Lo Que Dicen Nuestros Clientes
+              {t("about.testimonials.title")}
             </h2>
             <p className="text-xl text-muted-foreground">
-              Experiencias reales de personas que navegaron con nosotros
+              {t("about.testimonials.subtitle")}
             </p>
           </div>
 
@@ -271,17 +260,17 @@ const Nosotros = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="font-heading text-4xl font-bold text-primary mb-6">
-            ¿Listo para tu aventura en el mar?
+            {t("about.cta.title")}
           </h2>
           <p className="text-xl text-muted-foreground mb-10">
-            Únete a cientos de clientes satisfechos que ya han vivido la experiencia Golden Coast
+            {t("about.cta.subtitle")}
           </p>
           <Button
             size="lg"
             className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12"
             asChild
           >
-            <Link to="/reserva">Solicita tu Presupuesto</Link>
+            <Link to="/reserva">{t("about.cta.button")}</Link>
           </Button>
         </div>
       </section>
