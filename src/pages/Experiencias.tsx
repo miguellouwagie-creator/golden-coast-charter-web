@@ -1,13 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sunset, PartyPopper, Heart, Users, Sparkles, Compass } from "lucide-react";
+import { Sunset, PartyPopper, Heart, Users, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import HeroSection from "@/components/HeroSection";
 import sunsetImg from "@/assets/experience-sunset.jpg";
 import partyImg from "@/assets/experience-party.jpg";
 import fondoExperiencias from "@/assets/FondoExperiencias.jpg";
-
 
 const Experiencias = () => {
   const experiences = [
@@ -53,14 +53,6 @@ const Experiencias = () => {
     },
   ];
 
-  const destinations = [
-    { name: "Cova Tallada", icon: Compass },
-    { name: "Cabo San Antonio", icon: Compass },
-    { name: "Cala Porticholl", icon: Compass },
-    { name: "Las Rotas", icon: Compass },
-    { name: "Cala Ambolo", icon: Compass },
-  ];
-
   const customExperienceLink = "https://wa.me/34676262628?text=Hola,%20me%20gustaría%20crear%20una%20experiencia%20personalizada.";
 
   return (
@@ -68,35 +60,12 @@ const Experiencias = () => {
       <Navbar />
       <WhatsAppButton />
 
-      {/* Hero */}
-      <section className="pt-40 pb-16 px-4 relative overflow-hidden">
-  {/* Imagen de fondo SIN blur */}
-  <div 
-    className="absolute inset-0 bg-cover bg-fixed"
-    style={{
-      backgroundImage: `url(${fondoExperiencias})`,
-      backgroundPosition: 'center center',
-    }}
-  />
-  
-  {/* Overlay moderado - 40% oscuro */}
-  <div className="absolute inset-0 bg-[#0A192F]/40" />
-  
-  {/* Contenido */}
-  <div className="container mx-auto text-center relative z-10">
-    <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
-      Experiencias <span className="text-gradient-gold">Inolvidables</span>
-    </h1>
-    <p 
-  className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed"
-  style={{ fontFamily: "'Poppins', sans-serif" }}
->
-  Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo.
-</p>
-
-  </div>
-</section>
-
+      <HeroSection
+        backgroundImage={fondoExperiencias}
+        title="Experiencias"
+        titleHighlight="Inolvidables"
+        description="Cada navegación es única. Crea recuerdos que durarán para siempre en las aguas más hermosas del Mediterráneo."
+      />
 
       {/* Experiences Grid */}
       <section className="py-20 px-4">

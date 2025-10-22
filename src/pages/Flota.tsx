@@ -12,10 +12,10 @@ import 'swiper/css/effect-coverflow';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import HeroSection from "@/components/HeroSection";
 import yachtMotor from "@/assets/yacht-motor-1.jpg";
 import yachtSail from "@/assets/yacht-sail-1.jpg";
 import fondoFlota from "@/assets/FondoFlota.jpg";
-
 
 const Flota = () => {
   const whatsappLink = "https://wa.me/34676262628?text=Hola,%20quisiera%20consultar%20la%20disponibilidad%20de%20un%20barco.";
@@ -25,7 +25,6 @@ const Flota = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
 
   const boats = [
     {
@@ -97,7 +96,6 @@ const Flota = () => {
     },
   ];
 
-
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -109,7 +107,6 @@ const Flota = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -117,7 +114,6 @@ const Flota = () => {
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
   };
-
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -127,7 +123,6 @@ const Flota = () => {
       return () => container.removeEventListener('scroll', checkScrollButtons);
     }
   }, []);
-
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -142,7 +137,6 @@ const Flota = () => {
       });
     }
   };
-
 
   const BoatCard = ({ boat }: { boat: typeof boats[0] }) => (
     <Card className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-all duration-500 h-full flex flex-col">
@@ -219,49 +213,27 @@ const Flota = () => {
     </Card>
   );
 
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <WhatsAppButton />
 
-      <section className="pt-40 pb-16 px-4 relative overflow-hidden">
-  {/* Imagen de fondo SIN blur */}
-  <div 
-    className="absolute inset-0 bg-cover bg-fixed"
-    style={{
-      backgroundImage: `url(${fondoFlota})`,
-      backgroundPosition: 'center 40%',
-    }}
-  />
-  
-  {/* Overlay moderado - 40% oscuro */}
-  <div className="absolute inset-0 bg-[#0A192F]/40" />
-  
-  {/* Contenido */}
-  <div className="container mx-auto text-center relative z-10">
-    <h1 className="font-heading text-5xl md:text-6xl font-bold text-white drop-shadow-2xl mb-6">
-      Nuestra <span className="text-gradient-gold">Flota</span>
-    </h1>
-    <p 
-  className="text-xl text-white drop-shadow-lg max-w-3xl mx-auto leading-relaxed"
-  style={{ fontFamily: "'Poppins', sans-serif" }}
->
-  Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo.
-</p>
-
-    {!isMobile && (
-      <div className="flex items-center justify-center gap-3 mt-6">
-        <ChevronLeft className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
-        <p className="text-sm text-gold font-semibold drop-shadow-lg">
-          Desliza horizontalmente para explorar nuestra flota
-        </p>
-        <ChevronRight className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
-      </div>
-    )}
-  </div>
-</section>
-
+      <HeroSection
+        backgroundImage={fondoFlota}
+        title="Nuestra"
+        titleHighlight="Flota"
+        description="Barcos de motor y vela cuidadosamente seleccionados para ofrecerte la mejor experiencia en el Mediterráneo."
+      >
+        {!isMobile && (
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <ChevronLeft className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
+            <p className="text-sm text-gold font-semibold drop-shadow-lg">
+              Desliza horizontalmente para explorar nuestra flota
+            </p>
+            <ChevronRight className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
+          </div>
+        )}
+      </HeroSection>
 
       {/* DESKTOP: Horizontal Scroll con botones */}
       {!isMobile ? (
