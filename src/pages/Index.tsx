@@ -4,7 +4,7 @@ import { Anchor, ArrowRight } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import videoEntrada from "@/assets/Prueba 2.mp4";
+import videoEntrada from "@/assets/FondoRenderizado.mp4";
 import timonImg from "@/assets/Timón.png";
 import medallaImg from "@/assets/Medalla.png";
 import escudoImg from "@/assets/Escudo.png";
