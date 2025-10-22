@@ -197,21 +197,23 @@ const Index = () => {
             </h1>
 
             <p
-              className="text-white/90 max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
-                fontWeight: 400,
-                lineHeight: 1.7,
-                letterSpacing: "0.02em",
-                textShadow: "0 2px 20px rgba(0,0,0,0.7)",
-                animationDelay: "0.4s",
-                animationFillMode: "backwards",
-                fontStyle: "italic",
-              }}
-            >
-              Experiencias náuticas exclusivas en el corazón de la Costa Blanca
-            </p>
+  className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+  style={{
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
+    fontWeight: 400,
+    lineHeight: 1.7,
+    letterSpacing: "0.02em",
+    textShadow: "0 2px 20px rgba(0,0,0,0.7)",
+    animationDelay: "0.4s",
+    animationFillMode: "backwards",
+    fontStyle: "italic",
+    whiteSpace: "nowrap",
+  }}
+>
+  Experiencias náuticas exclusivas en el corazón de la Costa Blanca
+</p>
+
 
             <div
               className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
