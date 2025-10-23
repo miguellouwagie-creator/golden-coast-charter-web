@@ -278,7 +278,7 @@ const Reserva = () => {
                     </a>
 
                     <a
-                      href="mailto:info@goldencoastcharter.com"
+                      href="mailto:Goldencoastcharterdenia@gmail.com"
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
                     >
                       <Mail className="h-5 w-5 text-gold" />
