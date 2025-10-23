@@ -207,7 +207,7 @@ const Flota = () => {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 520;
+      const scrollAmount = 480; // Reducido de 520
       const newScrollLeft = direction === 'left' 
         ? scrollContainerRef.current.scrollLeft - scrollAmount
         : scrollContainerRef.current.scrollLeft + scrollAmount;
@@ -221,7 +221,8 @@ const Flota = () => {
 
   const BoatCard = ({ boat }: { boat: typeof boats[0] }) => (
     <Card className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-all duration-500 h-full flex flex-col">
-      <div className="relative h-80">
+      {/* IMAGEN REDUCIDA: h-80 → h-64 en pantallas medianas */}
+      <div className="relative h-64 lg:h-56 xl:h-64">
         <img
           src={boat.image}
           alt={boat.name}
@@ -234,43 +235,53 @@ const Flota = () => {
         </div>
       </div>
 
-      <CardContent className="p-8 flex flex-col justify-between flex-1">
+      {/* PADDING REDUCIDO: p-8 → p-6 en lg */}
+      <CardContent className="p-6 lg:p-5 xl:p-6 flex flex-col justify-between flex-1">
         <div>
-          <h2 className="font-heading text-3xl font-bold text-primary mb-4">
+          {/* TÍTULO REDUCIDO: text-3xl → text-2xl en lg */}
+          <h2 className="font-heading text-2xl lg:text-xl xl:text-2xl font-bold text-primary mb-3 lg:mb-2">
             {boat.name}
           </h2>
-          <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+          
+          {/* DESCRIPCIÓN REDUCIDA */}
+          <p className="text-muted-foreground text-sm lg:text-xs xl:text-sm mb-4 lg:mb-3 leading-relaxed line-clamp-2">
             {boat.description}
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-6">
+          {/* ICONOS CAPACITY/CAPTAIN REDUCIDOS */}
+          <div className="flex flex-wrap gap-3 lg:gap-2 mb-4 lg:mb-3">
             <div className="flex items-center space-x-2 text-foreground">
-              <Users className="h-5 w-5 text-gold" />
-              <span className="font-semibold text-sm">
+              <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+              <span className="font-semibold text-xs">
                 {t("fleet.capacity").replace("{count}", boat.capacity.toString())}
               </span>
             </div>
             {boat.withCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Anchor className="h-5 w-5 text-gold" />
-                <span className="text-sm">{t("fleet.withCaptain")}</span>
+                <Anchor className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+                <span className="text-xs">{t("fleet.withCaptain")}</span>
               </div>
             )}
             {boat.withoutCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Waves className="h-5 w-5 text-gold" />
-                <span className="text-sm">{t("fleet.withoutCaptain")}</span>
+                <Waves className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+                <span className="text-xs">{t("fleet.withoutCaptain")}</span>
               </div>
             )}
           </div>
 
-          <div className="mb-6">
-            <h4 className="font-heading font-semibold text-primary mb-3 text-sm">
+          {/* FEATURES REDUCIDAS */}
+          <div className="mb-4 lg:mb-3">
+            <h4 className="font-heading font-semibold text-primary mb-2 text-xs">
               {t("fleet.features")}
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {boat.features.map((feature, index) => (
-                <Badge key={index} variant="outline" className="border-primary/30 text-foreground text-xs">
+                <Badge 
+                  key={index} 
+                  variant="outline" 
+                  className="border-primary/30 text-foreground text-[10px] lg:text-[9px] xl:text-[10px] px-2 py-0.5"
+                >
                   {feature}
                 </Badge>
               ))}
@@ -278,19 +289,20 @@ const Flota = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 pt-6 border-t border-border">
+        {/* PRECIO Y BOTÓN REDUCIDOS */}
+        <div className="flex flex-col gap-3 lg:gap-2 pt-4 lg:pt-3 border-t border-border">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">{t("fleet.priceLabel")}</p>
-            <p className="font-heading text-2xl font-bold text-gold">{boat.price}</p>
+            <p className="text-xs text-muted-foreground mb-0.5">{t("fleet.priceLabel")}</p>
+            <p className="font-heading text-xl lg:text-lg xl:text-xl font-bold text-gold">{boat.price}</p>
           </div>
           <Button
-            size="lg"
-            className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold w-full group"
+            size="sm"
+            className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold w-full group text-xs py-2 h-9"
             asChild
           >
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
               <span>{t("fleet.checkAvailability")}</span>
-              <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
         </div>
@@ -320,39 +332,48 @@ const Flota = () => {
         )}
       </HeroSection>
 
-      {/* DESKTOP: Horizontal Scroll con botones */}
+      {/* DESKTOP: Horizontal Scroll - REDUCIDO GAP Y ANCHO */}
       {!isMobile ? (
-        <section className="py-12 relative">
+        <section className="py-10 lg:py-8 xl:py-10 relative">
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110"
               aria-label="Scroll left"
             >
-              <ChevronLeft className="w-8 h-8" />
+              <ChevronLeft className="w-7 h-7 lg:w-6 lg:h-6" />
             </button>
           )}
 
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse-slow"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse-slow"
               aria-label="Scroll right"
             >
-              <ChevronRight className="w-8 h-8" />
+              <ChevronRight className="w-7 h-7 lg:w-6 lg:h-6" />
             </button>
           )}
 
+          {/* GAP REDUCIDO: gap-8 → gap-6 en lg */}
           <div
             ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-auto scroll-smooth px-8 scrollbar-hide"
+            className="flex gap-6 lg:gap-5 xl:gap-6 overflow-x-auto scroll-smooth px-8 lg:px-6 scrollbar-hide"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
             }}
           >
+            {/* ANCHO REDUCIDO: 500px → 450px en lg */}
             {boats.map((boat) => (
-              <div key={boat.id} style={{ minWidth: "500px", maxWidth: "500px" }}>
+              <div 
+                key={boat.id} 
+                style={{ 
+                  minWidth: "450px", 
+                  maxWidth: "450px" 
+                }}
+                className="lg:!min-w-[420px] lg:!max-w-[420px] xl:!min-w-[450px] xl:!max-w-[450px]"
+              >
                 <BoatCard boat={boat} />
               </div>
             ))}

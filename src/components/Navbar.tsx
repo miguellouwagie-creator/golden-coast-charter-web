@@ -5,23 +5,19 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "../assets/Logo 2.png";
 
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
-
   // Detectar si estamos en la página de inicio
   const isHomePage = location.pathname === "/";
-
 
   const leftNavigation = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.fleet"), href: "/flota" },
   ];
-
 
   const rightNavigation = [
     { name: t("nav.experiences"), href: "/experiencias" },
@@ -29,40 +25,32 @@ const Navbar = () => {
     { name: t("nav.about"), href: "/nosotros" },
   ];
 
-
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es");
   };
 
-
   const isActive = (path: string) => location.pathname === path;
-
 
   // Número de teléfono de Golden Coast Charter
   const phoneNumber = "+34 676 26 26 28";
   const whatsappNumber = "34676262628";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
 
-
   // Detectar scroll - solo aplica en página de inicio
   useEffect(() => {
-    if (!isHomePage) return; // No aplicar scroll listener si no es homepage
-
+    if (!isHomePage) return;
 
     const handleScroll = () => {
       const scrollThreshold = window.innerHeight * 0.95;
       setIsScrolled(window.scrollY > scrollThreshold);
     };
 
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-
   // Determinar si el navbar debe ser sólido
   const shouldBeSolid = !isHomePage || isScrolled;
-
 
   return (
     <nav
@@ -74,7 +62,6 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center h-24 relative">
-
 
           {/* Left Side: Logo + Brand Name */}
           <Link
@@ -96,47 +83,40 @@ const Navbar = () => {
             </div>
           </Link>
 
+          {/* Center: Logo con centro blanco expandido */}
+          <Link
+            to="/"
+            className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-all duration-300 hover:scale-110 z-20"
+            style={{ top: '75%' }}
+          >
+            <div
+              className={`absolute transition-all duration-500 ${
+                shouldBeSolid
+                  ? "opacity-100" 
+                  : "opacity-0"
+              }`}
+              style={{
+                width: "180px",
+                height: "180px",
+                transform: "translate(-50%, -50%)",
+                top: "50%",
+                left: "50%",
+                zIndex: -1,
+                background: "radial-gradient(circle, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.92) 30%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 100%)",
+                backdropFilter: "blur(45px)",
+                WebkitBackdropFilter: "blur(45px)",
+                WebkitMaskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
+                maskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
+              }}
+            />
+            <img
+              src={logo}
+              alt="Golden Coast Charter Logo"
+              className="h-36 w-auto drop-shadow-2xl rounded-md relative z-10"
+            />
+          </Link>
 
-{/* Center: Logo con centro blanco expandido - bordes sin cambios */}
-<Link
-  to="/"
-  className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-all duration-300 hover:scale-110 z-20"
-  style={{ top: '75%' }}
->
-  {/* Halo: centro blanco más expandido */}
-  <div
-    className={`absolute transition-all duration-500 ${
-      shouldBeSolid
-        ? "opacity-100" 
-        : "opacity-0"
-    }`}
-    style={{
-      width: "180px",
-      height: "180px",
-      transform: "translate(-50%, -50%)",
-      top: "50%",
-      left: "50%",
-      zIndex: -1,
-      // Centro blanco expandido (mantiene 92% hasta el 30% en vez de 20%)
-      background: "radial-gradient(circle, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.92) 30%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 100%)",
-      // Blur igual
-      backdropFilter: "blur(45px)",
-      WebkitBackdropFilter: "blur(45px)",
-      // MÁSCARA SIN CAMBIOS (igual que antes)
-      WebkitMaskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
-      maskImage: "radial-gradient(circle, black 0%, black 25%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.05) 75%, transparent 80%)",
-    }}
-  />
-  <img
-    src={logo}
-    alt="Golden Coast Charter Logo"
-    className="h-36 w-auto drop-shadow-2xl rounded-md relative z-10"
-  />
-</Link>
-
-
-
-          {/* Desktop Navigation - Left side (Next to logo) */}
+          {/* Desktop Navigation - Left side */}
           <div className="hidden xl:flex absolute left-1/2 transform -translate-x-full items-center space-x-2 pr-32">
             {leftNavigation.map((item) => (
               <Link
@@ -153,8 +133,7 @@ const Navbar = () => {
             ))}
           </div>
 
-
-          {/* Desktop Navigation - Right side (Next to logo) */}
+          {/* Desktop Navigation - Right side */}
           <div className="hidden xl:flex absolute left-1/2 items-center space-x-2 pl-32">
             {rightNavigation.map((item) => (
               <Link
@@ -171,40 +150,45 @@ const Navbar = () => {
             ))}
           </div>
 
-
           {/* Right Side: Language Selector + CTA Button */}
-          <div className="hidden lg:flex items-center space-x-4 z-10">
-            {/* Selector de Idioma */}
+          <div className="hidden lg:flex items-center space-x-3 z-10">
+            {/* Selector de Idioma - MÁS PEQUEÑO Y MÁS CLARO */}
             <button
               onClick={toggleLanguage}
-              className="text-white/90 hover:text-white transition-colors duration-300 font-medium text-sm tracking-wide"
-              style={{
-                fontFamily: "'Inter', sans-serif"
-              }}
+              className="px-2.5 py-1.5 rounded-md bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:scale-105"
+              aria-label="Cambiar idioma"
             >
-              <span className={language === "es" ? "text-white font-semibold" : "text-white/50"}>
-                ES
-              </span>
-              <span className="text-white/40 mx-1">/</span>
-              <span className={language === "en" ? "text-white font-semibold" : "text-white/50"}>
-                EN
+              <span className="flex items-center gap-1.5">
+                <span className={`text-xs font-bold tracking-wider transition-colors ${
+                  language === "es" 
+                    ? "text-[#FFD700]" 
+                    : "text-white/50"
+                }`}>
+                  ES
+                </span>
+                <span className="text-white/30 text-xs font-light">|</span>
+                <span className={`text-xs font-bold tracking-wider transition-colors ${
+                  language === "en" 
+                    ? "text-[#FFD700]" 
+                    : "text-white/50"
+                }`}>
+                  EN
+                </span>
               </span>
             </button>
 
-
-            {/* Botón WhatsApp */}
+            {/* Botón WhatsApp - MÁS PEQUEÑO */}
             <Button
               size="sm"
-              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold shadow-2xl hover:shadow-[0_10px_30px_rgba(255,215,0,0.4)] transition-all duration-300 hover:scale-105 px-6"
+              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black text-xs font-bold shadow-xl hover:shadow-[0_8px_20px_rgba(255,215,0,0.35)] transition-all duration-300 hover:scale-105 px-4 py-2 h-8"
               asChild
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Phone className="h-4 w-4 mr-2" />
+                <Phone className="h-3.5 w-3.5 mr-1.5" />
                 {t("nav.bookNow")}
               </a>
             </Button>
           </div>
-
 
           {/* Mobile menu button */}
           <button
@@ -215,7 +199,6 @@ const Navbar = () => {
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-
 
         {/* Mobile Navigation */}
         {isOpen && (
@@ -245,7 +228,6 @@ const Navbar = () => {
                   <span className="font-semibold">{phoneNumber}</span>
                 </a>
 
-
                 {/* Mobile Language Selector */}
                 <button
                   onClick={toggleLanguage}
@@ -253,7 +235,6 @@ const Navbar = () => {
                 >
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
-
 
                 {/* Mobile Botón WhatsApp */}
                 <Button
@@ -274,6 +255,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
 
 export default Navbar;
