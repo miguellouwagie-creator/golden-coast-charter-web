@@ -1,0 +1,84 @@
+[1mdiff --git a/index.html b/index.html[m
+[1mindex 2a203de..e4c76e3 100644[m
+[1m--- a/index.html[m
+[1m+++ b/index.html[m
+[36m@@ -14,21 +14,21 @@[m
+     <link rel="manifest" href="/site.webmanifest" />[m
+     [m
+     <!-- Título -->[m
+[31m-    <title>Golden Coast Charter | Alquiler de Barcos de Lujo en Dénia y Jávea</title>[m
+[32m+[m[32m    <title>Golden Coast Charter | Alquiler de Barcos en Dénia y Jávea</title>[m
+     [m
+[31m-    <meta name="description" content="Alquiler de barcos de lujo en Dénia y Jávea, Costa Blanca. Experiencias náuticas premium: puestas de sol, celebraciones, rutas exclusivas. Charter con y sin patrón." />[m
+[32m+[m[32m    <meta name="description" content="Alquiler de barcos en Dénia y Jávea, Costa Blanca. Experiencias náuticas premium: puestas de sol, celebraciones, rutas exclusivas. Charter con y sin patrón." />[m
+     <meta name="keywords" content="alquiler barcos Dénia, charter náutico Jávea, barcos lujo Costa Blanca, puesta sol barco Jávea, alquiler yates Dénia, experiencias náuticas mediterráneo" />[m
+     <meta name="author" content="Golden Coast Charter" />[m
+ [m
+     <!-- Open Graph / Facebook -->[m
+[31m-    <meta property="og:title" content="Golden Coast Charter | Alquiler de Barcos de Lujo Costa Blanca" />[m
+[31m-    <meta property="og:description" content="Descubre la Costa Blanca desde el mar. Alquiler de barcos de lujo en Dénia y Jávea para experiencias inolvidables." />[m
+[32m+[m[32m    <meta property="og:title" content="Golden Coast Charter | Alquiler de Barcos Costa Blanca" />[m
+[32m+[m[32m    <meta property="og:description" content="Descubre la Costa Blanca desde el mar. Alquiler de barcos en Dénia y Jávea para experiencias inolvidables." />[m
+     <meta property="og:type" content="website" />[m
+     <meta property="og:image" content="/android-chrome-512x512.png" />[m
+ [m
+     <!-- Twitter -->[m
+     <meta name="twitter:card" content="summary_large_image" />[m
+[31m-    <meta name="twitter:title" content="Golden Coast Charter | Barcos de Lujo Dénia Jávea" />[m
+[32m+[m[32m    <meta name="twitter:title" content="Golden Coast Charter | Barcos Dénia Jávea" />[m
+     <meta name="twitter:description" content="Experiencias náuticas premium en la Costa Blanca" />[m
+     <meta name="twitter:image" content="/android-chrome-512x512.png" />[m
+     [m
+[1mdiff --git a/public/site.webmanifest b/public/site.webmanifest[m
+[1mindex faf6d56..f77e7cf 100644[m
+[1m--- a/public/site.webmanifest[m
+[1m+++ b/public/site.webmanifest[m
+[36m@@ -1,7 +1,7 @@[m
+ {[m
+   "name": "Golden Coast Charter",[m
+   "short_name": "GCC",[m
+[31m-  "description": "Alquiler de barcos de lujo en Dénia y Jávea",[m
+[32m+[m[32m  "description": "Alquiler de barcos en Dénia y Jávea",[m
+   "icons": [[m
+     {[m
+       "src": "/android-chrome-192x192.png",[m
+[1mdiff --git a/src/contexts/LanguageContext.tsx b/src/contexts/LanguageContext.tsx[m
+[1mindex b0815e8..97be500 100644[m
+[1m--- a/src/contexts/LanguageContext.tsx[m
+[1m+++ b/src/contexts/LanguageContext.tsx[m
+[36m@@ -62,7 +62,7 @@[m [mconst translations = {[m
+     "fleet.notFound.desc": "Tenemos más opciones disponibles y podemos personalizar cualquier experiencia según tus necesidades. Contáctanos y te ayudaremos a encontrar el barco perfecto.",[m
+     "fleet.notFound.button": "Contactar por WhatsApp",[m
+     "fleet.azure.desc": "Elegante yate a motor perfecto para celebraciones y rutas rápidas por la costa",[m
+[31m-    "fleet.mediterranean.desc": "Velero de lujo ideal para experiencias náuticas auténticas y relajantes",[m
+[32m+[m[32m    "fleet.mediterranean.desc": "Velero ideal para experiencias náuticas auténticas y relajantes",[m
+     "fleet.golden.desc": "Motor yacht versátil para grupos, familias y puestas de sol románticas",[m
+     "fleet.serenity.desc": "Velero clásico ideal para puestas de sol románticas y explorar calas escondidas por la costa",[m
+     "fleet.adrenaline.desc": "Lancha rápida y potente para los que buscan aventura. Perfecta para deportes acuáticos y rutas rápidas",[m
+[36m@@ -91,7 +91,7 @@[m [mconst translations = {[m
+     "exp.idealFor": "Ideal para:",[m
+     "exp.requestInfo": "Solicitar Info",[m
+     "exp.sunset.title": "Puestas de Sol Románticas",[m
+[31m-    "exp.sunset.desc": "Vive la magia del atardecer mediterráneo desde la cubierta de un barco de lujo. Incluye copa de cava, música ambiente y los mejores puntos de vista de la Costa Blanca.",[m
+[32m+[m[32m    "exp.sunset.desc": "Vive la magia del atardecer mediterráneo desde la cubierta de un barco. Incluye copa de cava, música ambiente y los mejores puntos de vista de la Costa Blanca.",[m
+     "exp.sunset.highlight1": "2-3 horas de navegación",[m
+     "exp.sunset.highlight2": "Copa de bienvenida",[m
+     "exp.sunset.highlight3": "Música personalizada",[m
+[36m@@ -131,7 +131,7 @@[m [mconst translations = {[m
+     "about.heroHighlight": "Nosotros",[m
+     "about.heroDesc": "Somos un equipo de apasionados por el mar con más de 10 años creando experiencias náuticas únicas en la Costa Blanca.",[m
+     "about.story.title": "Nuestra Historia",[m
+[31m-    "about.story.p1": "Golden Coast Charter nació del sueño de compartir la belleza incomparable del Mediterráneo con personas de todo el mundo. Fundada por marineros experimentados y amantes del mar, nuestra misión desde el primer día ha sido clara: ofrecer experiencias náuticas de lujo que combinen seguridad, confort y momentos inolvidables.",[m
+[32m+[m[32m    "about.story.p1": "Golden Coast Charter nació del sueño de compartir la belleza incomparable del Mediterráneo con personas de todo el mundo. Fundada por marineros experimentados y amantes del mar, nuestra misión desde el primer día ha sido clara: ofrecer experiencias náuticas que combinen seguridad, confort y momentos inolvidables.",[m
+     "about.story.p2": "Con base en los puertos de Dénia y Jávea, dos de los rincones más espectaculares de la Costa Blanca, navegamos estas aguas con profundo conocimiento y respeto. Conocemos cada cala secreta, cada punto de puesta de sol perfecto, cada ruta que te dejará sin aliento.",[m
+     "about.story.p3": "Nuestra flota está compuesta por barcos cuidadosamente seleccionados y mantenidos con los más altos estándares. Porque entendemos que tu experiencia comienza mucho antes de zarpar y termina mucho después de llegar a puerto, cuidamos cada detalle con dedicación.",[m
+     "about.story.p4": "En Golden Coast Charter, no solo alquilamos barcos. Creamos recuerdos que duran toda la vida.",[m
+[36m@@ -246,7 +246,7 @@[m [mconst translations = {[m
+     "routes.cta.button": "Crear Ruta Personalizada",[m
+     [m
+     // ============= FOOTER =============[m
+[31m-    "footer.slogan": "Experiencias náuticas de lujo en la Costa Blanca. Alquiler de barcos en Dénia y Jávea para momentos inolvidables.",[m
+[32m+[m[32m    "footer.slogan": "Experiencias náuticas en la Costa Blanca. Alquiler de barcos en Dénia y Jávea para momentos inolvidables.",[m
+     "footer.quickLinks": "Enlaces Rápidos",[m
+     "footer.experiences": "Experiencias",[m
+     "footer.contact": "Contacto",[m
