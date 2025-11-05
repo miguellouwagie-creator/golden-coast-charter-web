@@ -3,8 +3,10 @@ import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/Logo.jpeg";
 
+
 const Footer = () => {
   const { t } = useLanguage();
+
 
   const quickLinks = [
     { name: t("nav.home"), href: "/" },
@@ -13,6 +15,7 @@ const Footer = () => {
     { name: t("nav.routes"), href: "/rutas" },
   ];
 
+
   const legal = [
     { name: t("footer.legal.notice"), href: "/aviso-legal" },
     { name: t("footer.legal.privacy"), href: "/privacidad" },
@@ -20,12 +23,14 @@ const Footer = () => {
     { name: t("footer.legal.cookies"), href: "/cookies" },
   ];
 
+
   const experiences = [
     { name: t("footer.exp.sunset"), href: "/experiencias#sunset" },
     { name: t("footer.exp.celebrations"), href: "/experiencias#celebrations" },
     { name: t("footer.exp.family"), href: "/experiencias#family" },
     { name: t("footer.exp.custom"), href: "/experiencias#custom" },
   ];
+
 
   return (
     <footer 
@@ -89,6 +94,7 @@ const Footer = () => {
             </div>
           </div>
 
+
           {/* Quick Links */}
           <div>
             <h3 
@@ -115,6 +121,7 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+
 
           {/* Experiences */}
           <div>
@@ -143,6 +150,7 @@ const Footer = () => {
             </ul>
           </div>
 
+
           {/* Contact */}
           <div>
             <h3 
@@ -170,12 +178,13 @@ const Footer = () => {
               <li className="flex items-center space-x-3 text-sm text-white/70">
                 <Mail className="h-5 w-5 text-[#FFD700] flex-shrink-0" />
                 <a href="mailto:Goldencoastcharterdenia@gmail.com" className="hover:text-[#FFD700] transition-colors duration-300">
-                  Goldencoastcharterdenia@gmail.com
+                  [Goldencoastcharterdenia@gmail.com](mailto:Goldencoastcharterdenia@gmail.com)
                 </a>
               </li>
             </ul>
           </div>
         </div>
+
 
         {/* Legal Links */}
         <div className="border-t border-white/10 mt-12 pt-8">
@@ -196,9 +205,22 @@ const Footer = () => {
             </p>
           </div>
         </div>
+
+        {/* Footer Credit - Studio Pixelens */}
+        <div className="absolute bottom-4 right-4">
+          <a
+            href="https://studiopixelens.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/50 hover:text-[#FFD700] transition-colors duration-300"
+          >
+            Diseñado por Studio Pixelens
+          </a>
+        </div>
       </div>
     </footer>
   );
 };
+
 
 export default Footer;
