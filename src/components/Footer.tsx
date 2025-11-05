@@ -178,13 +178,12 @@ const Footer = () => {
               <li className="flex items-center space-x-3 text-sm text-white/70">
                 <Mail className="h-5 w-5 text-[#FFD700] flex-shrink-0" />
                 <a href="mailto:Goldencoastcharterdenia@gmail.com" className="hover:text-[#FFD700] transition-colors duration-300">
-                  [Goldencoastcharterdenia@gmail.com](mailto:Goldencoastcharterdenia@gmail.com)
+                  Goldencoastcharterdenia@gmail.com
                 </a>
               </li>
             </ul>
           </div>
         </div>
-
 
         {/* Legal Links */}
         <div className="border-t border-white/10 mt-12 pt-8">
@@ -200,27 +199,24 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <p className="text-xs text-white/50">
-              © {new Date().getFullYear()} Golden Coast Charter. {t("footer.rights")}.
-            </p>
+            <div className="flex flex-col items-center md:items-end space-y-2">
+              <p className="text-xs text-white/50">
+                © {new Date().getFullYear()} Golden Coast Charter. {t("footer.rights")}.
+              </p>
+              <a
+                href="https://studiopixelens.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-white/50 hover:text-[#FFD700] transition-colors duration-300"
+              >
+                Diseñado por Studio Pixelens
+              </a>
+            </div>
           </div>
-        </div>
-
-        {/* Footer Credit - Studio Pixelens */}
-        <div className="absolute bottom-4 right-4">
-          <a
-            href="https://studiopixelens.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-white/50 hover:text-[#FFD700] transition-colors duration-300"
-          >
-            Diseñado por Studio Pixelens
-          </a>
         </div>
       </div>
     </footer>
   );
 };
-
 
 export default Footer;
