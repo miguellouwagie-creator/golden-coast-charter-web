@@ -20,7 +20,7 @@ const translations = {
     "nav.about": "Nosotros",
     "nav.bookNow": "Reserva Ya",
     "nav.changeLanguage": "Cambiar idioma",
-    
+
     // ============= INDEX PAGE =============
     "hero.title1": "El Mediterráneo,",
     "hero.title2": "como nunca lo has vivido.",
@@ -42,7 +42,7 @@ const translations = {
     "index.ctaTitle": "¿Listo para zarpar?",
     "index.ctaSubtitle": "Reserva tu experiencia náutica exclusiva en la Costa Blanca",
     "index.ctaButton": "Solicitar Presupuesto",
-    
+
     // ============= FLEET PAGE =============
     "fleet.heroTitle": "Nuestra",
     "fleet.heroHighlight": "Flota",
@@ -82,7 +82,7 @@ const translations = {
     "fleet.feature.snorkel": "Snorkel incluido",
     "fleet.feature.paddleboard": "Paddleboard",
     "fleet.feature.snorkelKit": "Equipo de snorkel",
-    
+
     // ============= EXPERIENCES PAGE =============
     "exp.heroTitle": "Experiencias",
     "exp.heroHighlight": "Inolvidables",
@@ -125,16 +125,16 @@ const translations = {
     "exp.cta.title": "¿Tienes una idea especial en mente?",
     "exp.cta.desc": "Creamos experiencias completamente personalizadas. Cuéntanos tu visión y la haremos realidad.",
     "exp.cta.button": "Crear Mi Experiencia",
-    
+
     // ============= ABOUT PAGE =============
     "about.heroTitle": "Sobre",
     "about.heroHighlight": "Nosotros",
     "about.heroDesc": "Somos un equipo de apasionados por el mar con más de 10 años creando experiencias náuticas únicas en la Costa Blanca.",
     "about.story.title": "Nuestra Historia",
-    "about.story.p1": "Golden Coast Charter nació del sueño de compartir la belleza incomparable del Mediterráneo con personas de todo el mundo. Fundada por marineros experimentados y amantes del mar, nuestra misión desde el primer día ha sido clara: ofrecer experiencias náuticas que combinen seguridad, confort y momentos inolvidables.",
-    "about.story.p2": "Con base en los puertos de Dénia y Jávea, dos de los rincones más espectaculares de la Costa Blanca, navegamos estas aguas con profundo conocimiento y respeto. Conocemos cada cala secreta, cada punto de puesta de sol perfecto, cada ruta que te dejará sin aliento.",
-    "about.story.p3": "Nuestra flota está compuesta por barcos cuidadosamente seleccionados y mantenidos con los más altos estándares. Porque entendemos que tu experiencia comienza mucho antes de zarpar y termina mucho después de llegar a puerto, cuidamos cada detalle con dedicación.",
-    "about.story.p4": "En Golden Coast Charter, no solo alquilamos barcos. Creamos recuerdos que duran toda la vida.",
+    "about.story.p1": "Golden Coast Charter nace de una decisión clara: vivir del mar y crear algo propio. Con más de una década de experiencia navegando por la Costa Blanca, trabajando en puertos y formando a personas como monitor de vela, piragua y remo, el mar dejó de ser solo una afición para convertirse en un proyecto profesional.",
+    "about.story.p2": "Con titulaciones como PER y Patrón de Yate, decidí dar el paso y crear una empresa diferente. No una gran corporación sin rostro, sino un proyecto personal, cuidado y cercano. Golden Coast Charter no nace de una inversión. Nace de años de mar, aprendizaje y ambición.",
+    "about.story.p3": "Operamos desde Dénia y Jávea ofreciendo experiencias adaptadas a cada cliente: desde escapadas relajadas hasta celebraciones especiales o jornadas de aventura. Cada salida está pensada con un objetivo claro: que disfrutes sin preocuparte de nada.",
+    "about.story.p4": "Porque aquí no solo alquilamos barcos. Creamos momentos que se recuerdan.",
     "about.values.title": "Nuestros Valores",
     "about.value1.title": "Pasión por el Mar",
     "about.value1.desc": "Cada salida es una oportunidad para compartir nuestra pasión por la navegación y el Mediterráneo.",
@@ -166,7 +166,7 @@ const translations = {
     "about.cta.title": "¿Listo para tu aventura en el mar?",
     "about.cta.subtitle": "Únete a cientos de clientes satisfechos que ya han vivido la experiencia Golden Coast",
     "about.cta.button": "Solicita tu Presupuesto",
-    
+
     // ============= BOOKING PAGE =============
     "booking.heroTitle": "Solicita tu",
     "booking.heroHighlight": "Presupuesto",
@@ -210,7 +210,7 @@ const translations = {
     "booking.toast.error.desc": "Por favor completa todos los campos obligatorios",
     "booking.toast.success.title": "¡Solicitud enviada!",
     "booking.toast.success.desc": "Nos pondremos en contacto contigo en menos de 24 horas.",
-    
+
     // ============= ROUTES PAGE =============
     "routes.heroTitle": "Nuestras",
     "routes.heroHighlight": "Rutas",
@@ -244,7 +244,7 @@ const translations = {
     "routes.cta.title": "¿Tienes una ruta en mente?",
     "routes.cta.desc": "Podemos personalizar cualquier itinerario según tus preferencias. Ya sea una cala específica, una combinación de rutas, o un destino especial, diseñamos la experiencia perfecta para ti.",
     "routes.cta.button": "Crear Ruta Personalizada",
-    
+
     // ============= FOOTER =============
     "footer.slogan": "Experiencias náuticas en la Costa Blanca. Alquiler de barcos en Dénia y Jávea para momentos inolvidables.",
     "footer.quickLinks": "Enlaces Rápidos",
@@ -273,7 +273,7 @@ const translations = {
     "nav.about": "About Us",
     "nav.bookNow": "Book Now",
     "nav.changeLanguage": "Change language",
-    
+
     // ============= INDEX PAGE =============
     "hero.title1": "The Mediterranean,",
     "hero.title2": "like you've never experienced it.",
@@ -295,7 +295,7 @@ const translations = {
     "index.ctaTitle": "Ready to set sail?",
     "index.ctaSubtitle": "Book your exclusive nautical experience in Costa Blanca",
     "index.ctaButton": "Request Quote",
-    
+
     // ============= FLEET PAGE =============
     "fleet.heroTitle": "Our",
     "fleet.heroHighlight": "Fleet",
@@ -335,7 +335,7 @@ const translations = {
     "fleet.feature.snorkel": "Snorkel included",
     "fleet.feature.paddleboard": "Paddleboard",
     "fleet.feature.snorkelKit": "Snorkel equipment",
-    
+
     // ============= EXPERIENCES PAGE =============
     "exp.heroTitle": "Experiences",
     "exp.heroHighlight": "Unforgettable",
@@ -378,7 +378,7 @@ const translations = {
     "exp.cta.title": "Have a special idea in mind?",
     "exp.cta.desc": "We create completely customized experiences. Tell us your vision and we'll make it happen.",
     "exp.cta.button": "Create My Experience",
-    
+
     // ============= ABOUT PAGE =============
     "about.heroTitle": "About",
     "about.heroHighlight": "Us",
@@ -419,7 +419,7 @@ const translations = {
     "about.cta.title": "Ready for your sea adventure?",
     "about.cta.subtitle": "Join hundreds of satisfied customers who have already lived the Golden Coast experience",
     "about.cta.button": "Request Your Quote",
-    
+
     // ============= BOOKING PAGE =============
     "booking.heroTitle": "Request Your",
     "booking.heroHighlight": "Quote",
@@ -463,7 +463,7 @@ const translations = {
     "booking.toast.error.desc": "Please complete all required fields",
     "booking.toast.success.title": "Request sent!",
     "booking.toast.success.desc": "We'll contact you in less than 24 hours.",
-    
+
     // ============= ROUTES PAGE =============
     "routes.heroTitle": "Our",
     "routes.heroHighlight": "Routes",
@@ -497,7 +497,7 @@ const translations = {
     "routes.cta.title": "Have a route in mind?",
     "routes.cta.desc": "We can customize any itinerary according to your preferences. Whether it's a specific cove, a combination of routes, or a special destination, we design the perfect experience for you.",
     "routes.cta.button": "Create Custom Route",
-    
+
     // ============= FOOTER =============
     "footer.slogan": "Luxury nautical experiences on the Costa Blanca. Boat rentals in Dénia and Jávea for unforgettable moments.",
     "footer.quickLinks": "Quick Links",
