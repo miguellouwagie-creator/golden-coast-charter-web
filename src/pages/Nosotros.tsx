@@ -110,22 +110,11 @@ const Nosotros = () => {
 
                 {/* Imagen del capitán - 2 columnas */}
                 <div
-                  className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden"
+                  className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden bg-white"
                   style={{
                     clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
                   }}
                 >
-                  {/* Fondo desenfocado para eliminar bandas */}
-                  <img
-                    src={captainImg}
-                    aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover scale-110"
-                    style={{
-                      objectPosition: 'center center',
-                      filter: 'blur(18px)',
-                    }}
-                  />
-                  {/* Imagen principal sin recorte */}
                   <img
                     src={captainImg}
                     alt="Capitán Golden Coast Charter"
@@ -138,7 +127,7 @@ const Nosotros = () => {
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: 'linear-gradient(to right, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 25%)',
+                      background: 'linear-gradient(to right, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 25%)',
                     }}
                   />
                 </div>
