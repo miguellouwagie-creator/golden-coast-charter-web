@@ -117,7 +117,7 @@ const Nosotros = () => {
                     className="absolute inset-0 w-full h-full object-cover object-center"
                     style={{
                       clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
-                      objectPosition: '88% center',
+                      objectPosition: '50% 10%',
                     }}
                   />
                   <div 
