@@ -112,7 +112,6 @@ const Nosotros = () => {
                 <div
                   className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden"
                   style={{
-                    background: 'linear-gradient(to bottom, #b8cfe0 0%, #cddee9 40%, #ddeaf2 100%)',
                     clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
                   }}
                 >
@@ -120,9 +119,9 @@ const Nosotros = () => {
                     src={captainImg}
                     alt="Capitán Golden Coast Charter"
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-contain"
+                    className="absolute inset-0 w-full h-full object-cover"
                     style={{
-                      objectPosition: 'center center',
+                      objectPosition: '50% 20%',
                     }}
                   />
                   <div
