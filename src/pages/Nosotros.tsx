@@ -100,6 +100,11 @@ const Nosotros = () => {
                     <p className="font-semibold text-primary text-xl">
                       {t("about.story.p4")}
                     </p>
+                    <p>{t("about.story.p5")}</p>
+                    <p>{t("about.story.p6")}</p>
+                    <p className="font-semibold text-primary text-xl">
+                      {t("about.story.p7")}
+                    </p>
                   </div>
                 </div>
 
