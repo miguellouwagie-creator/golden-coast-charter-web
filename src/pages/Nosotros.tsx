@@ -115,13 +115,24 @@ const Nosotros = () => {
                     clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
                   }}
                 >
+                  {/* Fondo desenfocado para eliminar bandas */}
+                  <img
+                    src={captainImg}
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
+                    style={{
+                      objectPosition: 'center center',
+                      filter: 'blur(18px)',
+                    }}
+                  />
+                  {/* Imagen principal sin recorte */}
                   <img
                     src={captainImg}
                     alt="Capitán Golden Coast Charter"
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain"
                     style={{
-                      objectPosition: '50% 20%',
+                      objectPosition: 'center center',
                     }}
                   />
                   <div
