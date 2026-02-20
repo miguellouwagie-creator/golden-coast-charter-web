@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { lazy, Suspense } from "react";
-import ScrollToTop from "@/components/ScrollToTop"; // ← Añade esta importación
+import ScrollToTop from "@/components/ScrollToTop";
 
 // Lazy loading de páginas para code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -16,7 +16,18 @@ const Reserva = lazy(() => import("./pages/Reserva"));
 const Nosotros = lazy(() => import("./pages/Nosotros"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 5 * 60 * 1000,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: 0,
+    },
+  },
+});
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -32,7 +43,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ScrollToTop /> {/* ← Añade este componente aquí */}
+          <ScrollToTop />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Index />} />

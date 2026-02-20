@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CONTACT } from "@/lib/contact";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,14 +7,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MessageSquare, Phone, Mail, Check } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Reserva = () => {
-  const { toast } = useToast();
   const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
@@ -24,40 +23,69 @@ const Reserva = () => {
     boatType: "",
     experience: "",
     message: "",
+    _honey: "",
   });
 
-  const whatsappMessage = language === 'es'
+  const sidebarWhatsappMessage = language === 'es'
     ? "Hola, quiero información sobre la página de reservas."
     : "Hello, I want information about the booking page.";
 
-  const whatsappLink = `https://wa.me/34676262628?text=${encodeURIComponent(whatsappMessage)}`;
+  const sidebarWhatsappLink = CONTACT.getWhatsAppLink(sidebarWhatsappMessage);
+
+  const boatLabel: Record<string, string> = {
+    motor: language === 'es' ? 'Barco a motor' : 'Motor boat',
+    'vela-con': language === 'es' ? 'Vela con patrón' : 'Sailboat with skipper',
+    'vela-sin': language === 'es' ? 'Vela sin patrón' : 'Sailboat without skipper',
+    cualquiera: language === 'es' ? 'Sin preferencia' : 'No preference',
+  };
+
+  const expLabel: Record<string, string> = {
+    sunset: language === 'es' ? 'Puesta de sol' : 'Sunset cruise',
+    party: language === 'es' ? 'Fiesta / celebración' : 'Party / celebration',
+    family: language === 'es' ? 'Familiar' : 'Family trip',
+    custom: language === 'es' ? 'Personalizada' : 'Custom experience',
+    other: language === 'es' ? 'Otra' : 'Other',
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.phone) {
-      toast({
-        title: t("booking.toast.error.title"),
-        description: t("booking.toast.error.desc"),
-        variant: "destructive",
-      });
-      return;
-    }
 
-    toast({
-      title: t("booking.toast.success.title"),
-      description: t("booking.toast.success.desc"),
-    });
+    // Honeypot: if filled, silently abort (bot detected)
+    if (formData._honey) return;
+
+    // Validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[+\d\s\-()]{7,20}$/;
+
+    if (!formData.name.trim() || formData.name.trim().length > 100) return;
+    if (!emailRegex.test(formData.email)) return;
+    if (!phoneRegex.test(formData.phone)) return;
+
+    // Build structured WhatsApp message
+    const isEs = language === 'es';
+    const lines = [
+      isEs
+        ? '🛥️ *SOLICITUD DE RESERVA — Golden Coast Charter*'
+        : '🛥️ *BOOKING REQUEST — Golden Coast Charter*',
+      '',
+      `👤 ${isEs ? 'Nombre' : 'Name'}: ${formData.name.trim()}`,
+      `📧 ${isEs ? 'Email' : 'Email'}: ${formData.email.trim()}`,
+      `📱 ${isEs ? 'Teléfono' : 'Phone'}: ${formData.phone.trim()}`,
+      `📅 ${isEs ? 'Fecha' : 'Date'}: ${formData.date || (isEs ? 'Por confirmar' : 'To be confirmed')}`,
+      `👥 ${isEs ? 'Personas' : 'Guests'}: ${formData.guests || (isEs ? 'No indicado' : 'Not specified')}`,
+      `⛵ ${isEs ? 'Embarcación' : 'Boat'}: ${boatLabel[formData.boatType] ?? (isEs ? 'No indicada' : 'Not specified')}`,
+      `🌅 ${isEs ? 'Experiencia' : 'Experience'}: ${expLabel[formData.experience] ?? (isEs ? 'No indicada' : 'Not specified')}`,
+      formData.message.trim()
+        ? `💬 ${isEs ? 'Mensaje' : 'Message'}: ${formData.message.trim().slice(0, 500)}`
+        : null,
+    ].filter((line): line is string => line !== null);
+
+    const message = lines.join('\n');
+    window.open(CONTACT.getWhatsAppLink(message), '_blank');
 
     setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      guests: "",
-      boatType: "",
-      experience: "",
-      message: "",
+      name: "", email: "", phone: "", date: "",
+      guests: "", boatType: "", experience: "", message: "", _honey: "",
     });
   };
 
@@ -78,7 +106,7 @@ const Reserva = () => {
           <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary mb-6">
             {t("booking.heroTitle")} <span className="text-gradient-gold">{t("booking.heroHighlight")}</span>
           </h1>
-          <p 
+          <p
             className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
@@ -104,6 +132,7 @@ const Reserva = () => {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder={t("booking.form.namePlaceholder")}
                         required
+                        autoComplete="name"
                         className="border-input focus:border-gold"
                       />
                     </div>
@@ -119,6 +148,7 @@ const Reserva = () => {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder={t("booking.form.emailPlaceholder")}
                         required
+                        autoComplete="email"
                         className="border-input focus:border-gold"
                       />
                     </div>
@@ -135,6 +165,7 @@ const Reserva = () => {
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder={t("booking.form.phonePlaceholder")}
                       required
+                      autoComplete="tel"
                       className="border-input focus:border-gold"
                     />
                   </div>
@@ -149,6 +180,7 @@ const Reserva = () => {
                         type="date"
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        min={new Date().toISOString().split('T')[0]}
                         className="border-input focus:border-gold"
                       />
                     </div>
@@ -217,9 +249,20 @@ const Reserva = () => {
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder={t("booking.form.messagePlaceholder")}
                       rows={5}
+                      maxLength={500}
                       className="border-input focus:border-gold resize-none"
                     />
                   </div>
+
+                  <input
+                    name="_honey"
+                    value={formData._honey}
+                    onChange={(e) => setFormData({ ...formData, _honey: e.target.value })}
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
 
                   <Button
                     type="submit"
@@ -260,7 +303,7 @@ const Reserva = () => {
                   </h3>
                   <div className="space-y-4">
                     <a
-                      href={whatsappLink}
+                      href={sidebarWhatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
@@ -278,7 +321,7 @@ const Reserva = () => {
                     </a>
 
                     <a
-                      href="mailto:Goldencoastcharterdenia@gmail.com"
+                      href={`mailto:${CONTACT.getEmail()}`}
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
                     >
                       <Mail className="h-5 w-5 text-gold" />

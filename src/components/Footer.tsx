@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { CONTACT } from "@/lib/contact";
 import logo from "@/assets/Logo.jpeg";
 
 
@@ -33,39 +34,39 @@ const Footer = () => {
 
 
   return (
-    <footer 
+    <footer
       className="text-white relative overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #0a1929 0%, #1a2332 25%, #2d3748 50%, #1a2332 75%, #0a1929 100%)"
       }}
     >
       {/* Efecto de brillo sutil en la parte superior */}
-      <div 
+      <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{
           background: "linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.3) 50%, transparent 100%)"
         }}
       />
-      
+
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center space-x-4 group">
-              <div 
+              <div
                 className="bg-white p-2 rounded-lg shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(255,215,0,0.3)]"
               >
-                <img 
-                  src={logo} 
-                  alt="Golden Coast Charter" 
-                  className="h-24 w-24" 
+                <img
+                  src={logo}
+                  alt="Golden Coast Charter"
+                  className="h-24 w-24"
                 />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading text-2xl font-bold tracking-wide text-white whitespace-nowrap">
                   GOLDEN COAST
                 </span>
-                <span 
+                <span
                   className="font-heading text-sm tracking-widest font-semibold"
                   style={{
                     background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
@@ -97,7 +98,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 
+            <h3
               className="font-heading text-lg font-semibold mb-6"
               style={{
                 background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
@@ -125,7 +126,7 @@ const Footer = () => {
 
           {/* Experiences */}
           <div>
-            <h3 
+            <h3
               className="font-heading text-lg font-semibold mb-6"
               style={{
                 background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
@@ -153,7 +154,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 
+            <h3
               className="font-heading text-lg font-semibold mb-6"
               style={{
                 background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
@@ -171,14 +172,14 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3 text-sm text-white/70">
                 <Phone className="h-5 w-5 text-[#FFD700] flex-shrink-0" />
-                <a href="tel:+34676262628" className="hover:text-[#FFD700] transition-colors duration-300">
+                <a href={`tel:+${CONTACT.phone}`} className="hover:text-[#FFD700] transition-colors duration-300">
                   +34 676 26 26 28
                 </a>
               </li>
               <li className="flex items-center space-x-3 text-sm text-white/70">
                 <Mail className="h-5 w-5 text-[#FFD700] flex-shrink-0" />
-                <a href="mailto:Goldencoastcharterdenia@gmail.com" className="hover:text-[#FFD700] transition-colors duration-300">
-                  Goldencoastcharterdenia@gmail.com
+                <a href={`mailto:${CONTACT.getEmail()}`} className="hover:text-[#FFD700] transition-colors duration-300">
+                  {CONTACT.getEmail()}
                 </a>
               </li>
             </ul>
