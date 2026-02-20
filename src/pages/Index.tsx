@@ -13,6 +13,7 @@ import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { CONTACT } from "@/lib/contact";
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -20,7 +21,6 @@ const Index = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useLanguage();
 
-  // Array de valores "¿Por qué nosotros?" con traducciones
   const whyChooseUsValues = [
     {
       image: timonImg,
@@ -39,22 +39,30 @@ const Index = () => {
     },
   ];
 
+  // Play video on mount — single attempt, no interval loop
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
+
+  // Pause video when hero is no longer visible to save CPU/GPU/battery
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = true;
-    
-    // Intentar reproducir inmediatamente
-    const playAttempt = setInterval(() => {
-      if (video.paused && video.readyState >= 2) {
-        video.play().catch(() => {});
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight;
+      if (window.scrollY > heroHeight * 0.9) {
+        if (!video.paused) video.pause();
+      } else {
+        if (video.paused) video.play().catch(() => {});
       }
-    }, 100);
-
-    return () => {
-      clearInterval(playAttempt);
     };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Detect mobile and setup parallax effect
@@ -66,13 +74,10 @@ const Index = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Parallax effect only on desktop
     const handleScroll = () => {
       if (isMobile || !heroContentRef.current) return;
-
       const scrolled = window.scrollY;
       const parallaxSpeed = 0.3;
-
       if (scrolled < window.innerHeight) {
         heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
@@ -88,9 +93,8 @@ const Index = () => {
     };
   }, [isMobile]);
 
-  // Prefetch de páginas al pasar el mouse
   const prefetchPage = (page: string) => {
-    const routes: Record<string, () => Promise<any>> = {
+    const routes: Record<string, () => Promise<unknown>> = {
       flota: () => import("./Flota"),
       experiencias: () => import("./Experiencias"),
       reserva: () => import("./Reserva"),
@@ -100,7 +104,6 @@ const Index = () => {
 
   return (
     <div className="relative bg-background">
-      {/* NAVBAR INDEPENDIENTE Y FIJO */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}>
         <Navbar />
       </div>
@@ -115,16 +118,16 @@ const Index = () => {
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0
+          bottom: 0,
         }}
       >
-        {/* VIDEO DE FONDO */}
         <video
           ref={videoRef}
           autoPlay
           muted
           playsInline
           preload="auto"
+          loop
           style={{
             position: "absolute",
             top: 0,
@@ -133,39 +136,23 @@ const Index = () => {
             height: "100%",
             objectFit: "cover",
             zIndex: 0,
-            willChange: "transform",
           }}
           onLoadedData={(e) => {
-            const video = e.currentTarget;
-            video.play().catch(err => console.log("Autoplay prevented:", err));
-          }}
-          onEnded={(e) => {
-            const video = e.currentTarget;
-            video.currentTime = 0;
-            video.play().catch(err => console.log("Loop restart prevented:", err));
+            e.currentTarget.play().catch(() => {});
           }}
         >
           <source src={videoEntrada} type="video/mp4" />
-          Tu navegador no soporta vídeos HTML5.
         </video>
 
-        {/* OVERLAY OSCURO */}
         <div
           className="absolute inset-0"
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            zIndex: 1
-          }}
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', zIndex: 1 }}
         />
 
-        {/* CONTENIDO DEL HERO CON PARALLAX */}
-        <div 
+        <div
           ref={heroContentRef}
-          className="relative w-full container mx-auto px-8 md:px-16" 
-          style={{ 
-            zIndex: 5,
-            transition: 'transform 0.1s ease-out'
-          }}
+          className="relative w-full container mx-auto px-8 md:px-16"
+          style={{ zIndex: 5, transition: 'transform 0.1s ease-out' }}
         >
           <div className="max-w-4xl">
             <h1
@@ -216,18 +203,13 @@ const Index = () => {
 
             <div
               className="animate-in fade-in slide-in-from-bottom-4 duration-1000"
-              style={{
-                animationDelay: "0.6s",
-                animationFillMode: "backwards",
-              }}
+              style={{ animationDelay: "0.6s", animationFillMode: "backwards" }}
             >
               <Link
                 to="/flota"
                 onMouseEnter={() => prefetchPage('flota')}
                 className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold text-lg shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 group"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                }}
+                style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 <Anchor className="w-6 h-6" strokeWidth={2} />
                 <span>{t("hero.cta")}</span>
@@ -249,7 +231,7 @@ const Index = () => {
           paddingTop: "72px",
           borderTopLeftRadius: "24px",
           borderTopRightRadius: "24px",
-          zIndex: 2
+          zIndex: 2,
         }}
       >
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center gap-12 md:gap-16">
@@ -265,17 +247,14 @@ const Index = () => {
             <div
               className="absolute inset-0 rounded-3xl"
               style={{
-                background:
-                  "linear-gradient(to top,rgba(25,38,76,0.20) 60%, rgba(243,229,180,0.06) 100%)",
+                background: "linear-gradient(to top,rgba(25,38,76,0.20) 60%, rgba(243,229,180,0.06) 100%)",
                 zIndex: 1,
               }}
             />
             <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
               <span
                 className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
-                style={{
-                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
-                }}
+                style={{ textShadow: "0 6px 24px #000,0 2px 10px #FFD70065" }}
               >
                 {t("index.verFlota")}
               </span>
@@ -283,15 +262,13 @@ const Index = () => {
                 to="/flota"
                 onMouseEnter={() => prefetchPage('flota')}
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
-                style={{
-                  backdropFilter: "blur(6px)",
-                  border: "1.5px solid #FFD700",
-                }}
+                style={{ backdropFilter: "blur(6px)", border: "1.5px solid #FFD700" }}
               >
                 {t("index.descubrirBarcos")}
               </Link>
             </div>
           </div>
+
           {/* EXPERIENCIAS */}
           <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
             <img
@@ -304,17 +281,14 @@ const Index = () => {
             <div
               className="absolute inset-0 rounded-3xl"
               style={{
-                background:
-                  "linear-gradient(to top,rgba(30,58,138,0.13) 60%, rgba(241,215,100,0.07) 100%)",
+                background: "linear-gradient(to top,rgba(30,58,138,0.13) 60%, rgba(241,215,100,0.07) 100%)",
                 zIndex: 1,
               }}
             />
             <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
               <span
                 className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
-                style={{
-                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
-                }}
+                style={{ textShadow: "0 6px 24px #000,0 2px 10px #FFD70065" }}
               >
                 {t("index.experiencias")}
               </span>
@@ -322,15 +296,13 @@ const Index = () => {
                 to="/experiencias"
                 onMouseEnter={() => prefetchPage('experiencias')}
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
-                style={{
-                  backdropFilter: "blur(6px)",
-                  border: "1.5px solid #FFD700",
-                }}
+                style={{ backdropFilter: "blur(6px)", border: "1.5px solid #FFD700" }}
               >
                 {t("index.verRutas")}
               </Link>
             </div>
           </div>
+
           {/* CONTACTO */}
           <div className="relative group flex-1 max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer">
             <img
@@ -343,29 +315,23 @@ const Index = () => {
             <div
               className="absolute inset-0 rounded-3xl"
               style={{
-                background:
-                  "linear-gradient(to top,rgba(19,20,50,0.21) 55%, rgba(255,214,108,0.08) 100%)",
+                background: "linear-gradient(to top,rgba(19,20,50,0.21) 55%, rgba(255,214,108,0.08) 100%)",
                 zIndex: 1,
               }}
             />
             <div className="relative z-10 flex flex-col justify-end items-start h-full w-full p-8">
               <span
                 className="block text-xl md:text-2xl font-extrabold text-white drop-shadow mb-8"
-                style={{
-                  textShadow: "0 6px 24px #000,0 2px 10px #FFD70065",
-                }}
+                style={{ textShadow: "0 6px 24px #000,0 2px 10px #FFD70065" }}
               >
                 {t("index.contacto")}
               </span>
               <a
-                href="https://wa.me/34676262628"
+                href={CONTACT.getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-gradient-to-r from-[#FFD700d8] to-[#FFA500cf] font-semibold text-black text-md px-8 py-4 shadow-2xl hover:scale-105 hover:shadow-yellow-400 transition-all duration-400 hover:bg-[#FFD700] focus:outline-none focus:ring-4 focus:ring-yellow-200/50"
-                style={{
-                  backdropFilter: "blur(6px)",
-                  border: "1.5px solid #FFD700",
-                }}
+                style={{ backdropFilter: "blur(6px)", border: "1.5px solid #FFD700" }}
               >
                 {t("index.whatsapp")}
               </a>
@@ -379,7 +345,7 @@ const Index = () => {
           background: "#0A192F",
           marginTop: "-36px",
           zIndex: 2,
-          position: "relative"
+          position: "relative",
         }}
         className="py-36 px-4 relative rounded-t-3xl shadow-lg"
       >
@@ -408,12 +374,7 @@ const Index = () => {
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      style={{
-                        maxWidth: 70,
-                        maxHeight: 70,
-                        objectFit: "contain",
-                        display: "block",
-                      }}
+                      style={{ maxWidth: 70, maxHeight: 70, objectFit: "contain", display: "block" }}
                     />
                   </div>
                 </div>
@@ -421,19 +382,16 @@ const Index = () => {
               <div
                 className="absolute w-[90%] left-[5%] right-[5%] top-[50%] h-0.5"
                 style={{
-                  background:
-                    "linear-gradient(90deg,#FFD70055,#FFD700cc,#FFD70055)",
+                  background: "linear-gradient(90deg,#FFD70055,#FFD700cc,#FFD70055)",
                   zIndex: 0,
                 }}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 px-4">
               {whyChooseUsValues.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center px-2 md:px-6"
-                >
-                  <div className="md:hidden bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
+                <div key={idx} className="flex flex-col items-center px-2 md:px-6">
+                  <div
+                    className="md:hidden bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
                     style={{
                       borderColor: "#FFD700",
                       boxShadow: "0 6px 32px 0 #FFD70033",
@@ -445,12 +403,7 @@ const Index = () => {
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      style={{
-                        maxWidth: 60,
-                        maxHeight: 60,
-                        objectFit: "contain",
-                        display: "block",
-                      }}
+                      style={{ maxWidth: 60, maxHeight: 60, objectFit: "contain", display: "block" }}
                     />
                   </div>
                   <h3
@@ -469,14 +422,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* SECCIÓN "¿LISTO PARA ZARPAR?" */}
+      {/* SECCIÓN ¿LISTO PARA ZARPAR? */}
       <section
         className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-        }}
+        style={{ minHeight: "100vh", display: "flex", alignItems: "center" }}
       >
         <div
           className="absolute inset-0 rounded-t-3xl"
@@ -489,7 +438,6 @@ const Index = () => {
             zIndex: 0,
           }}
         />
-        {/* CSS SOLO PARA MÓVIL - CUBRIR TODA LA PANTALLA */}
         <style>{`
           @media (max-width: 768px) {
             .py-32.px-4.relative.overflow-hidden > div:first-child {
@@ -509,32 +457,24 @@ const Index = () => {
         <div className="container mx-auto text-center relative z-10 max-w-5xl">
           <h2
             className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
-            style={{
-              textShadow:
-                "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)",
-            }}
+            style={{ textShadow: "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)" }}
           >
             {t("index.ctaTitle")}
           </h2>
-          
           <p
             className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
-            style={{
-              textShadow:
-                "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)",
-            }}
+            style={{ textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)" }}
           >
             {t("index.ctaSubtitle")}
           </p>
-
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
               asChild
             >
-              <Link 
-                to="/reserva" 
+              <Link
+                to="/reserva"
                 onMouseEnter={() => prefetchPage('reserva')}
                 className="flex items-center gap-3"
               >
