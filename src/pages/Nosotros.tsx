@@ -109,22 +109,25 @@ const Nosotros = () => {
                 </div>
 
                 {/* Imagen del capitán - 2 columnas */}
-                <div className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden">
+                <div
+                  className="lg:col-span-2 relative min-h-[400px] lg:min-h-full overflow-hidden bg-white"
+                  style={{
+                    clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
+                  }}
+                >
                   <img
                     src={captainImg}
                     alt="Capitán Golden Coast Charter"
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    className="absolute inset-0 w-full h-full object-contain"
                     style={{
-                      clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
-                      objectPosition: '88% center',
+                      objectPosition: 'center center',
                     }}
                   />
-                  <div 
+                  <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: 'linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 30%)',
-                      clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
+                      background: 'linear-gradient(to right, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 25%)',
                     }}
                   />
                 </div>
