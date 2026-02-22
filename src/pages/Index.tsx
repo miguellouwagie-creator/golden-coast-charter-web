@@ -44,11 +44,11 @@ const Index = () => {
     if (!video) return;
 
     video.muted = true;
-    
+
     // Intentar reproducir inmediatamente
     const playAttempt = setInterval(() => {
       if (video.paused && video.readyState >= 2) {
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     }, 100);
 
@@ -134,6 +134,8 @@ const Index = () => {
             objectFit: "cover",
             zIndex: 0,
             willChange: "transform",
+            transform: "scale(1.05)",
+            transformOrigin: "center center",
           }}
           onLoadedData={(e) => {
             const video = e.currentTarget;
@@ -159,10 +161,10 @@ const Index = () => {
         />
 
         {/* CONTENIDO DEL HERO CON PARALLAX */}
-        <div 
+        <div
           ref={heroContentRef}
-          className="relative w-full container mx-auto px-8 md:px-16" 
-          style={{ 
+          className="relative w-full container mx-auto px-8 md:px-16"
+          style={{
             zIndex: 5,
             transition: 'transform 0.1s ease-out'
           }}
@@ -516,7 +518,7 @@ const Index = () => {
           >
             {t("index.ctaTitle")}
           </h2>
-          
+
           <p
             className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
             style={{
@@ -533,8 +535,8 @@ const Index = () => {
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
               asChild
             >
-              <Link 
-                to="/reserva" 
+              <Link
+                to="/reserva"
                 onMouseEnter={() => prefetchPage('reserva')}
                 className="flex items-center gap-3"
               >
