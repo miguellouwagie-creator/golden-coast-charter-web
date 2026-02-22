@@ -20,7 +20,6 @@ const Index = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useLanguage();
 
-  // Array de valores "¿Por qué nosotros?" con traducciones
   const whyChooseUsValues = [
     {
       image: timonImg,
@@ -39,22 +38,30 @@ const Index = () => {
     },
   ];
 
+  // Play video on mount — single attempt, no interval loop
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
+
+  // Pause video when hero is no longer visible to save CPU/GPU/battery
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = true;
-
-    // Intentar reproducir inmediatamente
-    const playAttempt = setInterval(() => {
-      if (video.paused && video.readyState >= 2) {
-        video.play().catch(() => { });
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight;
+      if (window.scrollY > heroHeight * 0.9) {
+        if (!video.paused) video.pause();
+      } else {
+        if (video.paused) video.play().catch(() => {});
       }
-    }, 100);
-
-    return () => {
-      clearInterval(playAttempt);
     };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Detect mobile and setup parallax effect
@@ -66,13 +73,10 @@ const Index = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Parallax effect only on desktop
     const handleScroll = () => {
       if (isMobile || !heroContentRef.current) return;
-
       const scrolled = window.scrollY;
       const parallaxSpeed = 0.3;
-
       if (scrolled < window.innerHeight) {
         heroContentRef.current.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
       }
@@ -88,7 +92,6 @@ const Index = () => {
     };
   }, [isMobile]);
 
-  // Prefetch de páginas al pasar el mouse
   const prefetchPage = (page: string) => {
     const routes: Record<string, () => Promise<any>> = {
       flota: () => import("./Flota"),
@@ -124,6 +127,7 @@ const Index = () => {
           autoPlay
           muted
           playsInline
+          loop
           preload="auto"
           style={{
             position: "absolute",
@@ -140,11 +144,6 @@ const Index = () => {
           onLoadedData={(e) => {
             const video = e.currentTarget;
             video.play().catch(err => console.log("Autoplay prevented:", err));
-          }}
-          onEnded={(e) => {
-            const video = e.currentTarget;
-            video.currentTime = 0;
-            video.play().catch(err => console.log("Loop restart prevented:", err));
           }}
         >
           <source src={videoEntrada} type="video/mp4" />
