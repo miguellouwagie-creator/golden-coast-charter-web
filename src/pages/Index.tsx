@@ -404,22 +404,26 @@ const Index = () => {
         className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
         style={{ minHeight: "100vh", display: "flex", alignItems: "center" }}
       >
-        <div
-          className="absolute inset-0 rounded-t-3xl"
-          style={{
-            backgroundImage: `url(${listoZarparBg})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            zIndex: 0,
-          }}
-        />
         <style>{`
+          .listo-bg {
+            background-image: url(${listoZarparBg});
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+          }
           @media (max-width: 768px) {
-            .listo-bg { background-attachment: scroll !important; background-position: center 35% !important; }
+            .listo-bg {
+              background-attachment: scroll !important;
+              background-size: cover !important;
+              background-position: center center !important;
+            }
           }
         `}</style>
+        <div
+          className="listo-bg absolute inset-0 rounded-t-3xl"
+          style={{ zIndex: 0 }}
+        />
         <div
           className="absolute inset-0 rounded-t-3xl"
           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)", zIndex: 1 }}
