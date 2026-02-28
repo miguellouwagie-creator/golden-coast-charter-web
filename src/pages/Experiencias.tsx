@@ -1,13 +1,15 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sunset, PartyPopper, Heart, Users, Sparkles } from "lucide-react";
+import { Sunset, PartyPopper, Heart, Users, Sparkles, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
-import sunsetImg from "@/assets/experience-sunset.jpg";
-import partyImg from "@/assets/experience-party.jpg";
+import sunsetImg from "@/assets/experience-sunset.webp";
+import partyImg from "@/assets/experience-party.webp";
+import familyImg from "@/assets/route-javea-coves.webp";
+import customImg from "@/assets/route-sunset-montgo.webp";
 import fondoExperiencias from "@/assets/FondoExperiencias.jpg";
 
 const Experiencias = () => {
@@ -48,7 +50,7 @@ const Experiencias = () => {
       id: "family",
       icon: Users,
       title: t("exp.family.title"),
-      image: sunsetImg,
+      image: familyImg,
       description: t("exp.family.desc"),
       highlights: [
         t("exp.family.highlight1"),
@@ -63,7 +65,7 @@ const Experiencias = () => {
       id: "custom",
       icon: Sparkles,
       title: t("exp.custom.title"),
-      image: partyImg,
+      image: customImg,
       description: t("exp.custom.desc"),
       highlights: [
         t("exp.custom.highlight1"),
@@ -77,7 +79,7 @@ const Experiencias = () => {
   ];
 
   const customExperienceMessage = language === 'es'
-    ? "Hola, me gustaría crear una experiencia personalizada."
+    ? "Hola, me gustar\u00eda crear una experiencia personalizada."
     : "Hello, I would like to create a customized experience.";
 
   const customExperienceLink = `https://wa.me/34676262628?text=${encodeURIComponent(customExperienceMessage)}`;
@@ -100,23 +102,36 @@ const Experiencias = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {experiences.map((exp) => {
               const infoMessage = language === 'es'
-                ? `Hola, quisiera información sobre la experiencia '${exp.title}'.`
+                ? `Hola, quisiera informaci\u00f3n sobre la experiencia '${exp.title}'.`
                 : `Hello, I would like information about the '${exp.title}' experience.`;
-              
+
               return (
-                <Card key={exp.id} id={exp.id} className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-smooth group">
+                <Card
+                  key={exp.id}
+                  id={exp.id}
+                  className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-smooth group"
+                >
+                  {/* Card image — below-fold: lazy + async decode */}
                   <div className="relative h-64 overflow-hidden">
                     <img
                       src={exp.image}
                       alt={exp.title}
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={256}
+                      sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 600px"
                       className="w-full h-full object-cover transition-smooth group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold mb-3">
-                        <exp.icon className="h-6 w-6 text-accent-foreground" />
+                        {/* Icon on gold background — black text passes contrast */}
+                        <exp.icon className="h-6 w-6 text-black" aria-hidden="true" />
                       </div>
-                      <h2 className="font-heading text-3xl font-bold text-primary-foreground">{exp.title}</h2>
+                      <h2 className="font-heading text-3xl font-bold text-primary-foreground">
+                        {exp.title}
+                      </h2>
                     </div>
                   </div>
 
@@ -126,14 +141,19 @@ const Experiencias = () => {
                     </p>
 
                     <div className="mb-6">
-                      <h4 className="font-heading font-semibold text-primary mb-3 flex items-center">
-                        <Sparkles className="h-4 w-4 mr-2 text-gold" />
+                      <h4 className="font-heading font-semibold text-primary mb-3 flex items-center gap-2">
+                        {/* Sparkles on white — use text-primary (dark navy) for contrast */}
+                        <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
                         {t("exp.includes")}
                       </h4>
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {exp.highlights.map((highlight, index) => (
-                          <li key={index} className="flex items-start text-sm text-foreground">
-                            <span className="text-gold mr-2">✓</span>
+                          <li key={index} className="flex items-start gap-2 text-sm text-foreground">
+                            {/* CheckCircle2 on white — use text-primary for contrast (4.5:1+) */}
+                            <CheckCircle2
+                              className="h-4 w-4 mt-0.5 shrink-0 text-primary"
+                              aria-hidden="true"
+                            />
                             {highlight}
                           </li>
                         ))}
@@ -147,10 +167,24 @@ const Experiencias = () => {
 
                     <div className="flex items-center justify-between pt-6 border-t border-border">
                       <div>
-                        <p className="font-heading text-2xl font-bold text-gold">{exp.price}</p>
+                        <p className="text-xs text-muted-foreground mb-0.5">
+                          {t("fleet.priceLabel")}
+                        </p>
+                        {/* Price on white — text-gold-readable passes 4.5:1 vs white */}
+                        <p className="font-heading text-2xl font-bold text-gold-readable">
+                          {exp.price}
+                        </p>
                       </div>
-                      <Button className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold" asChild>
-                        <a href={`https://wa.me/34676262628?text=${encodeURIComponent(infoMessage)}`} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold"
+                        asChild
+                      >
+                        <a
+                          href={`https://wa.me/34676262628?text=${encodeURIComponent(infoMessage)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${t("exp.requestInfo")} \u2014 ${exp.title}`}
+                        >
                           {t("exp.requestInfo")}
                         </a>
                       </Button>
@@ -168,15 +202,24 @@ const Experiencias = () => {
         <div className="container mx-auto">
           <Card className="bg-gradient-hero text-primary-foreground border-none shadow-elegant">
             <CardContent className="p-12 text-center">
-              <Heart className="h-16 w-16 text-gold mx-auto mb-6" />
+              <Heart className="h-16 w-16 text-gold mx-auto mb-6" aria-hidden="true" />
               <h2 className="font-heading text-4xl font-bold mb-4">
                 {t("exp.cta.title")}
               </h2>
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
                 {t("exp.cta.desc")}
               </p>
-              <Button size="lg" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12" asChild>
-                <a href={customExperienceLink} target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold px-12"
+                asChild
+              >
+                <a
+                  href={customExperienceLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("exp.cta.button")}
+                >
                   {t("exp.cta.button")}
                 </a>
               </Button>
