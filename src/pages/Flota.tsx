@@ -49,7 +49,6 @@ const Flota = () => {
       image: flota1,
       capacity: 12,
       withCaptain: true,
-      price: `${t("fleet.from")} 800\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -62,12 +61,11 @@ const Flota = () => {
     {
       id: 2,
       name: "Mediterranean Star",
-      type: t("fleet.type.sail"),
+      type: t("fleet.type.motor"),
       image: flota2,
       capacity: 8,
       withCaptain: true,
       withoutCaptain: true,
-      price: `${t("fleet.from")} 600\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.cabin"),
         t("fleet.feature.kitchen"),
@@ -80,11 +78,10 @@ const Flota = () => {
     {
       id: 3,
       name: "Golden Wave",
-      type: t("fleet.type.motor"),
+      type: t("fleet.type.sail"),
       image: flota3,
       capacity: 10,
       withCaptain: true,
-      price: `${t("fleet.from")} 700\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.shade"),
         t("fleet.feature.platform"),
@@ -97,11 +94,10 @@ const Flota = () => {
     {
       id: 4,
       name: "Serenity",
-      type: t("fleet.type.sail"),
+      type: t("fleet.type.motor"),
       image: flota4,
       capacity: 8,
       withCaptain: true,
-      price: `${t("fleet.from")} 600\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -113,11 +109,10 @@ const Flota = () => {
     {
       id: 5,
       name: "Adrenaline",
-      type: t("fleet.type.motor"),
+      type: t("fleet.type.sail"),
       image: flota5,
       capacity: 6,
       withoutCaptain: true,
-      price: `${t("fleet.from")} 450\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.solarium"),
         t("fleet.feature.fridge"),
@@ -129,11 +124,10 @@ const Flota = () => {
     {
       id: 6,
       name: "La Familia",
-      type: t("fleet.type.motor"),
+      type: t("fleet.type.sail"),
       image: flota6,
       capacity: 12,
       withCaptain: true,
-      price: `${t("fleet.from")} 950\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -244,13 +238,7 @@ const Flota = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 lg:gap-2 pt-4 lg:pt-3 border-t border-border">
-          <div>
-            <p className="text-xs text-muted-foreground mb-0.5">{t("fleet.priceLabel")}</p>
-            <p className="font-heading text-xl lg:text-lg xl:text-xl font-bold text-gold-readable">
-              {boat.price}
-            </p>
-          </div>
+        <div className="pt-4 lg:pt-3 border-t border-border">
           <Button
             size="sm"
             className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold w-full group text-xs py-2 h-9"
