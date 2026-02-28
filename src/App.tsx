@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { lazy, Suspense } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
+import CookieBanner from "@/components/CookieBanner";
 
 // Lazy loading de páginas para code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -14,6 +15,10 @@ const Experiencias = lazy(() => import("./pages/Experiencias"));
 const Rutas = lazy(() => import("./pages/Rutas"));
 const Reserva = lazy(() => import("./pages/Reserva"));
 const Nosotros = lazy(() => import("./pages/Nosotros"));
+const AvisoLegal = lazy(() => import("./pages/AvisoLegal"));
+const PoliticaPrivacidad = lazy(() => import("./pages/PoliticaPrivacidad"));
+const TerminosCondiciones = lazy(() => import("./pages/TerminosCondiciones"));
+const PoliticaCookies = lazy(() => import("./pages/PoliticaCookies"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -44,6 +49,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <CookieBanner />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -52,6 +58,10 @@ const App = () => (
               <Route path="/rutas" element={<Rutas />} />
               <Route path="/reserva" element={<Reserva />} />
               <Route path="/nosotros" element={<Nosotros />} />
+              <Route path="/aviso-legal" element={<AvisoLegal />} />
+              <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+              <Route path="/terminos" element={<TerminosCondiciones />} />
+              <Route path="/cookies" element={<PoliticaCookies />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
