@@ -14,8 +14,12 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
-import yachtMotor from "@/assets/yacht-motor-1.webp";
-import yachtSail from "@/assets/yacht-sail-1.webp";
+import flota1 from "@/assets/flota-1.webp";
+import flota2 from "@/assets/flota-2.webp";
+import flota3 from "@/assets/flota-3.webp";
+import flota4 from "@/assets/flota-4.webp";
+import flota5 from "@/assets/flota-5.webp";
+import flota6 from "@/assets/flota-6.webp";
 import fondoFlota from "@/assets/FondoFlota.jpg";
 
 const Flota = () => {
@@ -42,7 +46,7 @@ const Flota = () => {
       id: 1,
       name: "Azure Dream",
       type: t("fleet.type.motor"),
-      image: yachtMotor,
+      image: flota1,
       capacity: 12,
       withCaptain: true,
       price: `${t("fleet.from")} 800\u20ac${t("fleet.perDay")}`,
@@ -59,7 +63,7 @@ const Flota = () => {
       id: 2,
       name: "Mediterranean Star",
       type: t("fleet.type.sail"),
-      image: yachtSail,
+      image: flota2,
       capacity: 8,
       withCaptain: true,
       withoutCaptain: true,
@@ -77,7 +81,7 @@ const Flota = () => {
       id: 3,
       name: "Golden Wave",
       type: t("fleet.type.motor"),
-      image: yachtMotor,
+      image: flota3,
       capacity: 10,
       withCaptain: true,
       price: `${t("fleet.from")} 700\u20ac${t("fleet.perDay")}`,
@@ -94,7 +98,7 @@ const Flota = () => {
       id: 4,
       name: "Serenity",
       type: t("fleet.type.sail"),
-      image: yachtSail,
+      image: flota4,
       capacity: 8,
       withCaptain: true,
       price: `${t("fleet.from")} 600\u20ac${t("fleet.perDay")}`,
@@ -110,7 +114,7 @@ const Flota = () => {
       id: 5,
       name: "Adrenaline",
       type: t("fleet.type.motor"),
-      image: yachtMotor,
+      image: flota5,
       capacity: 6,
       withoutCaptain: true,
       price: `${t("fleet.from")} 450\u20ac${t("fleet.perDay")}`,
@@ -126,7 +130,7 @@ const Flota = () => {
       id: 6,
       name: "La Familia",
       type: t("fleet.type.motor"),
-      image: yachtMotor,
+      image: flota6,
       capacity: 12,
       withCaptain: true,
       price: `${t("fleet.from")} 950\u20ac${t("fleet.perDay")}`,
