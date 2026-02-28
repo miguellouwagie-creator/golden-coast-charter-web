@@ -4,7 +4,6 @@ import { Anchor, ArrowRight } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import videoEntrada from "@/assets/FondoRenderizado.mp4";
 import timonImg from "@/assets/Timón.png";
 import medallaImg from "@/assets/Medalla.png";
 import escudoImg from "@/assets/Escudo.png";
@@ -13,6 +12,9 @@ import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
 import experienciaImg from "@/assets/Experiencia-min.png";
 import contactoImg from "@/assets/Contacto.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+// Vídeo en /public para que el preload del <head> apunte a la misma URL estable
+const videoEntrada = "/FondoRenderizado.mp4";
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -121,7 +123,7 @@ const Index = () => {
           bottom: 0
         }}
       >
-        {/* VIDEO DE FONDO */}
+        {/* VIDEO DE FONDO — LCP: sin lazy, autoplay con fetchpriority gestionado desde <head> */}
         <video
           ref={videoRef}
           autoPlay
@@ -260,6 +262,9 @@ const Index = () => {
               src={verFlotaImg}
               alt={t("index.verFlota")}
               loading="lazy"
+              width={448}
+              height={384}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.05) saturate(1.15)" }}
             />
@@ -299,6 +304,9 @@ const Index = () => {
               src={experienciaImg}
               alt={t("index.experiencias")}
               loading="lazy"
+              width={448}
+              height={384}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(0.99) saturate(1.22)" }}
             />
@@ -338,6 +346,9 @@ const Index = () => {
               src={contactoImg}
               alt={t("index.contacto")}
               loading="lazy"
+              width={448}
+              height={384}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               style={{ zIndex: 0, filter: "brightness(1.04) saturate(1.1)" }}
             />
@@ -409,6 +420,9 @@ const Index = () => {
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
+                      width={70}
+                      height={70}
+                      decoding="async"
                       style={{
                         maxWidth: 70,
                         maxHeight: 70,
@@ -446,6 +460,9 @@ const Index = () => {
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
+                      width={60}
+                      height={60}
+                      decoding="async"
                       style={{
                         maxWidth: 60,
                         maxHeight: 60,
