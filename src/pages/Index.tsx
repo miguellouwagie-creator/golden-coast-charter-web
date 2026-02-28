@@ -7,10 +7,10 @@ import Footer from "@/components/Footer";
 import timonImg from "@/assets/Timón.png";
 import medallaImg from "@/assets/Medalla.png";
 import escudoImg from "@/assets/Escudo.png";
-import listoZarparBg from "@/assets/Listo-zarpar.jpg";
-import verFlotaImg from "@/assets/Ver la Flota-min.jpg";
-import experienciaImg from "@/assets/Experiencia-min.png";
-import contactoImg from "@/assets/Contacto.png";
+import listoZarparBg from "@/assets/Listo-zarpar.webp";
+import verFlotaImg from "@/assets/Ver la Flota-min.webp";
+import experienciaImg from "@/assets/Experiencia-min.webp";
+import contactoImg from "@/assets/Contacto.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Vídeo en /public para que el preload del <head> apunte a la misma URL estable
@@ -507,7 +507,6 @@ const Index = () => {
             zIndex: 0,
           }}
         />
-        {/* CSS SOLO PARA MÓVIL - CUBRIR TODA LA PANTALLA */}
         <style>{`
           @media (max-width: 768px) {
             .py-32.px-4.relative.overflow-hidden > div:first-child {
