@@ -27,21 +27,21 @@ const Reserva = () => {
   });
 
   const sidebarWhatsappMessage = language === 'es'
-    ? "Hola, quiero información sobre la página de reservas."
+    ? "Hola, quiero informaci\u00f3n sobre la p\u00e1gina de reservas."
     : "Hello, I want information about the booking page.";
 
   const sidebarWhatsappLink = CONTACT.getWhatsAppLink(sidebarWhatsappMessage);
 
   const boatLabel: Record<string, string> = {
     motor: language === 'es' ? 'Barco a motor' : 'Motor boat',
-    'vela-con': language === 'es' ? 'Vela con patrón' : 'Sailboat with skipper',
-    'vela-sin': language === 'es' ? 'Vela sin patrón' : 'Sailboat without skipper',
+    'vela-con': language === 'es' ? 'Vela con patr\u00f3n' : 'Sailboat with skipper',
+    'vela-sin': language === 'es' ? 'Vela sin patr\u00f3n' : 'Sailboat without skipper',
     cualquiera: language === 'es' ? 'Sin preferencia' : 'No preference',
   };
 
   const expLabel: Record<string, string> = {
     sunset: language === 'es' ? 'Puesta de sol' : 'Sunset cruise',
-    party: language === 'es' ? 'Fiesta / celebración' : 'Party / celebration',
+    party: language === 'es' ? 'Fiesta / celebraci\u00f3n' : 'Party / celebration',
     family: language === 'es' ? 'Familiar' : 'Family trip',
     custom: language === 'es' ? 'Personalizada' : 'Custom experience',
     other: language === 'es' ? 'Otra' : 'Other',
@@ -49,11 +49,8 @@ const Reserva = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Honeypot: if filled, silently abort (bot detected)
     if (formData._honey) return;
 
-    // Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[+\d\s\-()]{7,20}$/;
 
@@ -61,22 +58,21 @@ const Reserva = () => {
     if (!emailRegex.test(formData.email)) return;
     if (!phoneRegex.test(formData.phone)) return;
 
-    // Build structured WhatsApp message
     const isEs = language === 'es';
     const lines = [
       isEs
-        ? '🛥️ *SOLICITUD DE RESERVA — Golden Coast Charter*'
-        : '🛥️ *BOOKING REQUEST — Golden Coast Charter*',
+        ? '\uD83D\uDEE5\uFE0F *SOLICITUD DE RESERVA \u2014 Golden Coast Charter*'
+        : '\uD83D\uDEE5\uFE0F *BOOKING REQUEST \u2014 Golden Coast Charter*',
       '',
-      `👤 ${isEs ? 'Nombre' : 'Name'}: ${formData.name.trim()}`,
-      `📧 ${isEs ? 'Email' : 'Email'}: ${formData.email.trim()}`,
-      `📱 ${isEs ? 'Teléfono' : 'Phone'}: ${formData.phone.trim()}`,
-      `📅 ${isEs ? 'Fecha' : 'Date'}: ${formData.date || (isEs ? 'Por confirmar' : 'To be confirmed')}`,
-      `👥 ${isEs ? 'Personas' : 'Guests'}: ${formData.guests || (isEs ? 'No indicado' : 'Not specified')}`,
-      `⛵ ${isEs ? 'Embarcación' : 'Boat'}: ${boatLabel[formData.boatType] ?? (isEs ? 'No indicada' : 'Not specified')}`,
-      `🌅 ${isEs ? 'Experiencia' : 'Experience'}: ${expLabel[formData.experience] ?? (isEs ? 'No indicada' : 'Not specified')}`,
+      `\uD83D\uDC64 ${isEs ? 'Nombre' : 'Name'}: ${formData.name.trim()}`,
+      `\uD83D\uDCE7 ${isEs ? 'Email' : 'Email'}: ${formData.email.trim()}`,
+      `\uD83D\uDCF1 ${isEs ? 'Tel\u00e9fono' : 'Phone'}: ${formData.phone.trim()}`,
+      `\uD83D\uDCC5 ${isEs ? 'Fecha' : 'Date'}: ${formData.date || (isEs ? 'Por confirmar' : 'To be confirmed')}`,
+      `\uD83D\uDC65 ${isEs ? 'Personas' : 'Guests'}: ${formData.guests || (isEs ? 'No indicado' : 'Not specified')}`,
+      `\u26F5 ${isEs ? 'Embarcaci\u00f3n' : 'Boat'}: ${boatLabel[formData.boatType] ?? (isEs ? 'No indicada' : 'Not specified')}`,
+      `\uD83C\uDF05 ${isEs ? 'Experiencia' : 'Experience'}: ${expLabel[formData.experience] ?? (isEs ? 'No indicada' : 'Not specified')}`,
       formData.message.trim()
-        ? `💬 ${isEs ? 'Mensaje' : 'Message'}: ${formData.message.trim().slice(0, 500)}`
+        ? `\uD83D\uDCAC ${isEs ? 'Mensaje' : 'Message'}: ${formData.message.trim().slice(0, 500)}`
         : null,
     ].filter((line): line is string => line !== null);
 
@@ -120,7 +116,12 @@ const Reserva = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <Card className="lg:col-span-2 border-none shadow-card">
               <CardContent className="p-8 lg:p-12">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  aria-label={language === 'es' ? 'Formulario de reserva' : 'Booking form'}
+                  noValidate
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-foreground font-semibold">
@@ -133,6 +134,7 @@ const Reserva = () => {
                         placeholder={t("booking.form.namePlaceholder")}
                         required
                         autoComplete="name"
+                        aria-required="true"
                         className="border-input focus:border-gold"
                       />
                     </div>
@@ -149,6 +151,7 @@ const Reserva = () => {
                         placeholder={t("booking.form.emailPlaceholder")}
                         required
                         autoComplete="email"
+                        aria-required="true"
                         className="border-input focus:border-gold"
                       />
                     </div>
@@ -166,6 +169,7 @@ const Reserva = () => {
                       placeholder={t("booking.form.phonePlaceholder")}
                       required
                       autoComplete="tel"
+                      aria-required="true"
                       className="border-input focus:border-gold"
                     />
                   </div>
@@ -182,6 +186,7 @@ const Reserva = () => {
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                         min={new Date().toISOString().split('T')[0]}
                         className="border-input focus:border-gold"
+                        style={{ minHeight: '44px' }}
                       />
                     </div>
 
@@ -208,7 +213,7 @@ const Reserva = () => {
                         {t("booking.form.boatType")}
                       </Label>
                       <Select value={formData.boatType} onValueChange={(value) => setFormData({ ...formData, boatType: value })}>
-                        <SelectTrigger className="border-input focus:border-gold">
+                        <SelectTrigger id="boatType" className="border-input focus:border-gold" style={{ minHeight: '44px' }}>
                           <SelectValue placeholder={t("booking.form.selectBoat")} />
                         </SelectTrigger>
                         <SelectContent>
@@ -225,7 +230,7 @@ const Reserva = () => {
                         {t("booking.form.experience")}
                       </Label>
                       <Select value={formData.experience} onValueChange={(value) => setFormData({ ...formData, experience: value })}>
-                        <SelectTrigger className="border-input focus:border-gold">
+                        <SelectTrigger id="experience" className="border-input focus:border-gold" style={{ minHeight: '44px' }}>
                           <SelectValue placeholder={t("booking.form.selectBoat")} />
                         </SelectTrigger>
                         <SelectContent>
@@ -268,6 +273,7 @@ const Reserva = () => {
                     type="submit"
                     size="lg"
                     className="w-full bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold"
+                    style={{ minHeight: '44px' }}
                   >
                     {t("booking.form.submit")}
                   </Button>
@@ -288,7 +294,7 @@ const Reserva = () => {
                   <ul className="space-y-3">
                     {benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start space-x-3">
-                        <Check className="h-5 w-5 text-gold flex-shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
                         <span className="text-foreground">{benefit}</span>
                       </li>
                     ))}
@@ -306,25 +312,31 @@ const Reserva = () => {
                       href={sidebarWhatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={language === 'es' ? 'Contactar por WhatsApp' : 'Contact via WhatsApp'}
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
+                      style={{ minHeight: '44px' }}
                     >
-                      <MessageSquare className="h-5 w-5 text-gold" />
+                      <MessageSquare className="h-5 w-5 text-gold" aria-hidden="true" />
                       <span className="font-medium">{t("booking.contact.whatsapp")}</span>
                     </a>
 
                     <a
                       href="tel:+34676262628"
+                      aria-label={language === 'es' ? 'Llamar por tel\u00e9fono' : 'Call by phone'}
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
+                      style={{ minHeight: '44px' }}
                     >
-                      <Phone className="h-5 w-5 text-gold" />
+                      <Phone className="h-5 w-5 text-gold" aria-hidden="true" />
                       <span className="font-medium">{t("booking.contact.phone")}</span>
                     </a>
 
                     <a
                       href={`mailto:${CONTACT.getEmail()}`}
+                      aria-label={language === 'es' ? 'Enviar correo electr\u00f3nico' : 'Send email'}
                       className="flex items-center space-x-3 p-3 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth"
+                      style={{ minHeight: '44px' }}
                     >
-                      <Mail className="h-5 w-5 text-gold" />
+                      <Mail className="h-5 w-5 text-gold" aria-hidden="true" />
                       <span className="font-medium">{t("booking.contact.email")}</span>
                     </a>
                   </div>

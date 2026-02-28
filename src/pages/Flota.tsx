@@ -20,33 +20,32 @@ import fondoFlota from "@/assets/FondoFlota.jpg";
 
 const Flota = () => {
   const { t, language } = useLanguage();
-  
-  const whatsappMessage = language === 'es' 
+
+  const whatsappMessage = language === 'es'
     ? "Hola, quisiera consultar la disponibilidad de un barco."
     : "Hello, I would like to inquire about boat availability.";
-  
+
   const whatsappHelpMessage = language === 'es'
     ? "Hola, necesito ayuda para encontrar un barco."
     : "Hello, I need help finding a boat.";
-  
+
   const whatsappLink = `https://wa.me/34676262628?text=${encodeURIComponent(whatsappMessage)}`;
   const whatsappHelpLink = `https://wa.me/34676262628?text=${encodeURIComponent(whatsappHelpMessage)}`;
-  
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Función helper para mapear features
   const getFeatureKey = (feature: string): string => {
     const featureMap: Record<string, string> = {
-      "Baño completo": "fleet.feature.bathroom",
+      "Ba\u00f1o completo": "fleet.feature.bathroom",
       "Full bathroom": "fleet.feature.bathroom",
-      "Solárium": "fleet.feature.solarium",
+      "Sol\u00e1rium": "fleet.feature.solarium",
       "Solarium": "fleet.feature.solarium",
       "Nevera": "fleet.feature.fridge",
       "Fridge": "fleet.feature.fridge",
-      "Equipo de música": "fleet.feature.music",
+      "Equipo de m\u00fasica": "fleet.feature.music",
       "Music system": "fleet.feature.music",
       "Chalecos salvavidas": "fleet.feature.lifejackets",
       "Life jackets": "fleet.feature.lifejackets",
@@ -56,11 +55,11 @@ const Flota = () => {
       "Equipped kitchen": "fleet.feature.kitchen",
       "Ducha": "fleet.feature.shower",
       "Shower": "fleet.feature.shower",
-      "GPS y navegación": "fleet.feature.gps",
+      "GPS y navegaci\u00f3n": "fleet.feature.gps",
       "GPS and navigation": "fleet.feature.gps",
       "Zona de sombra": "fleet.feature.shade",
       "Shade area": "fleet.feature.shade",
-      "Plataforma de baño": "fleet.feature.platform",
+      "Plataforma de ba\u00f1o": "fleet.feature.platform",
       "Swimming platform": "fleet.feature.platform",
       "Altavoces Bluetooth": "fleet.feature.bluetooth",
       "Bluetooth speakers": "fleet.feature.bluetooth",
@@ -81,7 +80,7 @@ const Flota = () => {
       image: yachtMotor,
       capacity: 12,
       withCaptain: true,
-      price: `${t("fleet.from")} 800€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 800\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -99,7 +98,7 @@ const Flota = () => {
       capacity: 8,
       withCaptain: true,
       withoutCaptain: true,
-      price: `${t("fleet.from")} 600€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 600\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.cabin"),
         t("fleet.feature.kitchen"),
@@ -116,7 +115,7 @@ const Flota = () => {
       image: yachtMotor,
       capacity: 10,
       withCaptain: true,
-      price: `${t("fleet.from")} 700€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 700\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.shade"),
         t("fleet.feature.platform"),
@@ -133,7 +132,7 @@ const Flota = () => {
       image: yachtSail,
       capacity: 8,
       withCaptain: true,
-      price: `${t("fleet.from")} 600€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 600\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -149,7 +148,7 @@ const Flota = () => {
       image: yachtMotor,
       capacity: 6,
       withoutCaptain: true,
-      price: `${t("fleet.from")} 450€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 450\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.solarium"),
         t("fleet.feature.fridge"),
@@ -165,7 +164,7 @@ const Flota = () => {
       image: yachtMotor,
       capacity: 12,
       withCaptain: true,
-      price: `${t("fleet.from")} 950€${t("fleet.perDay")}`,
+      price: `${t("fleet.from")} 950\u20ac${t("fleet.perDay")}`,
       features: [
         t("fleet.feature.bathroom"),
         t("fleet.feature.solarium"),
@@ -181,10 +180,8 @@ const Flota = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-
     checkMobile();
     window.addEventListener('resize', checkMobile);
-
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -207,25 +204,24 @@ const Flota = () => {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 480; // Reducido de 520
-      const newScrollLeft = direction === 'left' 
+      const scrollAmount = 480;
+      const newScrollLeft = direction === 'left'
         ? scrollContainerRef.current.scrollLeft - scrollAmount
         : scrollContainerRef.current.scrollLeft + scrollAmount;
-      
-      scrollContainerRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth'
-      });
+      scrollContainerRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
     }
   };
 
   const BoatCard = ({ boat }: { boat: typeof boats[0] }) => (
     <Card className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-all duration-500 h-full flex flex-col">
-      {/* IMAGEN REDUCIDA: h-80 → h-64 en pantallas medianas */}
       <div className="relative h-64 lg:h-56 xl:h-64">
         <img
           src={boat.image}
           alt={boat.name}
+          loading="lazy"
+          decoding="async"
+          width={450}
+          height={256}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute top-4 left-4">
@@ -235,51 +231,43 @@ const Flota = () => {
         </div>
       </div>
 
-      {/* PADDING REDUCIDO: p-8 → p-6 en lg */}
       <CardContent className="p-6 lg:p-5 xl:p-6 flex flex-col justify-between flex-1">
         <div>
-          {/* TÍTULO REDUCIDO: text-3xl → text-2xl en lg */}
           <h2 className="font-heading text-2xl lg:text-xl xl:text-2xl font-bold text-primary mb-3 lg:mb-2">
             {boat.name}
           </h2>
-          
-          {/* DESCRIPCIÓN REDUCIDA */}
           <p className="text-muted-foreground text-sm lg:text-xs xl:text-sm mb-4 lg:mb-3 leading-relaxed line-clamp-2">
             {boat.description}
           </p>
-
-          {/* ICONOS CAPACITY/CAPTAIN REDUCIDOS */}
           <div className="flex flex-wrap gap-3 lg:gap-2 mb-4 lg:mb-3">
             <div className="flex items-center space-x-2 text-foreground">
-              <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+              <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
               <span className="font-semibold text-xs">
                 {t("fleet.capacity").replace("{count}", boat.capacity.toString())}
               </span>
             </div>
             {boat.withCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Anchor className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+                <Anchor className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
                 <span className="text-xs">{t("fleet.withCaptain")}</span>
               </div>
             )}
             {boat.withoutCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Waves className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" />
+                <Waves className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
                 <span className="text-xs">{t("fleet.withoutCaptain")}</span>
               </div>
             )}
           </div>
-
-          {/* FEATURES REDUCIDAS */}
           <div className="mb-4 lg:mb-3">
             <h4 className="font-heading font-semibold text-primary mb-2 text-xs">
               {t("fleet.features")}
             </h4>
             <div className="flex flex-wrap gap-1.5">
               {boat.features.map((feature, index) => (
-                <Badge 
-                  key={index} 
-                  variant="outline" 
+                <Badge
+                  key={index}
+                  variant="outline"
                   className="border-primary/30 text-foreground text-[10px] lg:text-[9px] xl:text-[10px] px-2 py-0.5"
                 >
                   {feature}
@@ -289,7 +277,6 @@ const Flota = () => {
           </div>
         </div>
 
-        {/* PRECIO Y BOTÓN REDUCIDOS */}
         <div className="flex flex-col gap-3 lg:gap-2 pt-4 lg:pt-3 border-t border-border">
           <div>
             <p className="text-xs text-muted-foreground mb-0.5">{t("fleet.priceLabel")}</p>
@@ -300,9 +287,15 @@ const Flota = () => {
             className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold w-full group text-xs py-2 h-9"
             asChild
           >
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${t("fleet.checkAvailability")} — ${boat.name}`}
+              className="flex items-center justify-center gap-2"
+            >
               <span>{t("fleet.checkAvailability")}</span>
-              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
           </Button>
         </div>
@@ -322,7 +315,7 @@ const Flota = () => {
         description={t("fleet.heroDesc")}
       >
         {!isMobile && (
-          <div className="flex items-center justify-center gap-3 mt-6">
+          <div className="flex items-center justify-center gap-3 mt-6" aria-hidden="true">
             <ChevronLeft className="w-6 h-6 text-gold animate-pulse-slow drop-shadow-lg" />
             <p className="text-sm text-gold font-semibold drop-shadow-lg">
               {t("fleet.scrollHint")}
@@ -332,16 +325,16 @@ const Flota = () => {
         )}
       </HeroSection>
 
-      {/* DESKTOP: Horizontal Scroll - REDUCIDO GAP Y ANCHO */}
+      {/* DESKTOP: Horizontal Scroll */}
       {!isMobile ? (
         <section className="py-10 lg:py-8 xl:py-10 relative">
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110"
-              aria-label="Scroll left"
+              aria-label="Ver embarcaciones anteriores"
             >
-              <ChevronLeft className="w-7 h-7 lg:w-6 lg:h-6" />
+              <ChevronLeft className="w-7 h-7 lg:w-6 lg:h-6" aria-hidden="true" />
             </button>
           )}
 
@@ -349,29 +342,23 @@ const Flota = () => {
             <button
               onClick={() => scroll('right')}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse-slow"
-              aria-label="Scroll right"
+              aria-label="Ver embarcaciones siguientes"
             >
-              <ChevronRight className="w-7 h-7 lg:w-6 lg:h-6" />
+              <ChevronRight className="w-7 h-7 lg:w-6 lg:h-6" aria-hidden="true" />
             </button>
           )}
 
-          {/* GAP REDUCIDO: gap-8 → gap-6 en lg */}
           <div
             ref={scrollContainerRef}
+            role="region"
+            aria-label="Cat\u00e1logo de embarcaciones"
             className="flex gap-6 lg:gap-5 xl:gap-6 overflow-x-auto scroll-smooth px-8 lg:px-6 scrollbar-hide"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {/* ANCHO REDUCIDO: 500px → 450px en lg */}
             {boats.map((boat) => (
-              <div 
-                key={boat.id} 
-                style={{ 
-                  minWidth: "450px", 
-                  maxWidth: "450px" 
-                }}
+              <div
+                key={boat.id}
+                style={{ minWidth: "450px", maxWidth: "450px" }}
                 className="lg:!min-w-[420px] lg:!max-w-[420px] xl:!min-w-[450px] xl:!max-w-[450px]"
               >
                 <BoatCard boat={boat} />
@@ -397,11 +384,13 @@ const Flota = () => {
             }}
             pagination={{ clickable: true }}
             navigation
-            className="mySwiper"
-            style={{
-              paddingTop: "20px",
-              paddingBottom: "60px",
+            a11y={{
+              prevSlideMessage: language === 'es' ? 'Embarcaci\u00f3n anterior' : 'Previous boat',
+              nextSlideMessage: language === 'es' ? 'Embarcaci\u00f3n siguiente' : 'Next boat',
             }}
+            className="mySwiper"
+            aria-label={language === 'es' ? 'Carrusel de embarcaciones' : 'Boat carousel'}
+            style={{ paddingTop: "20px", paddingBottom: "60px" }}
           >
             {boats.map((boat) => (
               <SwiperSlide key={boat.id} style={{ width: "350px", height: "auto" }}>
@@ -423,7 +412,7 @@ const Flota = () => {
                 {t("fleet.notFound.desc")}
               </p>
               <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" asChild>
-                <a href={whatsappHelpLink} target="_blank" rel="noopener noreferrer">
+                <a href={whatsappHelpLink} target="_blank" rel="noopener noreferrer" aria-label={t("fleet.notFound.button")}>
                   {t("fleet.notFound.button")}
                 </a>
               </Button>

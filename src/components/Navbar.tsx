@@ -11,7 +11,6 @@ const Navbar = () => {
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
-  // Detectar si estamos en la página de inicio
   const isHomePage = location.pathname === "/";
 
   const leftNavigation = [
@@ -31,12 +30,10 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Número de teléfono de Golden Coast Charter
   const phoneNumber = "+34 676 26 26 28";
   const whatsappNumber = "34676262628";
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustaría reservar o pedir información.")}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustar\u00eda reservar o pedir informaci\u00f3n.")}`;
 
-  // Detectar scroll - solo aplica en página de inicio
   useEffect(() => {
     if (!isHomePage) return;
 
@@ -49,11 +46,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-  // Determinar si el navbar debe ser sólido
   const shouldBeSolid = !isHomePage || isScrolled;
 
   return (
     <nav
+      aria-label="Navegaci\u00f3n principal"
       className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${
         shouldBeSolid
           ? "bg-[#0A192F] shadow-2xl"
@@ -67,11 +64,12 @@ const Navbar = () => {
           <Link
             to="/"
             className="flex items-center gap-3 transition-smooth hover:opacity-80 z-10"
+            aria-label="Golden Coast Charter — Ir al inicio"
           >
-            <img 
-              src={logo} 
-              alt="Golden Coast Charter Logo" 
-              className="h-12 w-12 rounded-md drop-shadow-lg" 
+            <img
+              src={logo}
+              alt="Golden Coast Charter Logo"
+              className="h-12 w-12 rounded-md drop-shadow-lg"
             />
             <div className="flex flex-col">
               <span className="font-heading text-xl md:text-2xl font-bold text-white tracking-wide drop-shadow-lg">
@@ -83,17 +81,17 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Center: Logo con centro blanco expandido */}
+          {/* Center logo — decorativo, oculto a lectores de pantalla */}
           <Link
             to="/"
+            aria-hidden="true"
+            tabIndex={-1}
             className="hidden xl:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-all duration-300 hover:scale-110 z-20"
             style={{ top: '75%' }}
           >
             <div
               className={`absolute transition-all duration-500 ${
-                shouldBeSolid
-                  ? "opacity-100" 
-                  : "opacity-0"
+                shouldBeSolid ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 width: "180px",
@@ -111,7 +109,7 @@ const Navbar = () => {
             />
             <img
               src={logo}
-              alt="Golden Coast Charter Logo"
+              alt=""
               className="h-36 w-auto drop-shadow-2xl rounded-md relative z-10"
             />
           </Link>
@@ -122,6 +120,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={`px-4 py-2 rounded-md text-base font-semibold transition-all duration-300 whitespace-nowrap ${
                   isActive(item.href)
                     ? "text-[#FFD700] bg-white/15 backdrop-blur-md shadow-lg"
@@ -139,6 +138,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={`px-4 py-2 rounded-md text-base font-semibold transition-all duration-300 whitespace-nowrap ${
                   isActive(item.href)
                     ? "text-[#FFD700] bg-white/15 backdrop-blur-md shadow-lg"
@@ -152,39 +152,33 @@ const Navbar = () => {
 
           {/* Right Side: Language Selector + CTA Button */}
           <div className="hidden lg:flex items-center space-x-3 z-10">
-            {/* Selector de Idioma - MÁS PEQUEÑO Y MÁS CLARO */}
             <button
               onClick={toggleLanguage}
               className="px-2.5 py-1.5 rounded-md bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:scale-105"
-              aria-label="Cambiar idioma"
+              aria-label={language === "es" ? "Cambiar idioma a ingl\u00e9s" : "Change language to Spanish"}
             >
               <span className="flex items-center gap-1.5">
                 <span className={`text-xs font-bold tracking-wider transition-colors ${
-                  language === "es" 
-                    ? "text-[#FFD700]" 
-                    : "text-white/50"
+                  language === "es" ? "text-[#FFD700]" : "text-white/50"
                 }`}>
                   ES
                 </span>
                 <span className="text-white/30 text-xs font-light">|</span>
                 <span className={`text-xs font-bold tracking-wider transition-colors ${
-                  language === "en" 
-                    ? "text-[#FFD700]" 
-                    : "text-white/50"
+                  language === "en" ? "text-[#FFD700]" : "text-white/50"
                 }`}>
                   EN
                 </span>
               </span>
             </button>
 
-            {/* Botón WhatsApp - MÁS PEQUEÑO */}
             <Button
               size="sm"
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black text-xs font-bold shadow-xl hover:shadow-[0_8px_20px_rgba(255,215,0,0.35)] transition-all duration-300 hover:scale-105 px-4 py-2 h-8"
               asChild
             >
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Phone className="h-3.5 w-3.5 mr-1.5" />
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
+                <Phone className="h-3.5 w-3.5 mr-1.5" aria-hidden="true" />
                 {t("nav.bookNow")}
               </a>
             </Button>
@@ -194,21 +188,27 @@ const Navbar = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="xl:hidden p-2 rounded-md text-white hover:bg-white/10 transition-smooth backdrop-blur-sm z-10"
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Cerrar men\u00fa" : "Abrir men\u00fa"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="xl:hidden py-4 bg-black/80 backdrop-blur-xl rounded-b-lg animate-slide-up">
+          <div
+            id="mobile-menu"
+            className="xl:hidden py-4 bg-black/80 backdrop-blur-xl rounded-b-lg animate-slide-up"
+          >
             <div className="flex flex-col space-y-2">
               {[...leftNavigation, ...rightNavigation].map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   onClick={() => setIsOpen(false)}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={`px-4 py-3 rounded-md text-sm font-medium transition-smooth ${
                     isActive(item.href)
                       ? "text-[#FFD700] bg-white/10"
@@ -219,31 +219,30 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
-                {/* Mobile Phone Number */}
-                <a 
+                <a
                   href={`tel:${phoneNumber.replace(/\s/g, '')}`}
+                  aria-label={`Llamar al ${phoneNumber}`}
                   className="px-4 py-3 text-center text-white/90 hover:text-[#FFD700] transition-colors flex items-center justify-center"
                 >
-                  <Phone className="h-4 w-4 mr-2" />
+                  <Phone className="h-4 w-4 mr-2" aria-hidden="true" />
                   <span className="font-semibold">{phoneNumber}</span>
                 </a>
 
-                {/* Mobile Language Selector */}
                 <button
                   onClick={toggleLanguage}
                   className="px-4 py-3 text-center text-white/90 hover:text-white transition-colors"
+                  aria-label={language === "es" ? "Cambiar idioma a ingl\u00e9s" : "Change language to Spanish"}
                 >
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
 
-                {/* Mobile Botón WhatsApp */}
                 <Button
                   size="sm"
                   className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold shadow-2xl"
                   asChild
                 >
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                    <Phone className="h-4 w-4 mr-2" />
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
+                    <Phone className="h-4 w-4 mr-2" aria-hidden="true" />
                     {t("nav.bookNow")}
                   </a>
                 </Button>
