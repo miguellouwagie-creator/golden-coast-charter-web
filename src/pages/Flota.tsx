@@ -177,9 +177,7 @@ const Flota = () => {
   ];
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -241,20 +239,21 @@ const Flota = () => {
           </p>
           <div className="flex flex-wrap gap-3 lg:gap-2 mb-4 lg:mb-3">
             <div className="flex items-center space-x-2 text-foreground">
-              <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
+              {/* Icon uses text-gold-readable for WCAG non-text contrast 3:1 */}
+              <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold-readable" aria-hidden="true" />
               <span className="font-semibold text-xs">
                 {t("fleet.capacity").replace("{count}", boat.capacity.toString())}
               </span>
             </div>
             {boat.withCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Anchor className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
+                <Anchor className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold-readable" aria-hidden="true" />
                 <span className="text-xs">{t("fleet.withCaptain")}</span>
               </div>
             )}
             {boat.withoutCaptain && (
               <div className="flex items-center space-x-2 text-foreground">
-                <Waves className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold" aria-hidden="true" />
+                <Waves className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold-readable" aria-hidden="true" />
                 <span className="text-xs">{t("fleet.withoutCaptain")}</span>
               </div>
             )}
@@ -280,7 +279,10 @@ const Flota = () => {
         <div className="flex flex-col gap-3 lg:gap-2 pt-4 lg:pt-3 border-t border-border">
           <div>
             <p className="text-xs text-muted-foreground mb-0.5">{t("fleet.priceLabel")}</p>
-            <p className="font-heading text-xl lg:text-lg xl:text-xl font-bold text-gold">{boat.price}</p>
+            {/* text-gold-readable: hsl(43 74% 30%) — ratio 5.4:1 on white, passes WCAG AA */}
+            <p className="font-heading text-xl lg:text-lg xl:text-xl font-bold text-gold-readable">
+              {boat.price}
+            </p>
           </div>
           <Button
             size="sm"
@@ -291,7 +293,7 @@ const Flota = () => {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${t("fleet.checkAvailability")} — ${boat.name}`}
+              aria-label={`${t("fleet.checkAvailability")} \u2014 ${boat.name}`}
               className="flex items-center justify-center gap-2"
             >
               <span>{t("fleet.checkAvailability")}</span>
@@ -325,29 +327,26 @@ const Flota = () => {
         )}
       </HeroSection>
 
-      {/* DESKTOP: Horizontal Scroll */}
       {!isMobile ? (
         <section className="py-10 lg:py-8 xl:py-10 relative">
           {canScrollLeft && (
             <button
               onClick={() => scroll('left')}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-accent-foreground rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110"
               aria-label="Ver embarcaciones anteriores"
             >
               <ChevronLeft className="w-7 h-7 lg:w-6 lg:h-6" aria-hidden="true" />
             </button>
           )}
-
           {canScrollRight && (
             <button
               onClick={() => scroll('right')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-white rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse-slow"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-gold/90 hover:bg-gold text-accent-foreground rounded-full p-3 lg:p-2.5 shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse-slow"
               aria-label="Ver embarcaciones siguientes"
             >
               <ChevronRight className="w-7 h-7 lg:w-6 lg:h-6" aria-hidden="true" />
             </button>
           )}
-
           <div
             ref={scrollContainerRef}
             role="region"
@@ -367,7 +366,6 @@ const Flota = () => {
           </div>
         </section>
       ) : (
-        /* MOBILE: Swiper Carousel */
         <section className="py-12">
           <Swiper
             modules={[Navigation, Pagination, EffectCoverflow]}
@@ -375,21 +373,15 @@ const Flota = () => {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView="auto"
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
+            coverflowEffect={{ rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true }}
             pagination={{ clickable: true }}
             navigation
             a11y={{
               prevSlideMessage: language === 'es' ? 'Embarcaci\u00f3n anterior' : 'Previous boat',
               nextSlideMessage: language === 'es' ? 'Embarcaci\u00f3n siguiente' : 'Next boat',
             }}
-            className="mySwiper"
             aria-label={language === 'es' ? 'Carrusel de embarcaciones' : 'Boat carousel'}
+            className="mySwiper"
             style={{ paddingTop: "20px", paddingBottom: "60px" }}
           >
             {boats.map((boat) => (
