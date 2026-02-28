@@ -14,8 +14,8 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
-import yachtMotor from "@/assets/yacht-motor-1.jpg";
-import yachtSail from "@/assets/yacht-sail-1.jpg";
+import yachtMotor from "@/assets/yacht-motor-1.webp";
+import yachtSail from "@/assets/yacht-sail-1.webp";
 import fondoFlota from "@/assets/FondoFlota.jpg";
 
 const Flota = () => {
@@ -36,41 +36,6 @@ const Flota = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const getFeatureKey = (feature: string): string => {
-    const featureMap: Record<string, string> = {
-      "Ba\u00f1o completo": "fleet.feature.bathroom",
-      "Full bathroom": "fleet.feature.bathroom",
-      "Sol\u00e1rium": "fleet.feature.solarium",
-      "Solarium": "fleet.feature.solarium",
-      "Nevera": "fleet.feature.fridge",
-      "Fridge": "fleet.feature.fridge",
-      "Equipo de m\u00fasica": "fleet.feature.music",
-      "Music system": "fleet.feature.music",
-      "Chalecos salvavidas": "fleet.feature.lifejackets",
-      "Life jackets": "fleet.feature.lifejackets",
-      "Cabina doble": "fleet.feature.cabin",
-      "Double cabin": "fleet.feature.cabin",
-      "Cocina equipada": "fleet.feature.kitchen",
-      "Equipped kitchen": "fleet.feature.kitchen",
-      "Ducha": "fleet.feature.shower",
-      "Shower": "fleet.feature.shower",
-      "GPS y navegaci\u00f3n": "fleet.feature.gps",
-      "GPS and navigation": "fleet.feature.gps",
-      "Zona de sombra": "fleet.feature.shade",
-      "Shade area": "fleet.feature.shade",
-      "Plataforma de ba\u00f1o": "fleet.feature.platform",
-      "Swimming platform": "fleet.feature.platform",
-      "Altavoces Bluetooth": "fleet.feature.bluetooth",
-      "Bluetooth speakers": "fleet.feature.bluetooth",
-      "Snorkel incluido": "fleet.feature.snorkel",
-      "Snorkel included": "fleet.feature.snorkel",
-      "Paddleboard": "fleet.feature.paddleboard",
-      "Equipo de snorkel": "fleet.feature.snorkelKit",
-      "Snorkel equipment": "fleet.feature.snorkelKit",
-    };
-    return featureMap[feature] || feature;
-  };
 
   const boats = [
     {
@@ -239,7 +204,6 @@ const Flota = () => {
           </p>
           <div className="flex flex-wrap gap-3 lg:gap-2 mb-4 lg:mb-3">
             <div className="flex items-center space-x-2 text-foreground">
-              {/* Icon uses text-gold-readable for WCAG non-text contrast 3:1 */}
               <Users className="h-4 w-4 lg:h-3.5 lg:w-3.5 text-gold-readable" aria-hidden="true" />
               <span className="font-semibold text-xs">
                 {t("fleet.capacity").replace("{count}", boat.capacity.toString())}
@@ -279,7 +243,6 @@ const Flota = () => {
         <div className="flex flex-col gap-3 lg:gap-2 pt-4 lg:pt-3 border-t border-border">
           <div>
             <p className="text-xs text-muted-foreground mb-0.5">{t("fleet.priceLabel")}</p>
-            {/* text-gold-readable: hsl(43 74% 30%) — ratio 5.4:1 on white, passes WCAG AA */}
             <p className="font-heading text-xl lg:text-lg xl:text-xl font-bold text-gold-readable">
               {boat.price}
             </p>
