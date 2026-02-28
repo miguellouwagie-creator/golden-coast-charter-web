@@ -7,9 +7,9 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
-import routeLasRotas from "@/assets/route-las-rotas.jpg";
-import routeJaveaCoves from "@/assets/route-javea-coves.jpg";
-import routeSunsetMontgo from "@/assets/route-sunset-montgo.jpg";
+import routeLasRotas from "@/assets/route-las-rotas.webp";
+import routeJaveaCoves from "@/assets/route-javea-coves.webp";
+import routeSunsetMontgo from "@/assets/route-sunset-montgo.webp";
 import fondoRutas from "@/assets/FondoRutas.jpg";
 
 const Rutas = () => {
@@ -25,10 +25,8 @@ const Rutas = () => {
       duration: t("routes.route1.duration"),
       description: t("routes.route1.desc"),
       highlights: [
-        t("routes.route1.highlight1"),
-        t("routes.route1.highlight2"),
-        t("routes.route1.highlight3"),
-        t("routes.route1.highlight4"),
+        t("routes.route1.highlight1"), t("routes.route1.highlight2"),
+        t("routes.route1.highlight3"), t("routes.route1.highlight4"),
       ],
     },
     {
@@ -40,10 +38,8 @@ const Rutas = () => {
       duration: t("routes.route2.duration"),
       description: t("routes.route2.desc"),
       highlights: [
-        t("routes.route2.highlight1"),
-        t("routes.route2.highlight2"),
-        t("routes.route2.highlight3"),
-        t("routes.route2.highlight4"),
+        t("routes.route2.highlight1"), t("routes.route2.highlight2"),
+        t("routes.route2.highlight3"), t("routes.route2.highlight4"),
       ],
     },
     {
@@ -55,16 +51,14 @@ const Rutas = () => {
       duration: t("routes.route3.duration"),
       description: t("routes.route3.desc"),
       highlights: [
-        t("routes.route3.highlight1"),
-        t("routes.route3.highlight2"),
-        t("routes.route3.highlight3"),
-        t("routes.route3.highlight4"),
+        t("routes.route3.highlight1"), t("routes.route3.highlight2"),
+        t("routes.route3.highlight3"), t("routes.route3.highlight4"),
       ],
     },
   ];
-  
+
   const customRouteMessage = language === 'es'
-    ? "Hola, me gustaría crear una ruta personalizada."
+    ? "Hola, me gustar\u00eda crear una ruta personalizada."
     : "Hello, I would like to create a customized route.";
 
   const customRouteLink = `https://wa.me/34676262628?text=${encodeURIComponent(customRouteMessage)}`;
@@ -90,21 +84,27 @@ const Rutas = () => {
                 : `Hello, I would like to book the '${route.name}' route.`;
 
               return (
-                <Card 
-                  key={route.id} 
+                <Card
+                  key={route.id}
                   className="overflow-hidden border-none shadow-card hover:shadow-elegant transition-smooth"
                 >
                   <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
+                    {/* Route image */}
                     <div className={`relative h-96 lg:h-auto ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                       <img
                         src={route.image}
                         alt={route.name}
+                        loading="lazy"
+                        decoding="async"
+                        width={800}
+                        height={384}
+                        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 700px"
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
                       <div className="absolute bottom-6 left-6 right-6">
                         <div className="flex items-center space-x-2 text-white mb-2">
-                          <MapPin className="h-5 w-5" />
+                          <MapPin className="h-5 w-5" aria-hidden="true" />
                           <span className="font-semibold">{route.location}</span>
                         </div>
                       </div>
@@ -113,21 +113,18 @@ const Rutas = () => {
                     <CardContent className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
                       <div className="flex items-center space-x-3 mb-4">
                         <div className="p-3 rounded-full bg-gold/10">
-                          <route.icon className="h-6 w-6 text-gold" />
+                          <route.icon className="h-6 w-6 text-gold" aria-hidden="true" />
                         </div>
                         <Badge className="bg-secondary text-foreground text-sm px-4 py-2">
                           {route.duration}
                         </Badge>
                       </div>
-
                       <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-4 leading-tight">
                         {route.name}
                       </h2>
-                      
                       <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
                         {route.description}
                       </p>
-
                       <div className="mb-8">
                         <h4 className="font-heading font-semibold text-primary mb-3">
                           {t("routes.highlights")}
@@ -135,19 +132,23 @@ const Rutas = () => {
                         <div className="grid grid-cols-2 gap-3">
                           {route.highlights.map((highlight, idx) => (
                             <div key={idx} className="flex items-center space-x-2">
-                              <div className="h-2 w-2 rounded-full bg-gold" />
+                              <div className="h-2 w-2 rounded-full bg-gold" aria-hidden="true" />
                               <span className="text-sm text-foreground">{highlight}</span>
                             </div>
                           ))}
                         </div>
                       </div>
-
                       <Button
                         size="lg"
                         className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold w-full sm:w-auto"
                         asChild
                       >
-                        <a href={`https://wa.me/34676262628?text=${encodeURIComponent(bookMessage)}`} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={`https://wa.me/34676262628?text=${encodeURIComponent(bookMessage)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${t("routes.bookRoute")} \u2014 ${route.name}`}
+                        >
                           {t("routes.bookRoute")}
                         </a>
                       </Button>
@@ -166,12 +167,9 @@ const Rutas = () => {
               <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
                 {t("routes.cta.desc")}
               </p>
-              <Button 
-                size="lg" 
-                className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold"
-                asChild
-              >
-                <a href={customRouteLink} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-gold hover:bg-gold-dark text-accent-foreground shadow-gold" asChild>
+                <a href={customRouteLink} target="_blank" rel="noopener noreferrer"
+                   aria-label={t("routes.cta.button")}>
                   {t("routes.cta.button")}
                 </a>
               </Button>
