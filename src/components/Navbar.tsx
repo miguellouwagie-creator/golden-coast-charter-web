@@ -31,8 +31,6 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const phoneNumber = "+34 676 26 26 28";
-  const whatsappNumber = "34676262628";
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hola, me gustar\u00eda reservar o pedir informaci\u00f3n.")}`;
 
   useEffect(() => {
     if (!isHomePage) return;
@@ -64,7 +62,7 @@ const Navbar = () => {
           <Link
             to="/"
             className="flex items-center gap-3 transition-smooth hover:opacity-80 z-10"
-            aria-label="Golden Coast Charter — Ir al inicio"
+            aria-label="Golden Coast Charter \u2014 Ir al inicio"
           >
             <img
               src={logo}
@@ -81,7 +79,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Center logo — decorativo, oculto a lectores de pantalla */}
+          {/* Center logo \u2014 decorativo, oculto a lectores de pantalla */}
           <Link
             to="/"
             aria-hidden="true"
@@ -172,15 +170,19 @@ const Navbar = () => {
               </span>
             </button>
 
+            {/* CTA \u2014 lleva a la p\u00e1gina de reserva */}
             <Button
               size="sm"
               className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black text-xs font-bold shadow-xl hover:shadow-[0_8px_20px_rgba(255,215,0,0.35)] transition-all duration-300 hover:scale-105 px-4 py-2 h-8"
               asChild
             >
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
-                <Phone className="h-3.5 w-3.5 mr-1.5" aria-hidden="true" />
+              <Link
+                to="/reserva"
+                aria-label={language === 'es' ? 'Ir al formulario de reserva' : 'Go to booking form'}
+                aria-current={isActive('/reserva') ? 'page' : undefined}
+              >
                 {t("nav.bookNow")}
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -236,15 +238,19 @@ const Navbar = () => {
                   {t("nav.changeLanguage")} ({language.toUpperCase()})
                 </button>
 
+                {/* CTA mobile \u2014 lleva a la p\u00e1gina de reserva */}
                 <Button
                   size="sm"
                   className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-semibold shadow-2xl"
                   asChild
                 >
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
-                    <Phone className="h-4 w-4 mr-2" aria-hidden="true" />
+                  <Link
+                    to="/reserva"
+                    onClick={() => setIsOpen(false)}
+                    aria-label={language === 'es' ? 'Ir al formulario de reserva' : 'Go to booking form'}
+                  >
                     {t("nav.bookNow")}
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
