@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { Anchor, ArrowRight, Compass, Award, ShieldCheck } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -34,6 +33,12 @@ const Index = () => {
       title: t("index.whyItem3Title"),
       description: t("index.whyItem3Desc"),
     },
+  ];
+
+  const ctaStats = [
+    { value: "+600", label: t("index.statRoutes") || "rutas realizadas" },
+    { value: "4.9 ★", label: t("index.statRating") || "valoración media" },
+    { value: "+10", label: t("index.statYears") || "años de experiencia" },
   ];
 
   useEffect(() => {
@@ -332,15 +337,12 @@ const Index = () => {
         className="py-28 px-4 relative rounded-t-3xl shadow-lg"
       >
         <div className="container mx-auto max-w-5xl">
-          {/* Title */}
           <h2
             className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-16 tracking-tight text-center px-4"
             style={{ color: "#FFD700", letterSpacing: "-0.01em" }}
           >
             {t("index.whyTitle")}
           </h2>
-
-          {/* Cards grid — unified desktop + mobile, no horizontal line */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {whyChooseUsValues.map(({ Icon, title, description }, idx) => (
               <div
@@ -360,12 +362,10 @@ const Index = () => {
                   e.currentTarget.style.boxShadow = "0 4px 32px rgba(0,0,0,0.25)";
                 }}
               >
-                {/* Icon container */}
                 <div
                   className="mb-8 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{
-                    width: 88,
-                    height: 88,
+                    width: 88, height: 88,
                     background: "rgba(255, 215, 0, 0.07)",
                     border: "1.5px solid rgba(255, 215, 0, 0.32)",
                     boxShadow: "0 0 28px rgba(255, 215, 0, 0.11)",
@@ -376,20 +376,12 @@ const Index = () => {
                     style={{ color: "#FFD700", width: 36, height: 36, strokeWidth: 1.5 }}
                   />
                 </div>
-
-                {/* Title — white, Fraunces */}
                 <h3
                   className="text-white font-bold mb-3 leading-tight"
-                  style={{
-                    fontFamily: "'Fraunces', serif",
-                    fontSize: "1.2rem",
-                    letterSpacing: "-0.01em",
-                  }}
+                  style={{ fontFamily: "'Fraunces', serif", fontSize: "1.2rem", letterSpacing: "-0.01em" }}
                 >
                   {title}
                 </h3>
-
-                {/* Description */}
                 <p
                   className="text-center leading-relaxed"
                   style={{ color: "rgba(203,213,225,0.82)", fontSize: "0.9rem", lineHeight: 1.7 }}
@@ -402,10 +394,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* LISTO PARA ZARPAR */}
+      {/* LISTO PARA ZARPAR — redesigned */}
       <section
-        className="py-32 px-4 relative overflow-hidden rounded-t-3xl"
-        style={{ minHeight: "100vh", display: "flex", alignItems: "center" }}
+        className="relative overflow-hidden rounded-t-3xl"
+        style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}
       >
         <style>{`
           .listo-bg {
@@ -423,42 +415,165 @@ const Index = () => {
             }
           }
         `}</style>
-        <div
-          className="listo-bg absolute inset-0 rounded-t-3xl"
-          style={{ zIndex: 0 }}
-        />
+
+        {/* Background */}
+        <div className="listo-bg absolute inset-0 rounded-t-3xl" style={{ zIndex: 0 }} />
+
+        {/* Overlay layer 1: radial vignette — focus on center, dark edges */}
         <div
           className="absolute inset-0 rounded-t-3xl"
-          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%)", zIndex: 1 }}
+          style={{
+            background: "radial-gradient(ellipse 85% 70% at 50% 42%, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.60) 100%)",
+            zIndex: 1,
+          }}
         />
-        <div className="container mx-auto text-center relative z-10 max-w-5xl">
+
+        {/* Overlay layer 2: dark navy gradient from bottom — grounds the text */}
+        <div
+          className="absolute inset-0 rounded-t-3xl"
+          style={{
+            background: "linear-gradient(to top, rgba(10,25,47,0.72) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
+            zIndex: 1,
+          }}
+        />
+
+        {/* Content */}
+        <div className="container mx-auto text-center relative z-10 max-w-4xl px-6 py-28">
+
+          {/* Decorative anchor + gold lines */}
+          <div className="flex items-center justify-center gap-5 mb-10">
+            <div
+              style={{
+                height: 1,
+                width: 72,
+                background: "linear-gradient(to right, transparent, rgba(255,215,0,0.75))",
+              }}
+            />
+            <Anchor
+              strokeWidth={1.5}
+              style={{ color: "#FFD700", width: 18, height: 18, opacity: 0.9 }}
+            />
+            <div
+              style={{
+                height: 1,
+                width: 72,
+                background: "linear-gradient(to left, transparent, rgba(255,215,0,0.75))",
+              }}
+            />
+          </div>
+
+          {/* Title */}
           <h2
-            className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white"
-            style={{ textShadow: "0 6px 25px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8)" }}
+            className="font-bold text-white mb-5 tracking-tight"
+            style={{
+              fontFamily: "'Fraunces', serif",
+              fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
+              lineHeight: 1.08,
+              textShadow: "0 4px 30px rgba(0,0,0,0.7)",
+            }}
           >
             {t("index.ctaTitle")}
           </h2>
+
+          {/* Gold underline accent */}
+          <div
+            className="mx-auto mb-8"
+            style={{
+              width: 56,
+              height: 2,
+              background: "linear-gradient(90deg, transparent, #FFD700, transparent)",
+            }}
+          />
+
+          {/* Subtitle — italic serif */}
           <p
-            className="text-xl md:text-2xl mb-12 text-white/95 max-w-3xl mx-auto leading-relaxed font-light"
-            style={{ textShadow: "0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.7)" }}
+            className="text-white/90 max-w-2xl mx-auto mb-12"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "clamp(1.15rem, 2.2vw, 1.45rem)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              lineHeight: 1.65,
+              textShadow: "0 2px 16px rgba(0,0,0,0.75)",
+            }}
           >
             {t("index.ctaSubtitle")}
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-bold px-14 py-8 h-auto shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.5)] transition-all duration-300 hover:scale-105 text-lg group"
-              asChild
+
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            {/* Primary — gold pill */}
+            <Link
+              to="/reserva"
+              onMouseEnter={() => prefetchPage('reserva')}
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold shadow-2xl hover:shadow-[0_20px_60px_rgba(255,215,0,0.45)] transition-all duration-300 hover:scale-105 group"
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.97rem" }}
             >
-              <Link
-                to="/reserva"
-                onMouseEnter={() => prefetchPage('reserva')}
-                className="flex items-center gap-3"
-              >
-                <span>{t("index.ctaButton")}</span>
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Button>
+              <span>{t("index.ctaButton")}</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+
+            {/* Secondary — ghost pill */}
+            <Link
+              to="/flota"
+              onMouseEnter={(e) => {
+                prefetchPage('flota');
+                e.currentTarget.style.borderColor = "rgba(255,215,0,0.65)";
+                e.currentTarget.style.color = "#FFD700";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.42)";
+                e.currentTarget.style.color = "rgba(255,255,255,0.9)";
+              }}
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.97rem",
+                color: "rgba(255,255,255,0.9)",
+                border: "1.5px solid rgba(255,255,255,0.42)",
+                backdropFilter: "blur(6px)",
+                background: "rgba(255,255,255,0.04)",
+              }}
+            >
+              {t("index.verFlota")}
+            </Link>
+          </div>
+
+          {/* Stats strip */}
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center pt-10"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.11)" }}
+          >
+            {ctaStats.map((stat, i, arr) => (
+              <div key={i} className="flex items-center">
+                <div className="flex flex-col items-center px-8 sm:px-14 py-4 sm:py-0">
+                  <span
+                    className="font-bold"
+                    style={{
+                      fontFamily: "'Fraunces', serif",
+                      fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                      color: "#FFD700",
+                      textShadow: "0 0 24px rgba(255,215,0,0.28)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span
+                    className="mt-2 text-white/55 uppercase tracking-widest"
+                    style={{ fontSize: "0.65rem", letterSpacing: "0.13em" }}
+                  >
+                    {stat.label}
+                  </span>
+                </div>
+                {i < arr.length - 1 && (
+                  <div
+                    className="hidden sm:block flex-shrink-0"
+                    style={{ width: 1, height: 40, background: "rgba(255,255,255,0.14)" }}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
