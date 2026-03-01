@@ -42,6 +42,9 @@ const translations = {
     "index.ctaTitle": "¿Listo para zarpar?",
     "index.ctaSubtitle": "Reserva tu experiencia náutica exclusiva en la Costa Blanca",
     "index.ctaButton": "Solicitar Presupuesto",
+    "index.statRoutes": "Rutas Realizadas",
+    "index.statRating": "Valoración Media",
+    "index.statYears": "Años de Experiencia",
 
     // ============= FLEET PAGE =============
     "fleet.heroTitle": "Nuestra",
@@ -299,6 +302,9 @@ const translations = {
     "index.ctaTitle": "Ready to set sail?",
     "index.ctaSubtitle": "Book your exclusive nautical experience in Costa Blanca",
     "index.ctaButton": "Request Quote",
+    "index.statRoutes": "Completed Routes",
+    "index.statRating": "Average Rating",
+    "index.statYears": "Years of Experience",
 
     // ============= FLEET PAGE =============
     "fleet.heroTitle": "Our",
