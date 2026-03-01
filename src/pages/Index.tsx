@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Anchor, ArrowRight } from "lucide-react";
+import { Anchor, ArrowRight, Compass, Award, ShieldCheck } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import timonImg from "@/assets/Timón.png";
-import medallaImg from "@/assets/Medalla.png";
-import escudoImg from "@/assets/Escudo.png";
 import listoZarparBg from "@/assets/Listo-zarpar.webp";
 import verFlotaImg from "@/assets/Ver la Flota-min.webp";
 import experienciaImg from "@/assets/Experiencia-min.webp";
@@ -23,17 +20,17 @@ const Index = () => {
 
   const whyChooseUsValues = [
     {
-      image: timonImg,
+      Icon: Compass,
       title: t("index.whyItem1Title"),
       description: t("index.whyItem1Desc"),
     },
     {
-      image: medallaImg,
+      Icon: Award,
       title: t("index.whyItem2Title"),
       description: t("index.whyItem2Desc"),
     },
     {
-      image: escudoImg,
+      Icon: ShieldCheck,
       title: t("index.whyItem3Title"),
       description: t("index.whyItem3Desc"),
     },
@@ -329,72 +326,78 @@ const Index = () => {
         </div>
       </section>
 
-      {/* WHY US */}
+      {/* WHY US — redesigned */}
       <section
         style={{ background: "#0A192F", marginTop: "-36px", zIndex: 2, position: "relative" }}
-        className="py-36 px-4 relative rounded-t-3xl shadow-lg"
+        className="py-28 px-4 relative rounded-t-3xl shadow-lg"
       >
-        <div className="container mx-auto max-w-6xl">
+        <div className="container mx-auto max-w-5xl">
+          {/* Title */}
           <h2
             className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-16 tracking-tight text-center px-4"
             style={{ color: "#FFD700", letterSpacing: "-0.01em" }}
           >
             {t("index.whyTitle")}
           </h2>
-          <div className="relative w-full flex flex-col items-center">
-            <div className="hidden md:flex flex-row w-full justify-between items-center relative mb-10">
-              {whyChooseUsValues.map((item, idx) => (
-                <div key={idx} className="flex flex-col items-center flex-1">
-                  <div
-                    className="bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
-                    style={{ borderColor: "#FFD700", boxShadow: "0 6px 32px 0 #FFD70033", width: 130, height: 130, zIndex: 1 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                      width={70}
-                      height={70}
-                      style={{ maxWidth: 70, maxHeight: 70, objectFit: "contain", display: "block" }}
-                    />
-                  </div>
-                </div>
-              ))}
+
+          {/* Cards grid — unified desktop + mobile, no horizontal line */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {whyChooseUsValues.map(({ Icon, title, description }, idx) => (
               <div
-                className="absolute w-[90%] left-[5%] right-[5%] top-[50%] h-0.5"
-                style={{ background: "linear-gradient(90deg,#FFD70055,#FFD700cc,#FFD70055)", zIndex: 0 }}
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 px-4">
-              {whyChooseUsValues.map((item, idx) => (
-                <div key={idx} className="flex flex-col items-center px-2 md:px-6">
-                  <div
-                    className="md:hidden bg-white rounded-full shadow-xl flex items-center justify-center border-4 mb-6"
-                    style={{ borderColor: "#FFD700", boxShadow: "0 6px 32px 0 #FFD70033", width: 110, height: 110 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                      width={60}
-                      height={60}
-                      style={{ maxWidth: 60, maxHeight: 60, objectFit: "contain", display: "block" }}
-                    />
-                  </div>
-                  <h3
-                    className="text-yellow-400 text-xl font-bold mb-2 text-center leading-tight"
-                    style={{ letterSpacing: "-0.01em" }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-100/90 text-center text-base leading-relaxed mb-1">
-                    {item.description}
-                  </p>
+                key={idx}
+                className="group flex flex-col items-center text-center px-8 py-10 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: "rgba(255, 255, 255, 0.03)",
+                  border: "1px solid rgba(255, 215, 0, 0.14)",
+                  boxShadow: "0 4px 32px rgba(0, 0, 0, 0.25)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255,215,0,0.38)";
+                  e.currentTarget.style.boxShadow = "0 8px 48px rgba(255,215,0,0.09), 0 4px 32px rgba(0,0,0,0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255,215,0,0.14)";
+                  e.currentTarget.style.boxShadow = "0 4px 32px rgba(0,0,0,0.25)";
+                }}
+              >
+                {/* Icon container */}
+                <div
+                  className="mb-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    width: 88,
+                    height: 88,
+                    background: "rgba(255, 215, 0, 0.07)",
+                    border: "1.5px solid rgba(255, 215, 0, 0.32)",
+                    boxShadow: "0 0 28px rgba(255, 215, 0, 0.11)",
+                  }}
+                >
+                  <Icon
+                    className="transition-transform duration-300 group-hover:scale-110"
+                    style={{ color: "#FFD700", width: 36, height: 36, strokeWidth: 1.5 }}
+                  />
                 </div>
-              ))}
-            </div>
+
+                {/* Title — white, Fraunces */}
+                <h3
+                  className="text-white font-bold mb-3 leading-tight"
+                  style={{
+                    fontFamily: "'Fraunces', serif",
+                    fontSize: "1.2rem",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {title}
+                </h3>
+
+                {/* Description */}
+                <p
+                  className="text-center leading-relaxed"
+                  style={{ color: "rgba(203,213,225,0.82)", fontSize: "0.9rem", lineHeight: 1.7 }}
+                >
+                  {description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
