@@ -171,7 +171,7 @@ const Index = () => {
             </h1>
 
             <p
-              className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+              className="text-white/90 max-w-4xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 sm:whitespace-nowrap"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(1.25rem, 2.5vw, 1.5rem)",
@@ -182,7 +182,6 @@ const Index = () => {
                 animationDelay: "0.4s",
                 animationFillMode: "backwards",
                 fontStyle: "italic",
-                whiteSpace: "nowrap",
               }}
             >
               {t("hero.subtitle")}
